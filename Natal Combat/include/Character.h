@@ -18,7 +18,10 @@ public:
     Character() = default;
     Character(const std::string &name, Attribute attributes, Weapon weapon, Armor armor);
 
-    std::string getName();
+    std::string getName() const;
+    Attribute getAttributes() const;
+    Weapon getWeapon() const;
+    Armor getArmor() const;
 };
 
 

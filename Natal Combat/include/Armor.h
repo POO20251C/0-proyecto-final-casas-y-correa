@@ -11,6 +11,9 @@ private:
 public:
     Armor() = default;
     Armor(const std::string &name, const std::string &desc, int def);
+    std::string getName() const;
+    std::string getDesc() const;
+    int getDef() const;
 };
 
 

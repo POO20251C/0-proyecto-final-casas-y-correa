@@ -9,6 +9,19 @@ Character::Character(const std::string &name, Attribute attributes, Weapon weapo
     this->armor = armor;
 }
 
-std::string Character::getName() {
+std::string Character::getName() const {
     return name;
 }
+
+Attribute Character::getAttributes() const {
+    return attributes;
+}
+
+Armor Character::getArmor() const {
+    return armor;
+}
+
+Weapon Character::getWeapon() const {
+    return weapon;
+}
+

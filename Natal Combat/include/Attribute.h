@@ -15,6 +15,12 @@ private:
 public:
     Attribute() = default;
     Attribute(int hp, int atk, int def, int spd, int lck);
+
+    int getHp() const;
+    int getAtk() const;
+    int getDef() const;
+    int getSpd() const;
+    int getLck() const;
 };
 
 

@@ -11,3 +11,23 @@ Attribute::Attribute(int hp, int atk, int def, int spd, int lck) {
     this -> spd = spd;
     this -> lck = lck;
 }
+
+int Attribute::getHp() const {
+    return hp;
+}
+
+int Attribute::getAtk() const {
+    return atk;
+}
+
+int Attribute::getDef() const {
+    return def;
+}
+
+int Attribute::getSpd() const {
+    return spd;
+}
+
+int Attribute::getLck() const {
+    return lck;
+}
