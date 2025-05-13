@@ -9,12 +9,16 @@
 #include "Armor.h"
 
 class Character {
+protected:
     std::string name;
-    std::map<std::string, Attribute> attributes;
+    Attribute attributes;
     Weapon weapon;
     Armor armor;
 public:
-    Character(std::string, Weapon weapon, Armor armor);
+    Character() = default;
+    Character(const std::string &name, Attribute attributes, Weapon weapon, Armor armor);
+
+    std::string getName();
 };
 
 

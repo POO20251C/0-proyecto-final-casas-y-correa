@@ -12,7 +12,8 @@ private:
     int accuracy;
 
 public:
-    Attack(std::string name, std::string desc, std::string action, int dmg, int accuracy);
+    Attack() = default;
+    Attack(const std::string &name, const std::string &desc, std::string &action, int dmg, int accuracy);
 };
 
 

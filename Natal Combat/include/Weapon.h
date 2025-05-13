@@ -13,7 +13,8 @@ private:
     std::vector<Attack> attacks;
 
 public:
-    Weapon(std::string name, std::string desc, int bleed);
+    Weapon() = default;
+    Weapon(const std::string &name, const std::string &desc, int bleed);
 };
 
 

@@ -1,7 +1,7 @@
-#include <string>
-
 #ifndef ARMOR_H
 #define ARMOR_H
+
+#include <string>
 
 class Armor {
 private:
@@ -9,7 +9,8 @@ private:
     std::string desc;
     int def;
 public:
-    Armor();
+    Armor() = default;
+    Armor(const std::string &name, const std::string &desc, int def);
 };
 
 
