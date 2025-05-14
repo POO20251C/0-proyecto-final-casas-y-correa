@@ -9,4 +9,5 @@ add_executable(untitled src/main.cpp
         src/Attribute.cpp
         src/Character.cpp
         src/Weapon.cpp
-        src/Hero.cpp)
+        src/Hero.cpp
+        src/Player.cpp)
