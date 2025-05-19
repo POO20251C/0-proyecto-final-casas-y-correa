@@ -10,7 +10,7 @@ using namespace std;
 Armor copyArmor(const string &name, vector<Armor> &armors) {
     Armor armor;
 
-    for (auto armor : armors) {
+    for (auto armor: armors) {
         if (armor.getName() == name) {
             return armor;
         }
@@ -22,7 +22,7 @@ Armor copyArmor(const string &name, vector<Armor> &armors) {
 Weapon copyWeapon(const string &name, vector<Weapon> &weapons) {
     Weapon weapon;
 
-    for (auto weapon : weapons) {
+    for (const auto weapon: weapons) {
         if (weapon.getName() == name) {
             return weapon;
         }
@@ -89,7 +89,7 @@ vector<Hero> loadHeroes(vector<Weapon> &weapons, vector<Armor> &armors) {
 }
 
 Hero getHero(const string &name, const vector<Hero> &heroes) {
-    for (const auto &hero : heroes) {
+    for (const auto &hero: heroes) {
         if (hero.getName() == name) {
             return hero;
         }
@@ -128,10 +128,19 @@ void displayHero(const Hero &hero) {
 
 void displayHeroes(const vector<Hero> &heroes) {
     cout << "--- Lista de Heroes ---" << endl;
-    for (const auto &hero : heroes) {
+    for (const auto &hero: heroes) {
         displayHero(hero);
     }
+}
 
+
+void sendMessage(const string &name, const string &message) {
+    cout << name << ": " << message << endl;
+}
+
+void enterToContinue() {
+    cout << "Pressione ENTER para continuar." << endl;
+    cin.get();
 }
 
 int main() {
@@ -139,27 +148,111 @@ int main() {
     vector<Armor> armors = loadArmors();
     vector<Hero> heroes = loadHeroes(weapons, armors);
 
-    displayHeroes(heroes);
-    vector<Hero> h;
+    string helperName = "Nodirsa";
 
-    while (true) {
-        if (h.size() == 3) {
-            break;
+    Player player;
+    string state;
+    string playerName = "None";
+    vector<Hero> player_heroes;
+
+    bool enable = true;
+
+    while (enable) {
+        if (playerName == "None") {
+            cout << "======================================" << endl;
+            cout << "    ¡Bienvenido a Natal Kombat!       " << endl;
+            cout << "======================================" << endl;
+            cout << "Introduce tu nombre: ";
+            getline(cin, playerName);
+            player = Player(playerName);
+            player_heroes = player.getHeroes();
+            state = "Heroes";
+        } else if (state == "Heroes") {
+            sendMessage(helperName, "Hola, " + playerName + ". ¡Prepárate para el combate!");
+            sendMessage(helperName, "Selecciona 3 heroes para la batalla");
+            sendMessage(helperName, "Para seleccionar a un héroe, escribe su nombre");
+            enterToContinue();
+
+            int option;
+            bool exit = false;
+            while (!exit) {
+                cout << "1. Agregar héroe" << endl;
+                cout << "2. Eliminar héroe" << endl;
+                cout << "3. Mostrar tus héroes" << endl;
+                cout << "4. Mostrar héroes" << endl;
+                cout << "5. Salir" << endl;
+
+                cin >> option;
+                switch (option) {
+                    case 1: {
+                        if (player_heroes.size() < 3) {
+                            string heroName;
+                            cout << "Para seleccionar a un héroe, escribe su nombre: ";
+                            cin >> heroName;
+
+                            if (!player.isHeroExists(heroName)) {
+                                try {
+                                    Hero hero = getHero(heroName, heroes);
+                                    sendMessage(helperName, player.addHero(hero));
+                                    player_heroes = player.getHeroes();
+                                } catch (runtime_error &e) {
+                                    //sendMessage("SYSTEM", "Error cargando heroe, " + to_string(e.what()) + endl);
+                                    cout << "Error cargando heroe, " << e.what() << endl;
+                                };
+                            } else {
+                                sendMessage(helperName, "Ese héroe ya está en tu equipo.");
+                            }
+                        } else {
+                            sendMessage(helperName, "Ya tienes 3 héroes seleccionados.");
+                        }
+                        break;
+                    }
+                    case 2: {
+                        if (!player_heroes.empty()) {
+                            string heroName;
+                            cout << "Escribe el nombre del héroe que deseas eliminar: ";
+                            cin >> heroName;
+                        }
+                        break;
+                    }
+                    case 3: {
+                        if (!player_heroes.empty()) {
+                            displayHeroes(player_heroes);
+                        } else {
+                            sendMessage(helperName, "Aún no has seleccionado héroes.");
+                        }
+                        break;
+                    }
+
+                    case 4: {
+                        break;
+                    }
+                    case 5: {
+                        if (player_heroes.size() == 3) {
+                            state = "Ready";
+                            exit = true;
+                        } else {
+                            sendMessage(helperName, "Aún no has seleccionado todos los héroes.");
+                        }
+                        break;
+                    }
+
+                    default:
+                        cout << "Opción inválida." << endl;
+                        cin.clear();
+                        cin.ignore();
+                        break;
+                }
+            }
+        } else if (state == "Ready") {
+            sendMessage(helperName, "¡Prepárate para el combate!");
+            enterToContinue();
         }
-
-        string name;
-
-        cout << "Nombre del heroe: " << endl;
-        cin >> name;
-
-        try {
-            Hero hero = getHero(name, heroes);
-            h.emplace_back(hero);
-
-        } catch (runtime_error &e) {
-            cout << "Error cargando heroe, " << "Alejo" << endl;
-        };
     }
+
+
+    // displayHeroes(heroes);
+
 
     return 0;
 }

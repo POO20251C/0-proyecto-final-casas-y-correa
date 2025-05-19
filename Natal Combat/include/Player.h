@@ -6,19 +6,26 @@
 #define PLAYER_H
 
 #include <vector>
+#include <string>
 
 #include "Hero.h"
 
 class Player {
 private:
     std::vector<Hero> heroes;
+    std::string name;
     // inventario
 public:
     Player() = default;
-    Player(std::vector<Hero> &heroes);
+    Player(const std::string &name);
 
     std::vector<Hero> getHeroes();
 
+    std::string getName() const;
+    Hero getHero(const std::string &name) const;
+    bool isHeroExists(const std::string &name) const;
+
+    std::string addHero(const Hero &hero);
 };
 
 
