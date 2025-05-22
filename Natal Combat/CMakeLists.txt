@@ -10,4 +10,12 @@ add_executable(untitled src/main.cpp
         src/Character.cpp
         src/Weapon.cpp
         src/Hero.cpp
-        src/Player.cpp)
+        src/Player.cpp
+        src/Object.cpp
+        include/Object.h
+        src/SantoGrial.cpp
+        include/SantoGrial.h
+        src/Chest.cpp
+        include/Chest.h
+        src/Inventory.cpp
+        include/Inventory.h)

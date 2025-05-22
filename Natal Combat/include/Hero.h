@@ -10,6 +10,7 @@
 class Hero : public Character {
 public:
     Hero(const std::string &name, Attribute attributes, Weapon weapon, Armor armor);
+    void setHp(int hp);
 };
 
 

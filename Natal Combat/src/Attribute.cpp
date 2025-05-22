@@ -4,16 +4,21 @@
 
 #include "../include/Attribute.h"
 
-Attribute::Attribute(int hp, int atk, int def, int spd, int lck) {
+Attribute::Attribute(int hp, int mhp, int atk, int def, int spd, int lck) {
     this -> hp = hp;
     this -> atk = atk;
     this -> def = def;
     this -> spd = spd;
     this -> lck = lck;
+    this -> mhp = mhp;
 }
 
 int Attribute::getHp() const {
     return hp;
+}
+
+int Attribute::getMhp() const {
+    return mhp;
 }
 
 int Attribute::getAtk() const {
@@ -30,4 +35,7 @@ int Attribute::getSpd() const {
 
 int Attribute::getLck() const {
     return lck;
+}
+void Attribute::setHp(int hp) {
+    this->hp = hp;
 }

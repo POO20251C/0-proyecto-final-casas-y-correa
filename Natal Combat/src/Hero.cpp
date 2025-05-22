@@ -10,3 +10,12 @@ Hero::Hero(const std::string &name, Attribute attributes, Weapon weapon, Armor a
     this -> weapon = weapon;
     this -> armor = armor;
 }
+
+void Hero::setHp(int hp) {
+    if (attributes.getHp() + hp < attributes.getMhp()) {
+        attributes.setHp(attributes.getHp() + hp);
+    }
+    else {
+        attributes.setHp(attributes.getMhp());
+    }
+}

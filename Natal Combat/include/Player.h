@@ -9,12 +9,13 @@
 #include <string>
 
 #include "Hero.h"
+#include "Inventory.h"
 
 class Player {
 private:
     std::vector<Hero> heroes;
     std::string name;
-    // inventario
+    Inventory inventory;
 public:
     Player() = default;
     Player(const std::string &name);

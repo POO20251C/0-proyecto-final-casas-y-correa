@@ -8,19 +8,22 @@
 class Attribute {
 private:
     int hp;
+    int mhp;
     int atk;
     int def;
     int spd;
     int lck;
 public:
     Attribute() = default;
-    Attribute(int hp, int atk, int def, int spd, int lck);
+    Attribute(int hp, int mhp, int atk, int def, int spd, int lck);
 
     int getHp() const;
+    int getMhp() const;
     int getAtk() const;
     int getDef() const;
     int getSpd() const;
     int getLck() const;
+    void setHp(int hp);
 };
 
 

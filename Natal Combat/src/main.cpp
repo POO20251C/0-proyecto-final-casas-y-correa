@@ -59,7 +59,7 @@ vector<Hero> loadHeroes(vector<Weapon> &weapons, vector<Armor> &armors) {
         armor = copyArmor("Armadura de metal", armors);
         weapon = copyWeapon("Espada de madera", weapons);
 
-        heroes.emplace_back("Alejo", Attribute(100, 40, 50, 10, 20), weapon, armor);
+        heroes.emplace_back("Alejo", Attribute(100, 100, 40, 50, 10, 20), weapon, armor);
     } catch (runtime_error &e) {
         cout << "Error cargando heroe, " << "Alejo" << endl;
     }
@@ -70,7 +70,7 @@ vector<Hero> loadHeroes(vector<Weapon> &weapons, vector<Armor> &armors) {
         armor = copyArmor("Armadura de metal", armors);
         weapon = copyWeapon("Espada de madera", weapons);
 
-        heroes.emplace_back("Juan", Attribute(100, 40, 50, 10, 20), weapon, armor);
+        heroes.emplace_back("Juan", Attribute(100, 100, 40, 50, 10, 20), weapon, armor);
     } catch (runtime_error &e) {
         cout << "Error cargando heroe, " << "Juan" << endl;
     }
@@ -80,7 +80,7 @@ vector<Hero> loadHeroes(vector<Weapon> &weapons, vector<Armor> &armors) {
         armor = copyArmor("Armadura de metal", armors);
         weapon = copyWeapon("Espada de madera", weapons);
 
-        heroes.emplace_back("Pepe", Attribute(100, 40, 50, 10, 20), weapon, armor);
+        heroes.emplace_back("Pepe", Attribute(100, 100, 40, 50, 10, 20), weapon, armor);
     } catch (runtime_error &e) {
         cout << "Error cargando heroe, " << "Pepe'" << endl;
     }
@@ -160,7 +160,7 @@ int main() {
     while (enable) {
         if (playerName == "None") {
             cout << "======================================" << endl;
-            cout << "    ¡Bienvenido a Natal Kombat!       " << endl;
+            cout << "    BIENVENIDO A NATAL KOMBAT       " << endl;
             cout << "======================================" << endl;
             cout << "Introduce tu nombre: ";
             getline(cin, playerName);
@@ -168,7 +168,7 @@ int main() {
             player_heroes = player.getHeroes();
             state = "Heroes";
         } else if (state == "Heroes") {
-            sendMessage(helperName, "Hola, " + playerName + ". ¡Prepárate para el combate!");
+            sendMessage(helperName, "Hola, " + playerName + ". Preparate para el combate!");
             sendMessage(helperName, "Selecciona 3 heroes para la batalla");
             sendMessage(helperName, "Para seleccionar a un héroe, escribe su nombre");
             enterToContinue();

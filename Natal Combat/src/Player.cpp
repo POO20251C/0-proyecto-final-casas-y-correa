@@ -7,6 +7,7 @@
 
 Player::Player(const std::string &name){
     this->name = name;
+    inventory = Inventory();
 }
 
 std::vector<Hero> Player::getHeroes() {
