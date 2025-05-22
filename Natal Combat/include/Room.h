@@ -20,6 +20,8 @@ public:
     Room(const Player& player);
 
     std::string addEnemy(std::unique_ptr<Enemy> enemy);
+
+    std::vector<std::unique_ptr<Enemy>> getEnemies() const;
 };
 
 

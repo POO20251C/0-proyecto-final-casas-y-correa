@@ -20,7 +20,7 @@ public:
     Dungeon(const Player &player);
 
     std::string addRoom( Room &&room);
-    std::string getPlayer() const;
+    Room getRooms() const;
 };
 
 

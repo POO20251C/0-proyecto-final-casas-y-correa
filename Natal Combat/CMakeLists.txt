@@ -24,4 +24,6 @@ add_executable(untitled src/main.cpp
         src/Enemy.cpp
         include/Enemy.h
         src/Dungeon.cpp
-        include/Dungeon.h)
+        include/Dungeon.h
+        src/Soldier.cpp
+        include/Soldier.h)

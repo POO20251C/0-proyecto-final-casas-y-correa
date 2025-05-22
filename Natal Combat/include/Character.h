@@ -16,7 +16,7 @@ protected:
     Armor armor;
 public:
     Character() = default;
-    Character(const std::string &name, Attribute attributes, Weapon weapon, Armor armor);
+    Character(const std::string &name, const Attribute &attributes, const Weapon &weapon, const Armor &armor);
 
     std::string getName() const;
     Attribute getAttributes() const;

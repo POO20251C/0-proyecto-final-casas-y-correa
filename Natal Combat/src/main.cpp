@@ -6,6 +6,7 @@
 #include "../include/Player.h"
 #include "../include/Room.h"
 #include "../include/Dungeon.h"
+#include "../include/Soldier.h"
 
 using namespace std;
 
@@ -90,6 +91,18 @@ vector<Hero> loadHeroes(vector<Weapon> &weapons, vector<Armor> &armors) {
     return heroes;
 }
 
+void loadDungeon(Player &player, Dungeon &dungeon, vector<Armor> &armors, vector<Weapon> weapons) {
+    Armor armor = copyArmor("Armadura de metal", armors);
+    Weapon weapon = copyWeapon("Espada de madera", weapons);
+
+    Attribute attribute = Attribute(100, 40, 50, 10, 20);
+
+    Room room(player);
+    room.addEnemy(std::make_unique<Soldier>("Hola", attribute, weapon, armor));
+
+    dungeon.addRoom(move(room));
+}
+
 vector<Room> loadRooms(const Player &player) {
     vector<Room> rooms;
 
@@ -164,7 +177,7 @@ int main() {
 
     Dungeon dungeon;
 
-    bool enable = true;
+    bool enable = false;
 
     while (enable) {
         // Menu principal
@@ -196,7 +209,6 @@ int main() {
                 cin.ignore();
                 //getline(cin, playerName);
                 player = Player(playerName);
-                dungeon = Dungeon(player);
 
                 sendMessage(helperName, "Hola, " + playerName + ". Preparate para el combate!");
                 sendMessage(helperName, "Selecciona 3 heroes para la batalla");
@@ -277,9 +289,12 @@ int main() {
                 }
             }
         } else if (state == "Ready") {
+            dungeon = Dungeon(player);
+            sendMessage("SYSTEM", "Cargando dungeons...");
+            dungeon = Dungeon(player);
+            loadDungeon(player, dungeon, armors, weapons);
 
-            cout << dungeon.getPlayer();
-            cout << "ESTAMOS READYSSSS" << endl;
+
             return 0;
         }
     }

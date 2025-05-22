@@ -2,7 +2,7 @@
 
 #include "../include/Character.h"
 
-Character::Character(const std::string &name, Attribute attributes, Weapon weapon, Armor armor) {
+Character::Character(const std::string &name, const Attribute &attributes, const Weapon &weapon, const Armor &armor) {
     this->name = name;
     this->attributes = attributes;
     this->weapon = weapon;

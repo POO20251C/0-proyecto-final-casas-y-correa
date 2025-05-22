@@ -11,6 +11,7 @@
 class Enemy : public Character {
 public:
     Enemy(const std::string &name, const Attribute &attributes, const Weapon &weapon, const Armor &armor);
+    virtual ~Enemy() = default;
 };
 
 

@@ -13,3 +13,7 @@ std::string Room::addEnemy(std::unique_ptr<Enemy> enemy) {
 
     return "Agregado correctamente!";
 }
+
+std::vector<std::unique_ptr<Enemy>> Room::getEnemies() const {
+    return enemies;
+}

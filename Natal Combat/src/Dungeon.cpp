@@ -13,6 +13,6 @@ std::string Dungeon::addRoom(Room &&room) {
     return "Done!";
 }
 
-std::string Dungeon::getPlayer() const {
-    return player.getName();
+Room Dungeon::getRooms() const {
+    return rooms;
 }
