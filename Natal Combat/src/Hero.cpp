@@ -4,18 +4,10 @@
 
 #include "../include/Hero.h"
 
-Hero::Hero(const std::string &name, Attribute attributes, Weapon weapon, Armor armor) {
+Hero::Hero(const std::string &name, const Attribute &attributes, const Weapon &weapon, const Armor &armor) {
     this -> name = name;
     this -> attributes = attributes;
     this -> weapon = weapon;
     this -> armor = armor;
 }
 
-void Hero::setHp(int hp) {
-    if (attributes.getHp() + hp < attributes.getMhp()) {
-        attributes.setHp(attributes.getHp() + hp);
-    }
-    else {
-        attributes.setHp(attributes.getMhp());
-    }
-}

@@ -4,11 +4,6 @@
 
 #include "../include/Inventory.h"
 
-Inventory::Inventory(std::vector<Object> objects) {
-    this -> objects = objects;
-}
+Inventory::Inventory() = default;
 
-void Inventory::addObject(Object element) {
-    objects.push_back(element);
-}
 

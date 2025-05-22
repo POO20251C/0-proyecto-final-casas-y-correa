@@ -12,8 +12,8 @@ private:
     std::vector<Object> objects;
 public:
     //constructores
-    Inventory() = default;
-    Inventory(std::vector<Object> objects);
+    Inventory();
+
     //getters
     std::vector<Object> getObjects();
     //metodos

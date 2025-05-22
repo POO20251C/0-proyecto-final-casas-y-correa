@@ -14,8 +14,8 @@ std::vector<Hero*> SantoGrial::getHeroes(){
 void SantoGrial::healHeroes() {
   if (heroes.empty()){
     for (int i = 0; i < heroes.size(); i++){
-      int amhp = heroes[i]->getAttributes().getMhp();
-      heroes[i]->setHp(amhp);
+      //int amhp = heroes[i]->getAttributes().getMhp();
+      //heroes[i]->setHp(amhp);
     }
   }
 }

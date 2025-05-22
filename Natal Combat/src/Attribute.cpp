@@ -4,21 +4,21 @@
 
 #include "../include/Attribute.h"
 
-Attribute::Attribute(int hp, int mhp, int atk, int def, int spd, int lck) {
-    this -> hp = hp;
+Attribute::Attribute(int max_hp, int atk, int def, int spd, int lck) {
+    this -> max_hp = max_hp;
+    this -> hp = max_hp;
     this -> atk = atk;
     this -> def = def;
     this -> spd = spd;
     this -> lck = lck;
-    this -> mhp = mhp;
 }
 
 int Attribute::getHp() const {
     return hp;
 }
 
-int Attribute::getMhp() const {
-    return mhp;
+int Attribute::getMax_hp() const {
+    return max_hp;
 }
 
 int Attribute::getAtk() const {

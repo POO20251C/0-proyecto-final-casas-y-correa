@@ -18,4 +18,10 @@ add_executable(untitled src/main.cpp
         src/Chest.cpp
         include/Chest.h
         src/Inventory.cpp
-        include/Inventory.h)
+        include/Inventory.h
+        src/Room.cpp
+        include/Room.h
+        src/Enemy.cpp
+        include/Enemy.h
+        src/Dungeon.cpp
+        include/Dungeon.h)
