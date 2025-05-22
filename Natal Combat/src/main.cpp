@@ -153,7 +153,6 @@ int main() {
     Player player;
     string state;
     string playerName = "None";
-    vector<Hero> player_heroes;
 
     bool enable = true;
 
@@ -165,7 +164,6 @@ int main() {
             cout << "Introduce tu nombre: ";
             getline(cin, playerName);
             player = Player(playerName);
-            player_heroes = player.getHeroes();
             state = "Heroes";
         } else if (state == "Heroes") {
             sendMessage(helperName, "Hola, " + playerName + ". Preparate para el combate!");
@@ -185,7 +183,7 @@ int main() {
                 cin >> option;
                 switch (option) {
                     case 1: {
-                        if (player_heroes.size() < 3) {
+                        if (player.getHeroes().size() < 3) {
                             string heroName;
                             cout << "Para seleccionar a un héroe, escribe su nombre: ";
                             cin >> heroName;
@@ -194,7 +192,6 @@ int main() {
                                 try {
                                     Hero hero = getHero(heroName, heroes);
                                     sendMessage(helperName, player.addHero(hero));
-                                    player_heroes = player.getHeroes();
                                 } catch (runtime_error &e) {
                                     //sendMessage("SYSTEM", "Error cargando heroe, " + to_string(e.what()) + endl);
                                     cout << "Error cargando heroe, " << e.what() << endl;
@@ -208,7 +205,7 @@ int main() {
                         break;
                     }
                     case 2: {
-                        if (!player_heroes.empty()) {
+                        if (!player.getHeroes().empty()) {
                             string heroName;
                             cout << "Escribe el nombre del héroe que deseas eliminar: ";
                             cin >> heroName;
@@ -216,8 +213,8 @@ int main() {
                         break;
                     }
                     case 3: {
-                        if (!player_heroes.empty()) {
-                            displayHeroes(player_heroes);
+                        if (!player.getHeroes().empty()) {
+                            displayHeroes(player.getHeroes());
                         } else {
                             sendMessage(helperName, "Aún no has seleccionado héroes.");
                         }
@@ -228,7 +225,7 @@ int main() {
                         break;
                     }
                     case 5: {
-                        if (player_heroes.size() == 3) {
+                        if (player.getHeroes().size() == 3) {
                             state = "Ready";
                             exit = true;
                         } else {
