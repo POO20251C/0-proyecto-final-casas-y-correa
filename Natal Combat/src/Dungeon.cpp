@@ -8,11 +8,13 @@ Dungeon::Dungeon(const Player &player) {
     this -> player = player;
 }
 
-std::string Dungeon::addRoom(Room &&room) {
-    rooms.push_back(std::move(room));
-    return "Done!";
+void Dungeon::addRoom(const Room &room) {
+    rooms.push_back(room);
 }
 
-Room Dungeon::getRooms() const {
-    return rooms;
+Room Dungeon::getRoom(int room) const {
+    if (room < 0 || room >= rooms.size()) {
+        throw std::out_of_range("Índice de sala inválido");
+    }
+    return rooms[room];
 }

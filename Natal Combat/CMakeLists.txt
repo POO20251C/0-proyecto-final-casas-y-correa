@@ -3,7 +3,7 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(untitled src/main.cpp
+add_executable(untitled main.cpp
         src/Armor.cpp
         src/Attack.cpp
         src/Attribute.cpp
@@ -12,18 +12,10 @@ add_executable(untitled src/main.cpp
         src/Hero.cpp
         src/Player.cpp
         src/Object.cpp
-        include/Object.h
         src/SantoGrial.cpp
-        include/SantoGrial.h
         src/Chest.cpp
-        include/Chest.h
         src/Inventory.cpp
-        include/Inventory.h
-        src/Room.cpp
-        include/Room.h
         src/Enemy.cpp
-        include/Enemy.h
         src/Dungeon.cpp
-        include/Dungeon.h
-        src/Soldier.cpp
-        include/Soldier.h)
+        src/Room.cpp
+)

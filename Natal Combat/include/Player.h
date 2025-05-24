@@ -21,6 +21,7 @@ public:
     Player(const std::string &name);
 
     std::vector<Hero> getHeroes();
+    bool removeHero(const std::string &name);
 
     std::string getName() const;
     Hero getHero(const std::string &name) const;

@@ -8,12 +8,10 @@ Room::Room(const Player &player) {
     this -> player = player;
 }
 
-std::string Room::addEnemy(std::unique_ptr<Enemy> enemy) {
-    enemies.push_back(std::move(enemy));
-
-    return "Agregado correctamente!";
+void Room::addEnemy(const Enemy &enemy) {
+    enemies.push_back(enemy);
 }
 
-std::vector<std::unique_ptr<Enemy>> Room::getEnemies() const {
+std::vector<Enemy> Room::getEnemies() const {
     return enemies;
 }

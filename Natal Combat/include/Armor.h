@@ -6,13 +6,11 @@
 class Armor {
 private:
     std::string name;
-    std::string desc;
     int def;
 public:
     Armor() = default;
-    Armor(const std::string &name, const std::string &desc, int def);
+    Armor(const std::string &name, int def);
     std::string getName() const;
-    std::string getDesc() const;
     int getDef() const;
 };
 

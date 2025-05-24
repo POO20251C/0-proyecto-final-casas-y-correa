@@ -15,13 +15,12 @@
 class Room {
 private:
     Player player;
-    std::vector<std::unique_ptr<Enemy>> enemies;
+    std::vector<Enemy> enemies;
 public:
+    Room() = default;
     Room(const Player& player);
-
-    std::string addEnemy(std::unique_ptr<Enemy> enemy);
-
-    std::vector<std::unique_ptr<Enemy>> getEnemies() const;
+    void addEnemy(const Enemy& enemy);
+    std::vector<Enemy> getEnemies() const;
 };
 
 

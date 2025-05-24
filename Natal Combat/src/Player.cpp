@@ -41,3 +41,13 @@ Hero Player::getHero(const std::string &name) const {
 
     throw "No se encontró el héroe " + name + ".";
 }
+
+bool Player::removeHero(const std::string& name) {
+    for (auto it = heroes.begin(); it != heroes.end(); ++it) {
+        if (it->getName() == name) {
+            heroes.erase(it);
+            return true;
+        }
+    }
+    return false;
+}

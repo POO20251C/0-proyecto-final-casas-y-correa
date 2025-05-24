@@ -19,8 +19,10 @@ public:
     Dungeon() = default;
     Dungeon(const Player &player);
 
-    std::string addRoom( Room &&room);
-    Room getRooms() const;
+    Room getRoom(int room) const;
+
+    void addRoom(const Room &room);
+    bool startRoom(int room);
 };
 
 

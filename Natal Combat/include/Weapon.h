@@ -15,9 +15,8 @@ private:
 
 public:
     Weapon() = default;
-    Weapon(const std::string &name, const std::string &desc, int atk, int bleed);
+    Weapon(const std::string &name, int atk, int bleed);
     std::string getName() const;
-    std::string getDesc() const;
     int getAtk() const;
 };
 
