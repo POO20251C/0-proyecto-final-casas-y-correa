@@ -5,12 +5,15 @@
 
 #include "../include/Player.h"
 
+#include <algorithm>
+#include <stdexcept>
+
 Player::Player(const std::string &name){
     this->name = name;
     inventory = Inventory();
 }
 
-std::vector<Hero> Player::getHeroes() {
+std::vector<Hero> Player::getHeroes()  {
     return heroes;
 }
 
@@ -31,23 +34,23 @@ bool Player::isHeroExists(const std::string &name) const {
 std::string Player::addHero(const Hero &hero) {
     heroes.push_back(hero);
 
+    this->orderHeroes();
+
     return hero.getName() + " ha sido agregado.";
 }
 
-Hero Player::getLowSpeedHero() const {
-    Hero hero = heroes[0];
-    for (const auto &h : heroes) {
-        if (h.getAttributes().getSpd() < hero.getAttributes().getSpd()) {
-            hero = h;
+Hero& Player::getHero(const std::string &name) {
+    for (auto &hero : heroes) {
+        if (hero.getName() == name) {
+            return hero;
         }
     }
-
-    return hero;
 }
 
-Hero Player::getHero(const std::string &name) const {
-    throw "No se encontró el héroe " + name + ".";
+Hero& Player::getHeroByIndex(int index) {
+    return heroes[index];
 }
+
 
 bool Player::removeHero(const std::string& name) {
     for (auto it = heroes.begin(); it != heroes.end(); ++it) {
@@ -57,4 +60,10 @@ bool Player::removeHero(const std::string& name) {
         }
     }
     return false;
+}
+
+void Player::orderHeroes() {
+    std::sort(heroes.begin(), heroes.end(), [](const Hero& a, const Hero& b) {
+        return a.getAttributes().getSpd() > b.getAttributes().getSpd();
+    });
 }

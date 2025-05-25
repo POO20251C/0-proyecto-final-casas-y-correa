@@ -4,10 +4,15 @@
 
 #include "../include/Attack.h"
 
-Attack::Attack(const std::string &name, const std::string &action, int dmg, int accuracy) {
+Attack::Attack(const std::string &name, const std::string &action, float power, int accuracy) {
     this->name = name;
     this->action = action;
-    this->dmg = dmg;
+    this->power = power;
+
+    if (accuracy > 50) {
+        accuracy = 50;
+    }
+
     this->accuracy = accuracy;
 }
 
@@ -19,7 +24,7 @@ int Attack::getAccuracy() const {
     return accuracy;
 }
 
-int Attack::getDmg() const {
-    return dmg;
+float Attack::getPower() const {
+    return power;
 }
 

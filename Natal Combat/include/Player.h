@@ -16,6 +16,8 @@ private:
     std::vector<Hero> heroes;
     std::string name;
     Inventory inventory;
+
+    void orderHeroes();
 public:
     Player() = default;
     Player(const std::string &name);
@@ -24,10 +26,10 @@ public:
     bool removeHero(const std::string &name);
 
     std::string getName() const;
-    Hero getHero(const std::string &name) const;
-    bool isHeroExists(const std::string &name) const;
+    Hero& getHero(const std::string &name);
+    Hero& getHeroByIndex(int index);
 
-    Hero getLowSpeedHero() const;
+    bool isHeroExists(const std::string &name) const;
 
     std::string addHero(const Hero &hero);
 };

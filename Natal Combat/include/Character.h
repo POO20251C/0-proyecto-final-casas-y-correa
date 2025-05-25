@@ -17,7 +17,7 @@ protected:
     Armor armor;
     std::vector<Attack> attacks;
 
-    int calcDamage(int damage, int k) const;
+    int calcRealDamage(int damage, int k) const;
 
 public:
     Character() = default;
@@ -30,6 +30,11 @@ public:
 
     std::vector<Attack> getAttacks() const;
 
+    Attack getAttackByIndex(int index) const;
+    Attack getRandomAttack() const;
+
+    int getAttackDamage(const Attack& attack) const;
+
     void equipArmor(const Armor &armor);
     void unequipArmor();
 
@@ -38,7 +43,7 @@ public:
 
     void addAttack(const Attack &attack);
 
-    void receiveDamage(int dmg);
+    int receiveDamage(int dmg);
 };
 
 

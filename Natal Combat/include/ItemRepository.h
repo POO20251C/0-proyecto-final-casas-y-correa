@@ -30,7 +30,7 @@ public:
     Hero getHeroByName(const std::string &name) const;
     Attack getAttackByName(const std::string &name) const;
 
-    const std::vector<Hero>& getHeroes() const;
+    std::vector<Hero> getHeroes() const;
 };
 
 

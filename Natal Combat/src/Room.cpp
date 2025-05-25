@@ -35,6 +35,11 @@ std::string Room::getName() const {
     return name;
 }
 
-void Room::removeEnemy(const Enemy &enemy) {
-
+void Room::removeEnemy(const Enemy& enemy) {
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        if (&enemies[i] == &enemy) {
+            enemies.erase(enemies.begin() + i);
+            break;
+        }
+    }
 }

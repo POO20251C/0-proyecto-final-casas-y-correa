@@ -11,7 +11,7 @@
 
 ItemRepository::ItemRepository() {
     // Ataques
-    attacks.emplace_back("Golpe fuerte", "", 15, 80);
+    attacks.emplace_back("Golpe fuerte", "", 1.1, 45);
 
     // Armaduras
     armors.emplace_back("Sin armadura", 0);
@@ -29,7 +29,7 @@ ItemRepository::ItemRepository() {
 
     // Armas
     weapons.emplace_back("Sin arma", 0, 0);
-    weapons.emplace_back("Espada de Hierro", 50, 10);
+    weapons.emplace_back("Espada de Hierro", 10, 10);
     weapons.emplace_back("Espada Larga de Acero", 65, 10);
     weapons.emplace_back("Hacha de Mano", 55, 10);
     weapons.emplace_back("Lanza de Madera Reforzada", 40, 10);
@@ -137,6 +137,6 @@ ItemRepository &ItemRepository::getInstance() {
 }
 
 
-const std::vector<Hero>& ItemRepository::getHeroes() const {
+std::vector<Hero> ItemRepository::getHeroes() const {
     return heroes;
 }

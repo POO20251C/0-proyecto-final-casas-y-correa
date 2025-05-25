@@ -1,5 +1,9 @@
 #include "../include/Character.h"
 
+#include <cmath>
+#include <cstdlib>
+#include <stdexcept>
+
 Character::Character(const std::string &name, const Attribute &attributes) {
     this->name = name;
     this->attributes = attributes;
@@ -26,6 +30,11 @@ Weapon Character::getWeapon() const {
 std::vector<Attack> Character::getAttacks() const {
     return attacks;
 }
+
+Attack Character::getAttackByIndex(int index) const {
+    return attacks[index];
+}
+
 
 void Character::equipArmor(const Armor &_armor) {
     if (armor.getName() != "Sin armadura") {
@@ -55,12 +64,32 @@ void Character::addAttack(const Attack &attack) {
     attacks.push_back(attack);
 }
 
-int Character::calcDamage(int damage, int k = 100) const {
+int Character::calcRealDamage(int damage, int k = 100) const {
     return damage * k /(k + this->getArmor().getDef());
 }
 
+int Character::getAttackDamage(const Attack &attack) const {
+    float powerAttack = attack.getPower();
+    int baseAtk = attributes.getAtk();
 
-void Character::receiveDamage(int dmg) {
-    dmg = calcDamage(dmg);
+    int result = baseAtk * powerAttack;
+
+    return baseAtk * powerAttack;
+}
+
+
+int Character::receiveDamage(int dmg) {
+    dmg = calcRealDamage(dmg);
     attributes.increaseAttribute("hp", -dmg);
+
+    return dmg;
+}
+
+Attack Character::getRandomAttack() const {
+    if (attacks.empty()) {
+        throw std::runtime_error("No hay ataques disponibles.");
+    }
+
+    int index = rand() % attacks.size();
+    return attacks[index];
 }

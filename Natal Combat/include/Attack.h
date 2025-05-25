@@ -9,17 +9,17 @@ class Attack {
 private:
     std::string name;
     std::string action;
-    int dmg;
+    float power;
     int accuracy;
 
 public:
     Attack() = default;
-    Attack(const std::string &name, const std::string &action, int dmg, int accuracy);
+    Attack(const std::string &name, const std::string &action, float power, int accuracy);
 
     std::string getName() const;
     std::string getAction() const;
 
-    int getDmg() const;
+    float getPower() const;
     int getAccuracy() const;
 
     //std::string fire(const Enemy &enemy);
