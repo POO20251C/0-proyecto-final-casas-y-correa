@@ -35,6 +35,8 @@ public:
 
     int getAttackDamage(const Attack& attack) const;
 
+    void initEquipment();
+
     void equipArmor(const Armor &armor);
     void unequipArmor();
 

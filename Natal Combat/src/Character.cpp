@@ -1,14 +1,19 @@
 #include "../include/Character.h"
+#include "../include/ItemRepository.h"
 
 #include <cmath>
-#include <cstdlib>
+#include <iostream>
 #include <stdexcept>
 
 Character::Character(const std::string &name, const Attribute &attributes) {
     this->name = name;
     this->attributes = attributes;
-    this -> armor = Armor("Sin armadura", 0);
-    this -> weapon = Weapon("Sin arma", 0, 0);
+}
+
+void Character::initEquipment() {
+    ItemRepository& itemRepository = ItemRepository::getInstance();
+    this->armor = itemRepository.getArmorByName("Sin armadura");
+    this->weapon = itemRepository.getWeaponByName("Sin arma");
 }
 
 std::string Character::getName() const {
@@ -37,7 +42,7 @@ Attack Character::getAttackByIndex(int index) const {
 
 
 void Character::equipArmor(const Armor &_armor) {
-    if (armor.getName() != "Sin armadura") {
+    if (armor.getName() != "Sin armadura" && armor.getName().size() > 3) {
         this->unequipArmor();
     }
 
@@ -50,7 +55,9 @@ void Character::unequipArmor() {
 }
 
 void Character::equipWeapon(const Weapon &_weapon) {
-    this->unequipWeapon();
+    if (weapon.getName() != "Sin arma" && weapon.getName().size() > 3) { // esto es muy art tatack de mi parte
+        this->unequipWeapon();
+    }
 
     this -> weapon = _weapon;
     attributes.increaseAttribute("atk", weapon.getAtk());
@@ -65,7 +72,12 @@ void Character::addAttack(const Attack &attack) {
 }
 
 int Character::calcRealDamage(int damage, int k = 100) const {
-    return damage * k /(k + this->getArmor().getDef());
+    double numerator = static_cast<double>(damage * k);
+    double denominator = static_cast<double>(k + getArmor().getDef());
+
+    int result = static_cast<int>(std::ceil(numerator / denominator));
+
+    return result   ;
 }
 
 int Character::getAttackDamage(const Attack &attack) const {

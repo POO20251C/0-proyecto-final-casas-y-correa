@@ -13,7 +13,7 @@
 class Enemy : public Character {
 public:
     Enemy() = default;
-    Enemy(const std::string &name, const Attribute &attributes, const Weapon &weapon, const Armor &armor, int rank);
+    Enemy(const std::string &name, const Attribute &attributes, int rank);
 
     int getRank() const;
 private:

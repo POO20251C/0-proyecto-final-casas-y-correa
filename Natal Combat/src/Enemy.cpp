@@ -4,11 +4,9 @@
 
 #include "../include/Enemy.h"
 
-Enemy::Enemy(const std::string &name, const Attribute &attributes, const Weapon &weapon, const Armor &armor, int rank) {
+Enemy::Enemy(const std::string &name, const Attribute &attributes, int rank) {
     this -> name = name;
     this -> attributes = attributes;
-    this -> weapon = weapon;
-    this -> armor = armor;
     this -> rank = rank;
 }
 int Enemy::getRank() const {

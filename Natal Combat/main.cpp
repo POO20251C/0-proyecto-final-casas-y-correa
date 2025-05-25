@@ -70,6 +70,14 @@ void displayHero(const Hero &hero) {
     cout << "   -Nombre: " << armor.getName() << endl;
     cout << "   -Defensa: " << armor.getDef() << endl;
 
+    cout << "Ataques: " << endl;
+
+    for (const auto &attack : hero.getAttacks()) {
+        cout << "   -Nombre: " << attack.getName() << endl;
+        cout << "   -Poder: " << to_string(attack.getPower()) << endl;
+        cout << "-------------------------------------" << endl;
+    }
+
     cout << "=========================" << endl;
 }
 
@@ -100,14 +108,13 @@ Dungeon loadDungeon(const Player &player, const ItemRepository &itemRepository) 
 
     // Room 1
     Room room1("Mazmorra de las Sombras", player);
-    Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), itemRepository.getWeaponByName("Espada de Hierro"),
-                         itemRepository.getArmorByName("Armadura de Hierro"), 1);
-    enemy1.addAttack(itemRepository.getAttackByName("Golpe fuerte"));
+    Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), 1);
+    enemy1.initEquipment();
 
+    cout << "Enemigoo " <<to_string(enemy1.getAttributes().getDef()) << "otro" << (enemy1.getArmor().getName()) << endl;
+    enemy1.addAttack(itemRepository.getAttackByName("Golpe fuerte"));
     room1.addEnemy(enemy1);
 
-    room1.addEnemy(Enemy("Soldado", Attribute(400, 10, 10, 10, 10), itemRepository.getWeaponByName("Espada de Hierro"),
-                         itemRepository.getArmorByName("Armadura de Hierro"), 1));
     dungeon.addRoom(room1);
 
     // Room 2
@@ -238,30 +245,19 @@ bool startRoom(Player &player, const Dungeon &dungeon, int currentDungeon) {
             Enemy &objetive = room.getLowRankEnemy();
 
             sendMessage(
-                "¡Un enemigo de rango " + to_string(objetive.getRank()) + " ha aparecido! ¡Preparate para derrotarlo!");
+                "Un enemigo de rango " + to_string(objetive.getRank()) + " ha aparecido! Preparate para derrotarlo!");
 
             while (objetive.getAttributes().getHp() > 0) {
                 Hero &player_hero = player.getHeroByIndex(currentHeroTurn++);
 
                 execute_player_attack(player_hero, objetive);
+                if (objetive.getAttributes().getHp() == 0) {
+                    break;
+                }
+
                 enterToContinue();
                 execute_enemy_attack(objetive, player_hero);
                 enterToContinue();
-
-                /*sendMessage(
-                    "Turno de " + player_hero.getName() + "(Salud: " + to_string(player_hero.getAttributes().getHp()) +
-                    "/" + to_string(player_hero.getAttributes().getMax_hp()) + ")");
-
-                Attack hero_attack = getPlayerAttack(player_hero); //player_hero.getAttackByIndex(0);
-                if (checkAccuracy(hero_attack.getAccuracy())) {
-                    int dmg = objetive.receiveDamage(player_hero.getAttacks()[0].getDmg());
-                    sendMessage(
-                        "Golpe acertado " + objetive.getName() + " pierde " + to_string(dmg) + " de salud. " +
-                        "(Salud: " + to_string(objetive.getAttributes().getHp()) + "/" + to_string(
-                            objetive.getAttributes().getMax_hp()) + ")");
-                } else {
-                    cout << player_hero.getName() << " falla el ataque.";
-                }*/
 
                 if (player_hero.getAttributes().getHp() == 0) {
                     sendMessage(player_hero.getName() + " ha caído en batalla a manos de " + objetive.getName() + "...");
@@ -282,6 +278,7 @@ bool startRoom(Player &player, const Dungeon &dungeon, int currentDungeon) {
 
             sendMessage(objetive.getName() + " ha sido derrotado!");
             room.removeEnemy(objetive);
+            enterToContinue();
         }
     } catch (out_of_range &e) {
         sendMessage(e.what());
@@ -435,8 +432,6 @@ int main() {
         }
     }
 
-
-    // displayHeroes(heroes);
 
 
     return 0;

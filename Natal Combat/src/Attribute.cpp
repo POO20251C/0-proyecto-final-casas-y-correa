@@ -3,6 +3,7 @@
 //
 
 #include "../include/Attribute.h"
+#include <iostream>
 
 Attribute::Attribute(int max_hp, int atk, int def, int spd, int lck) {
     this -> max_hp = max_hp;
@@ -43,6 +44,9 @@ int Attribute::getLck() const {
 }
 
 void Attribute::increaseAttribute(const std::string &name, int amount) {
+
+    std::cout << name << ": " << std::to_string(amount) << std::endl;
+
     if (name == "max_hp") {
         this -> max_hp += amount;
 
@@ -59,7 +63,10 @@ void Attribute::increaseAttribute(const std::string &name, int amount) {
         this -> atk += amount;
 
     } else if (name == "def") {
+        std::cout << "vijejo" << std::to_string(this -> def) << std::endl;
         this -> def += amount;
+
+        std::cout << "nuevo: " << std::to_string(amount) << " "<< std::to_string(this -> def) << std::endl;
 
     } else if (name == "spd") {
         this -> spd += amount;

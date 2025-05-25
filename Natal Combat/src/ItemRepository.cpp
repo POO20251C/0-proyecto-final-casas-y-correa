@@ -46,6 +46,8 @@ ItemRepository::ItemRepository() {
         std::string name = "Alejo";
         Armor armor = this->getArmorByName("Armadura de Hierro");
         Weapon weapon = this->getWeaponByName("Espada de Hierro");
+
+        std::cout << "Alejo " << armor.getName() << std::endl;
         Attribute attribute = Attribute(100, 40, 50, 10, 20);
 
         Hero hero(name, attribute);
