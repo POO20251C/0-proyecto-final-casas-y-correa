@@ -22,7 +22,6 @@ public:
     Room getRoom(int room) const;
 
     void addRoom(const Room &room);
-    bool startRoom(int room);
 };
 
 

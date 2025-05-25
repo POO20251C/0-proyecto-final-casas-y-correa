@@ -34,11 +34,18 @@ std::string Player::addHero(const Hero &hero) {
     return hero.getName() + " ha sido agregado.";
 }
 
+Hero Player::getLowSpeedHero() const {
+    Hero hero = heroes[0];
+    for (const auto &h : heroes) {
+        if (h.getAttributes().getSpd() < hero.getAttributes().getSpd()) {
+            hero = h;
+        }
+    }
 
+    return hero;
+}
 
 Hero Player::getHero(const std::string &name) const {
-
-
     throw "No se encontró el héroe " + name + ".";
 }
 

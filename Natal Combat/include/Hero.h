@@ -6,11 +6,12 @@
 #define HERO_H
 
 #include "Character.h"
+#include "Enemy.h"
 
 class Hero : public Character {
 public:
-    Hero(const std::string &name, const Attribute &attributes, const Weapon &weapon, const Armor &armor);
-    void setHp(int hp);
+    Hero(const std::string &name, const Attribute &attributes);
+    void attack(const std::string &attack, const Enemy &enemy);
 };
 
 

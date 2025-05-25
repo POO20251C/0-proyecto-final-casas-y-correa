@@ -7,6 +7,7 @@
 Weapon::Weapon(const std::string &name, int atk, int bleed) {
     this -> name = name;
     this -> atk = atk;
+    this -> bleed = bleed;
 }
 
 std::string Weapon::getName() const {

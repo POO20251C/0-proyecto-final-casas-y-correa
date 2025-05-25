@@ -7,8 +7,8 @@
 
 class Attribute {
 private:
-    int hp;
     int max_hp;
+    int hp;
     int atk;
     int def;
     int spd;
@@ -23,7 +23,8 @@ public:
     int getDef() const;
     int getSpd() const;
     int getLck() const;
-    void setHp(int hp);
+
+    void increaseAttribute(const std::string &name, int amount);
 };
 
 

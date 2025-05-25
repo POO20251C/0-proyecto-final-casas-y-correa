@@ -18,4 +18,5 @@ add_executable(untitled main.cpp
         src/Enemy.cpp
         src/Dungeon.cpp
         src/Room.cpp
+        src/ItemRepository.cpp
 )

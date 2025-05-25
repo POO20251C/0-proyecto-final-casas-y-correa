@@ -14,13 +14,20 @@
 
 class Room {
 private:
+    std::string name;
     Player player;
     std::vector<Enemy> enemies;
 public:
     Room() = default;
-    Room(const Player& player);
+    Room(const std::string &name, const Player& player);
     void addEnemy(const Enemy& enemy);
+    void removeEnemy(const Enemy& enemy);
+
+    Enemy& getLowRankEnemy();
+
     std::vector<Enemy> getEnemies() const;
+
+    std::string getName() const;
 };
 
 

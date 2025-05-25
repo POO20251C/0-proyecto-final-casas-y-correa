@@ -36,6 +36,24 @@ int Attribute::getSpd() const {
 int Attribute::getLck() const {
     return lck;
 }
-void Attribute::setHp(int hp) {
-    this->hp = hp;
+
+void Attribute::increaseAttribute(const std::string &name, int amount) {
+    if (name == "max_hp") {
+        this -> max_hp += amount;
+
+    } else if (name == "hp") {
+        this -> hp += amount;
+
+    } else if (name == "atk") {
+        this -> atk += amount;
+
+    } else if (name == "def") {
+        this -> def += amount;
+
+    } else if (name == "spd") {
+        this -> spd += amount;
+
+    } else if (name == "lck") {
+        this -> lck += amount;
+    }
 }

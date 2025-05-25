@@ -13,8 +13,8 @@ void Dungeon::addRoom(const Room &room) {
 }
 
 Room Dungeon::getRoom(int room) const {
-    if (room < 0 || room >= rooms.size()) {
+    /*if (room < 0 || room > rooms.size()) {
         throw std::out_of_range("Índice de sala inválido");
-    }
+    }*/
     return rooms[room];
 }

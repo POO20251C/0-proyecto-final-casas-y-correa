@@ -6,12 +6,13 @@
 #include "include/Player.h"
 #include "include/Room.h"
 #include "include/Dungeon.h"
+#include "include/ItemRepository.h"
 
 using namespace std;
 
 // Funciones auxiliares
-void sendMessage(const string &name, const string &message) {
-    cout << name << ": " << message << endl;
+void sendMessage(const string &message) {
+    cout << "Gonzo" << ": " << message << endl;
 }
 
 void enterToContinue() {
@@ -40,7 +41,7 @@ int getOption() {
 }
 
 //Funciones para copiar objetos
-Armor copyArmor(const string &name, const vector<Armor> &armors) {
+/*Armor copyArmor(const string &name, const vector<Armor> &armors) {
     Armor armor;
 
     for (const auto armor: armors) {
@@ -196,7 +197,7 @@ void displayHero(const Hero &hero) {
 
     cout << "Arma: " << endl;
     cout << "   -Nombre: " << weapon.getName() << endl;
-    cout << "   -Daño: " << weapon.getAtk() << endl;
+    cout << "   -dano: " << weapon.getAtk() << endl;
 
     cout << "Armadura: " << endl;
     cout << "   -Nombre: " << armor.getName() << endl;
@@ -212,35 +213,24 @@ void displayHeroes(const vector<Hero> &heroes) {
     }
 }
 
-Enemy getLowRankEnemy(const vector<Enemy> &enemies) {
-    Enemy result = enemies[0];
-    int low_rank = result.getRank();
+void displayHeroAttacks(const Hero &hero) {
+    cout << "--- Lista de ataques disponibles (dano | Precisión) ---" << endl;
 
-    for (const auto &enemy: enemies) {
-        if (enemy.getRank() < low_rank) {
-            low_rank = enemy.getRank();
-            result = enemy;
-        }
-    }
-
-    return result;
-}
-
-
-void startDungeon(const Player &player, vector<Enemy> &enemies) {
-    while (enemies.empty()) {
-        Enemy Objetive = getLowRankEnemy(enemies);
+    const auto& attacks = hero.getAttacks();
+    for (size_t i = 0; i < attacks.size(); ++i) {
+        const Attack& attack = attacks[i];
+        cout << i + 1 << ". " << attack.getName() << " (" << attack.getDmg() << " dano | " << to_string(attack.getAccuracy()) << "% precisión)" << endl;
     }
 }
 
-Dungeon loadDungeon(const Player &player, const vector<Weapon> &weapons, const vector<Armor> &armors) {
+Dungeon loadDungeon(const Player &player, const ItemRepository &itemRepository) {
     Dungeon dungeon(player);
 
 
     // Room 1
-    Room room1(player);
-    room1.addEnemy(Enemy("Soldado", Attribute(100, 10, 10, 10, 10), copyWeapon("Espada de Hierro", weapons),
-                         copyArmor("Armadura de Hierro", armors), 1));
+    Room room1("Mazmorra de las Sombras", player);
+    room1.addEnemy(Enemy("Soldado", Attribute(100, 10, 10, 10, 10), itemRepository.getWeaponByName("Espada de Hierro"),
+                         itemRepository.getArmorByName("Armadura de Hierro"), 1));
     dungeon.addRoom(room1);
 
     // Room 2
@@ -248,17 +238,35 @@ Dungeon loadDungeon(const Player &player, const vector<Weapon> &weapons, const v
     return dungeon;
 }
 
-bool startRoom(const Dungeon &dungeon, int currentDungeon) {
-    return true;
+bool startRoom(const Player &player, const Dungeon &dungeon, int currentDungeon) {
+    bool result = true;
+    try {
+        Room room = dungeon.getRoom(currentDungeon);
+        cout << "Bienvenido a la " << room.getName() << endl;
+        while (!room.getEnemies().empty() && result) {
+            Enemy& objetive = room.getLowRankEnemy();
+
+            while (objetive.getAttributes().getHp() > 0) {
+                Hero player_hero = player.getLowSpeedHero();
+
+                sendMessage("Turno de " + player_hero.getName());
+                displayHeroAttacks(player_hero);
+                int option = getOption();
+            }
+        }
+
+    } catch (out_of_range &e) {
+        sendMessage(e.what());
+    }
+
+    return result;
 }
 
 int main() {
-    vector<Weapon> weapons = loadWeapons();
-    vector<Armor> armors = loadArmors();
-    vector<Hero> heroes = loadHeroes(weapons, armors);
     Dungeon dungeon;
+    ItemRepository itemRepository = ItemRepository::getInstance();
 
-    int currentDungeon = 1;
+    int currentDungeon = 0;
 
     const int MAX_HEROES = 3;
     const int MIN_HEORES = 1;
@@ -300,9 +308,9 @@ int main() {
 
                 player = Player(playerName);
 
-                sendMessage(helperName, "Hola, " + playerName + ". Preparate para el combate!");
-                sendMessage(helperName, "Selecciona 3 heroes para la batalla");
-                sendMessage(helperName, "Para seleccionar a un heroe, escribe su nombre");
+                sendMessage("Hola, " + playerName + ". Preparate para el combate!");
+                sendMessage("Selecciona 3 heroes para la batalla");
+                sendMessage("Para seleccionar a un heroe, escribe su nombre");
 
                 enterToContinue();
 
@@ -326,17 +334,17 @@ int main() {
 
                                 if (!player.isHeroExists(heroName)) {
                                     try {
-                                        Hero hero = getHero(heroName, heroes);
-                                        sendMessage(helperName, player.addHero(hero));
+                                        Hero hero = itemRepository.getHeroByName(heroName);
+                                        sendMessage(player.addHero(hero));
                                     } catch (runtime_error &e) {
                                         //sendMessage("SYSTEM", "Error cargando heroe, " + to_string(e.what()) + endl);
                                         cout << "Error cargando heroe, " << e.what() << endl;
                                     };
                                 } else {
-                                    sendMessage(helperName, "Ese heroe ya está en tu equipo.");
+                                    sendMessage("Ese heroe ya está en tu equipo.");
                                 }
                             } else {
-                                sendMessage(helperName, "Ya tienes 3 heroes seleccionados.");
+                                sendMessage("Ya tienes 3 heroes seleccionados.");
                             }
                             break;
                         }
@@ -349,12 +357,12 @@ int main() {
                                 bool removed = player.removeHero(heroName); // usa el metodo de la clase Player
 
                                 if (removed) {
-                                    sendMessage(helperName, "El heroe fue borrado correctamente.");
+                                    sendMessage("El heroe fue borrado correctamente.");
                                 } else {
-                                    sendMessage(helperName, "No se encontro el heroe.");
+                                    sendMessage("No se encontro el heroe.");
                                 }
                             } else {
-                                sendMessage(helperName, "No has seleccionado ningun heroe.");
+                                sendMessage("No has seleccionado ningun heroe.");
                             }
 
                             break;
@@ -363,13 +371,13 @@ int main() {
                             if (!player.getHeroes().empty()) {
                                 displayHeroes(player.getHeroes());
                             } else {
-                                sendMessage(helperName, "Aun no has seleccionado heroes.");
+                                sendMessage("Aun no has seleccionado heroes.");
                             }
                             break;
                         }
 
                         case 4: {
-                            displayHeroes(heroes);
+                            displayHeroes(itemRepository.getHeroes());
                             break;
                         }
                         case 5: {
@@ -377,7 +385,7 @@ int main() {
                                 state = "load_dungeons";
                                 exit = true;
                             } else {
-                                sendMessage(helperName, "Aun no has seleccionado todos los heroes.");
+                                sendMessage("Aun no has seleccionado todos los heroes.");
                             }
                             break;
                         }
@@ -389,9 +397,9 @@ int main() {
                 }
             }
         } else if (state == "load_dungeons") {
-            dungeon = loadDungeon(player, weapons, armors);
+            dungeon = loadDungeon(player, itemRepository);
             state = "Ready";
-            sendMessage("SYSTEM", "Cargando dungeons...");
+            sendMessage("Cargando dungeons...");
         } else if (state == "Ready") {
             // Verificar los heroes
             if (player.getHeroes().size() == MIN_HEORES) {
@@ -399,7 +407,7 @@ int main() {
             }
             enterToContinue();
 
-            startRoom(dungeon, currentDungeon);
+            startRoom(player, dungeon, currentDungeon);
         }
     }
 

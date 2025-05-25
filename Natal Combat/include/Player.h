@@ -27,6 +27,8 @@ public:
     Hero getHero(const std::string &name) const;
     bool isHeroExists(const std::string &name) const;
 
+    Hero getLowSpeedHero() const;
+
     std::string addHero(const Hero &hero);
 };
 
