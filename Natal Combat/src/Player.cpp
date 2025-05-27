@@ -76,3 +76,25 @@ void Player::orderHeroes() {
         return a.getAttributes().getSpd() > b.getAttributes().getSpd();
     });
 }
+
+/* ESTA VAINA NO SE COMO HACERLA PORQUE NECESITO ACCEDER AL INVENTARIO Y ENCONTRAR UNA POCION,
+   DE AHI NECESITO VER EL .getCure() DE LA POCION PARA PODER HACER EL .cureHero() CON ESE VALOR, PERO COMO
+   INVENTORY ES UN VECTOR DE OBJECT Y NO DE POTION ENTONCES ESTE NO TIENE DICHO METODO :(
+
+void Player::usePotion(Hero& hero) {
+    bool confirm = false;
+    int i = 0;
+    while (!confirm && i < inventory.getObjects().size()) {
+        if (inventory.getObjects()[i].getName() == "Potion") {
+            confirm = true;
+
+        }
+        i += 1;
+    }
+    if (confirm) {
+        if (hero.getAttributes().getHp() > 0) {
+            hero.cureHero();
+        }
+    }
+}
+*/

@@ -12,3 +12,7 @@ Hero::Hero(const std::string &name, const Attribute &attributes)
 void Hero::attack(const std::string &attack, const Enemy &enemy) {
 
 }
+
+void Hero::cureHero(int cure) {
+
+}

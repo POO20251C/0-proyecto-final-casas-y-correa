@@ -10,6 +10,7 @@
 
 #include "Hero.h"
 #include "Inventory.h"
+#include "Potion.h"
 
 class Player {
 private:
@@ -36,6 +37,8 @@ public:
     bool isHeroExists(const std::string &name) const;
 
     std::string addHero(const Hero &hero);
+
+    void usePotion(Hero& hero);
 };
 
 

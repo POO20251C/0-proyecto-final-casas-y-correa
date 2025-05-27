@@ -105,3 +105,5 @@ Attack Character::getRandomAttack() const {
     int index = rand() % attacks.size();
     return attacks[index];
 }
+
+

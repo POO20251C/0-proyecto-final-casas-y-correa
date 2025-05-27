@@ -75,3 +75,7 @@ void Attribute::increaseAttribute(const std::string &name, int amount) {
         this -> lck += amount;
     }
 }
+
+void Attribute::setHp(int hp) {
+    this -> hp = hp;
+}

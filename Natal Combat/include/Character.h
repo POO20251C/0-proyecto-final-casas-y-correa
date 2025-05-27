@@ -46,6 +46,7 @@ public:
     void addAttack(const Attack &attack);
 
     int receiveDamage(int dmg);
+
 };
 
 

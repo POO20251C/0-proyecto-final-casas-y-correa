@@ -12,6 +12,8 @@ class Hero : public Character {
 public:
     Hero(const std::string &name, const Attribute &attributes);
     void attack(const std::string &attack, const Enemy &enemy);
+
+    void cureHero(int cure);
 };
 
 

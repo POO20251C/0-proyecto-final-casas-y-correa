@@ -25,6 +25,8 @@ public:
     int getLck() const;
 
     void increaseAttribute(const std::string &name, int amount);
+
+    void setHp(int hp);
 };
 
 

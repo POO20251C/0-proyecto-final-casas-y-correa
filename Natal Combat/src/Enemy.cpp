@@ -4,10 +4,11 @@
 
 #include "../include/Enemy.h"
 
-Enemy::Enemy(const std::string &name, const Attribute &attributes, int rank) {
+Enemy::Enemy(const std::string &name, const Attribute &attributes, int rank, int drop) {
     this -> name = name;
     this -> attributes = attributes;
     this -> rank = rank;
+    this -> drop = drop;
 }
 int Enemy::getRank() const {
     return rank;

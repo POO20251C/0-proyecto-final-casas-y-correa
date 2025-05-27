@@ -108,7 +108,7 @@ Dungeon loadDungeon(const Player &player, const ItemRepository &itemRepository) 
 
     // Room 1
     Room room1("Mazmorra de las Sombras", player);
-    Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), 1);
+    Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), 1, 25);
     enemy1.initEquipment();
 
     cout << "Enemigoo " <<to_string(enemy1.getAttributes().getDef()) << " otro " << (enemy1.getArmor().getName()) << endl;
