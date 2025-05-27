@@ -4,7 +4,7 @@
 
 #include "../include/Market.h"
 
-Market::Market() {
+/*Market::Market() {
     // Como la tienda es la misma para todas las partidas se iniciara los valores predeterminados de
     // los productos de la tienda
 
@@ -130,4 +130,4 @@ void Market::buyWeapon(Hero& hero, int money, int index) {
 void Market::buyArmor(Hero &hero, int money, int index) {
     hero.equipArmor(armors[index]);
     armors.erase(armors.begin() + index);
-}
+}*/

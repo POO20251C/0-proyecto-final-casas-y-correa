@@ -4,19 +4,18 @@
 
 #ifndef CHEST_H
 #define CHEST_H
-#include "Object.h"
 #include <string>
 #include <vector>
 
 class Chest {
 private:
     std::string type;
-    std::vector<Object> items;
+    //std::vector<Object> items;
 public:
     Chest();
-    Chest(std::string type, std::vector<Object> items);
+    //Chest(std::string type, std::vector<Object> items);
     std::string getType();
-    std::vector<Object> getItems();
+    //std::vector<Object> getItems();
 };
 
 

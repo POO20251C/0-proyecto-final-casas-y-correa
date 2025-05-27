@@ -72,7 +72,7 @@ void displayHero(const Hero &hero) {
 
     cout << "Ataques: " << endl;
 
-    for (const auto &attack : hero.getAttacks()) {
+    for (const auto &attack: hero.getAttacks()) {
         cout << "   -Nombre: " << attack.getName() << endl;
         cout << "   -Poder: x" << to_string(attack.getPower()) << endl;
         cout << "-------------------------------------" << endl;
@@ -103,7 +103,6 @@ void displayHeroAttacks(const Hero &hero) {
 }
 
 void displayInventoryArticle() {
-
 }
 
 bool displayInventory(Player &player, const ItemRepository &itemRepository) {
@@ -119,19 +118,37 @@ bool displayInventory(Player &player, const ItemRepository &itemRepository) {
     switch (option) {
         case 1:
             sendMessage("Mostrando Armas...");
+
             if (!player.getInventory().getWeapons().empty()) {
                 // Esto muestra el de las armas
                 for (size_t i = 0; i < player.getInventory().getWeapons().size(); ++i) {
-                    Weapon& weapon = player.getInventory().getWeapons()[i];
+                    Weapon &weapon = player.getInventory().getWeapons()[i];
 
                     cout << i + 1 << ". " << weapon.getName() << endl;
                 }
 
                 option = getOption();
-                switch (option) {
 
+                if (option > 0 and option - 1 < player.getInventory().getWeapons().size()) {
+                    Weapon &weapon = player.getInventory().getWeapons()[option - 1];
+
+                    sendMessage("Eligue a quien equiparle el arma : ");
+                    for (size_t i = 0; i < player.getHeroes().size(); ++i) {
+                        Hero &hero = player.getHeroes()[i];
+                        cout << i + 1 << ". " << hero.getName() << endl;
+                    }
+
+                    option = getOption();
+
+                    if (option > 0 and option - 1 < player.getHeroes().size()) {
+                        Hero &hero = player.getHeroes()[option - 1];
+                        if (hero.getWeapon().getName() != weapon.getName()) {
+                            // Equipar arma y guardar el arma actual en el inventario
+                        } else {
+                            sendMessage("El heroe seleccionado ya tiene esta arma.");
+                        }
+                    }
                 }
-
             } else {
                 sendMessage("No tienes armas en este momento.");
             }
@@ -147,7 +164,7 @@ bool displayInventory(Player &player, const ItemRepository &itemRepository) {
             exit = true;
             break;
         default:
-            std::cout << "Opción no válida. Intenta de nuevo.\n";
+            cout << "Opción no válida. Intenta de nuevo." << endl;
     }
 
     return exit;
@@ -161,13 +178,13 @@ Dungeon loadDungeon(const Player &player, const ItemRepository &itemRepository) 
 
     Room room1("Mazmorra de las Sombras", player);
     Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), 1, 25);
-    //enemy1.initEquipment();
+
 
     //cout << "Enemigoo " << to_string(enemy1.getAttributes().getDef()) << " otro " << (enemy1.getArmor().getName()) << endl;
     enemy1.addAttack(itemRepository.getAttackByName("Golpe fuerte"));
     room1.addEnemy(enemy1);
 
-    dungeon.addRoom(room1);
+
 
     // Room 2
 
@@ -196,6 +213,19 @@ Dungeon loadDungeon(const Player &player, const ItemRepository &itemRepository) 
 
 
     Room room10("Nido de la Niebla", player);
+    Enemy boss("Tung Tung Tung Sahur", Attribute(999, 99, 99, 99, 99), 10, 0);
+    room10.addEnemy(boss);
+
+    dungeon.addRoom(room1);
+    dungeon.addRoom(room2);
+    dungeon.addRoom(room3);
+    dungeon.addRoom(room4);
+    dungeon.addRoom(room5);
+    dungeon.addRoom(room6);
+    dungeon.addRoom(room7);
+    dungeon.addRoom(room8);
+    dungeon.addRoom(room9);
+    dungeon.addRoom(room10);
 
     return dungeon;
 }
@@ -239,7 +269,7 @@ Attack getPlayerAttack(Hero &player_hero) {
 
 void execute_player_attack(Hero &player_hero, Enemy &objetive) {
     sendMessage("Turno de " + player_hero.getName() + "(Salud: " + to_string(player_hero.getAttributes().getHp()) +
-    "/" + to_string(player_hero.getAttributes().getMax_hp()) + ")");
+                "/" + to_string(player_hero.getAttributes().getMax_hp()) + ")");
 
     Attack hero_attack = getPlayerAttack(player_hero); //player_hero.getAttackByIndex(0);
 
@@ -261,7 +291,6 @@ void execute_player_attack(Hero &player_hero, Enemy &objetive) {
                 "(Salud: " + to_string(objetive.getAttributes().getHp()) + "/" + to_string(
                     objetive.getAttributes().getMax_hp()) + ")");
         }
-
     } else {
         // No acerto
         sendMessage(player_hero.getName() + " ha fallado su ataque.");
@@ -281,7 +310,7 @@ void execute_player_attack(Hero &player_hero, Enemy &objetive) {
 
 void execute_enemy_attack(Enemy &enemy, Hero &objetive) {
     sendMessage("Turno de " + enemy.getName() + "(Salud: " + to_string(enemy.getAttributes().getHp()) +
-"/" + to_string(enemy.getAttributes().getMax_hp()) + ")");
+                "/" + to_string(enemy.getAttributes().getMax_hp()) + ")");
 
     Attack enemy_attack = enemy.getRandomAttack();
 
@@ -302,7 +331,6 @@ void execute_enemy_attack(Enemy &enemy, Hero &objetive) {
                 "(Salud: " + to_string(objetive.getAttributes().getHp()) + "/" + to_string(
                     objetive.getAttributes().getMax_hp()) + ")");
         }
-
     } else {
         // No acerto
         sendMessage(enemy.getName() + " ha fallado su ataque.");
@@ -338,9 +366,12 @@ bool startRoom(Player &player, const Dungeon &dungeon, int currentDungeon) {
                 enterToContinue();
 
                 if (player_hero.getAttributes().getHp() == 0) {
-                    sendMessage(player_hero.getName() + " ha caído en batalla a manos de " + objetive.getName() + "...");
+                    sendMessage(
+                        player_hero.getName() + " ha caído en batalla a manos de " + objetive.getName() + "...");
                     player.removeHero(player_hero.getName());
-                    sendMessage("Te quedan " + to_string(player.getHeroes().size()) + " de " + to_string(MIN_HEORES) + " heroes.");
+                    sendMessage(
+                        "Te quedan " + to_string(player.getHeroes().size()) + " de " + to_string(MIN_HEORES) +
+                        " heroes.");
 
                     if (player.getHeroes().size() < MIN_HEORES) {
                         sendMessage("Necesitas al menos " + to_string(MIN_HEORES) + " heroes para seguir luchando.");
@@ -412,8 +443,6 @@ int main() {
                 sendMessage("Para seleccionar a un heroe, escribe su nombre");
 
                 enterToContinue();
-                state = "Inventory";
-                continue;
 
                 int option;
                 bool exit = false;
@@ -509,13 +538,22 @@ int main() {
             enterToContinue();
 
             startRoom(player, dungeon, currentDungeon);
+
+            if (player.getHeroes().size() <= MIN_HEORES) {
+                // Si tienes igual o menos de los heroes minimos entonces pierde
+                state = "end_game";
+            } else {
+                state = "Inventory";
+            }
+
         } else if (state == "Inventory") {
             if (displayInventory(player, itemRepository) == true) {
                 state = "Ready";
             }
+        } else if (state == "end_game") {
+            cout << "Ya perdiste" << endl;
         }
     }
-
 
 
     return 0;

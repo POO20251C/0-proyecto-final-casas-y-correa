@@ -6,14 +6,11 @@
 #define HERO_H
 
 #include "Character.h"
-#include "Enemy.h"
 
 class Hero : public Character {
 public:
+    Hero() = default;
     Hero(const std::string &name, const Attribute &attributes);
-    void attack(const std::string &attack, const Enemy &enemy);
-
-    void cureHero(int cure);
 };
 
 

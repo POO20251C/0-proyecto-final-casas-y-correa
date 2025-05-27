@@ -6,8 +6,6 @@
 #define ENEMY_H
 
 #include "Character.h"
-#include "Weapon.h"
-#include "Armor.h"
 
 
 class Enemy : public Character {

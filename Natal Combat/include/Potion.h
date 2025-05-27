@@ -4,18 +4,14 @@
 
 #ifndef POTION_H
 #define POTION_H
-#include "Object.h"
 
+#include <string>
 
-class Potion : public Object {
+class Potion {
 private:
-    int cure;
-    int value;
+
 public:
     Potion(std::string name, std::string category, int stack, int cure, int value);
-    //getters
-    int getCure() const;
-    int getValue() const;
 };
 
 

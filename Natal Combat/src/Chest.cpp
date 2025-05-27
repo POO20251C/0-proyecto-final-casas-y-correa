@@ -4,7 +4,7 @@
 
 #include "../include/Chest.h"
 
-Chest::Chest(std::string type, std::vector<Object> items) {
+/*Chest::Chest(std::string type, std::vector<Object> items) {
     this->type = type;
     this->items = items;
 }
@@ -14,3 +14,4 @@ std::string Chest::getType() {
 std::vector<Object> Chest::getItems() {
     return this->items;
 }
+*/

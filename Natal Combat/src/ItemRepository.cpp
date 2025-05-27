@@ -41,52 +41,42 @@ ItemRepository::ItemRepository() {
     weapons.emplace_back("Ballesta Liviana", 55, 10);
     weapons.emplace_back("Espada Bastarda", 75, 10);
 
-    // heroes
-    // Alejo
     try {
-        std::string name = "Alejo";
-        Armor armor = this->getArmorByName("Armadura de Hierro");
-        Weapon weapon = this->getWeaponByName("Espada de Hierro");
+        std::string name1 = "a";
+        Attribute attribute1(100, 40, 50, 10, 20);
+        Hero hero1(name1, attribute1);
+        hero1.equipArmor(this->getArmorByName("Armadura de Hierro"));
+        hero1.equipWeapon(this->getWeaponByName("Espada de Hierro"));
+        heroes.push_back(hero1);
 
-        std::cout << "Alejo " << armor.getName() << std::endl;
-        Attribute attribute = Attribute(100, 40, 50, 10, 20);
+        std::string name2 = "b";
+        Attribute attribute2(80, 60, 70, 15, 25);
+        Hero hero2(name2, attribute2);
+        hero2.equipArmor(this->getArmorByName("Armadura de Cuero Reforzado"));
+        hero2.equipWeapon(this->getWeaponByName("Daga Curva"));
+        heroes.push_back(hero2);
 
-        Hero hero(name, attribute);
-        hero.equipArmor(armor);
-        hero.equipWeapon(weapon);
-        hero.addAttack(this->getAttackByName("Golpe fuerte"));
-        hero.addAttack(this->getAttackByName("hola"));
-        heroes.push_back(hero);
-    } catch (std::runtime_error & e) {
-        std::cout << e.what() << std::endl;
-    }
+        std::string name3 = "c";
+        Attribute attribute3(120, 30, 40, 20, 15);
+        Hero hero3(name3, attribute3);
+        hero3.equipArmor(this->getArmorByName("Armadura de Acero"));
+        hero3.equipWeapon(this->getWeaponByName("Hacha de Mano"));
+        heroes.push_back(hero3);
 
-    try {
-        std::string name = "c";
-        Armor armor = this->getArmorByName("Armadura de Hierro");
-        Weapon weapon = this->getWeaponByName("Espada de Hierro");
-        Attribute attribute = Attribute(100, 40, 50, 10, 20);
+        std::string name4 = "d";
+        Attribute attribute4(90, 50, 60, 12, 22);
+        Hero hero4(name4, attribute4);
+        hero4.equipArmor(this->getArmorByName("Armadura de Cadena"));
+        hero4.equipWeapon(this->getWeaponByName("Arco de Cazador"));
+        heroes.push_back(hero4);
 
-        Hero hero(name, attribute);
-        hero.equipArmor(armor);
-        hero.equipWeapon(weapon);
-        hero.addAttack(this->getAttackByName("Golpe fuerte"));
-        heroes.push_back(hero);
-    } catch (std::runtime_error & e) {
-        std::cout << e.what() << std::endl;
-    }
+        std::string name5 = "e";
+        Attribute attribute5(110, 35, 45, 18, 17);
+        Hero hero5(name5, attribute5);
+        hero5.equipArmor(this->getArmorByName("Armadura de Placas"));
+        hero5.equipWeapon(this->getWeaponByName("Martillo de Guerra"));
+        heroes.push_back(hero5);
 
-    try {
-        std::string name = "b";
-        Armor armor = this->getArmorByName("Armadura de Hierro");
-        Weapon weapon = this->getWeaponByName("Espada de Hierro");
-        Attribute attribute = Attribute(100, 40, 50, 10, 20);
-
-        Hero hero(name, attribute);
-        hero.equipArmor(armor);
-        hero.equipWeapon(weapon);
-        hero.addAttack(this->getAttackByName("Golpe fuerte"));
-        heroes.push_back(hero);
     } catch (std::runtime_error & e) {
         std::cout << e.what() << std::endl;
     }

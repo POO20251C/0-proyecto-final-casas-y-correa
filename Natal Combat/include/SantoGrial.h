@@ -5,10 +5,9 @@
 #ifndef SANTOGRIAL_H
 #define SANTOGRIAL_H
 #include "Hero.h"
-#include "Object.h"
 #include <vector>
 
-class SantoGrial: public Object {
+class SantoGrial{
 private:
   std::vector<Hero*> heroes;
   public:
@@ -17,7 +16,5 @@ private:
     std::vector<Hero*> getHeroes();
     void healHeroes();
 };
-
-
 
 #endif //SANTOGRIAL_H

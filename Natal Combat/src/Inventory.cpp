@@ -6,14 +6,6 @@
 
 Inventory::Inventory() = default;
 
-void Inventory::addObject(Object element) {
-    objects.push_back(element);
-}
-
-std::vector<Object> Inventory::getObjects() {
-    return objects;
-}
-
 std::vector<Weapon>& Inventory::getWeapons() {
     return weapons;
 }

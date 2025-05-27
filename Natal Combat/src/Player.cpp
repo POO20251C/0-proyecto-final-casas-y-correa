@@ -11,12 +11,19 @@
 
 Player::Player(const std::string &name){
 
-    //ItemRepository& itemRepository = ItemRepository::getInstance();
+    ItemRepository& itemRepository = ItemRepository::getInstance();
 
 
     this->name = name;
     //inventory = Inventory();
     //money = 100;
+
+    Weapon wea = itemRepository.getWeaponByName("Espada de Hierro");
+    Weapon wea1 = itemRepository.getWeaponByName("Hacha de Mano");
+
+
+    this->getInventory().addWeapon(wea);
+    this->getInventory().addWeapon(wea1);
 }
 
 int Player::getMoney() {
