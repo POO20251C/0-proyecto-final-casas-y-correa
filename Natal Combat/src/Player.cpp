@@ -7,11 +7,16 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <iostream>
 
 Player::Player(const std::string &name){
+
+    //ItemRepository& itemRepository = ItemRepository::getInstance();
+
+
     this->name = name;
-    inventory = Inventory();
-    money = 100;
+    //inventory = Inventory();
+    //money = 100;
 }
 
 int Player::getMoney() {
@@ -58,6 +63,10 @@ Hero& Player::getHero(const std::string &name) {
 
 Hero& Player::getHeroByIndex(int index) {
     return heroes[index];
+}
+
+Inventory& Player::getInventory() {
+    return inventory;
 }
 
 

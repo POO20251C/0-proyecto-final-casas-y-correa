@@ -10,6 +10,7 @@
 
 #include "Hero.h"
 #include "Inventory.h"
+#include "ItemRepository.h"
 #include "Potion.h"
 
 class Player {
@@ -28,6 +29,8 @@ public:
     bool removeHero(const std::string &name);
 
     int getMoney();
+    Inventory& getInventory();
+
     void setMoney(int money);
 
     std::string getName() const;

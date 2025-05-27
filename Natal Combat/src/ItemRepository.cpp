@@ -12,6 +12,7 @@
 ItemRepository::ItemRepository() {
     // Ataques
     attacks.emplace_back("Golpe fuerte", "", 1.1, 45);
+    attacks.emplace_back("hola", "", 5, 100);
 
     // Armaduras
     armors.emplace_back("Sin armadura", 0);
@@ -54,6 +55,7 @@ ItemRepository::ItemRepository() {
         hero.equipArmor(armor);
         hero.equipWeapon(weapon);
         hero.addAttack(this->getAttackByName("Golpe fuerte"));
+        hero.addAttack(this->getAttackByName("hola"));
         heroes.push_back(hero);
     } catch (std::runtime_error & e) {
         std::cout << e.what() << std::endl;
@@ -97,9 +99,7 @@ Armor ItemRepository::getArmorByName(const std::string &name) const {
         }
     }
 
-    return armors[0];
-
-    throw "No se encontro la armadura " + name;
+    throw std::runtime_error("No se encontro la armadura " + name);
 }
 
 Weapon ItemRepository::getWeaponByName(const std::string &name) const {
@@ -109,8 +109,7 @@ Weapon ItemRepository::getWeaponByName(const std::string &name) const {
         }
     }
 
-    return weapons[0];
-    throw "No se encontro la arma " + name;
+    throw std::runtime_error("No se encontro el arma " + name);
 }
 
 Hero ItemRepository::getHeroByName(const std::string &name) const {

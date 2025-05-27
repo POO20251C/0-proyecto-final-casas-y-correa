@@ -74,7 +74,7 @@ void displayHero(const Hero &hero) {
 
     for (const auto &attack : hero.getAttacks()) {
         cout << "   -Nombre: " << attack.getName() << endl;
-        cout << "   -Poder: " << to_string(attack.getPower()) << endl;
+        cout << "   -Poder: x" << to_string(attack.getPower()) << endl;
         cout << "-------------------------------------" << endl;
     }
 
@@ -102,22 +102,100 @@ void displayHeroAttacks(const Hero &hero) {
     cout << attacks_size + 1 << ". " << "Ataque aleatorio" << endl;
 }
 
+void displayInventoryArticle() {
+
+}
+
+bool displayInventory(Player &player, const ItemRepository &itemRepository) {
+    bool exit = false;
+
+    cout << "===== INVENTARIO =====" << endl;
+    cout << "1. Armas" << endl;
+    cout << "2. Armaduras" << endl;
+    cout << "3. Posciones" << endl;
+    cout << "4. Salir" << endl;
+    int option = getOption();
+
+    switch (option) {
+        case 1:
+            sendMessage("Mostrando Armas...");
+            if (!player.getInventory().getWeapons().empty()) {
+                // Esto muestra el de las armas
+                for (size_t i = 0; i < player.getInventory().getWeapons().size(); ++i) {
+                    Weapon& weapon = player.getInventory().getWeapons()[i];
+
+                    cout << i + 1 << ". " << weapon.getName() << endl;
+                }
+
+                option = getOption();
+                switch (option) {
+
+                }
+
+            } else {
+                sendMessage("No tienes armas en este momento.");
+            }
+            break;
+        case 2:
+            sendMessage("Mostrando Armaduras...");
+            break;
+        case 3:
+            sendMessage("Mostrando Posciones...");
+            break;
+        case 4:
+            sendMessage("Saliendo del inventario...");
+            exit = true;
+            break;
+        default:
+            std::cout << "Opción no válida. Intenta de nuevo.\n";
+    }
+
+    return exit;
+}
+
 Dungeon loadDungeon(const Player &player, const ItemRepository &itemRepository) {
     Dungeon dungeon(player);
 
 
     // Room 1
+
     Room room1("Mazmorra de las Sombras", player);
     Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), 1, 25);
-    enemy1.initEquipment();
+    //enemy1.initEquipment();
 
-    cout << "Enemigoo " <<to_string(enemy1.getAttributes().getDef()) << " otro " << (enemy1.getArmor().getName()) << endl;
+    //cout << "Enemigoo " << to_string(enemy1.getAttributes().getDef()) << " otro " << (enemy1.getArmor().getName()) << endl;
     enemy1.addAttack(itemRepository.getAttackByName("Golpe fuerte"));
     room1.addEnemy(enemy1);
 
     dungeon.addRoom(room1);
 
     // Room 2
+
+    Room room2("Caverna del Olvido", player);
+
+
+    Room room3("Cripta del Destino", player);
+
+
+    Room room4("Templo de la Perdición", player);
+
+
+    Room room5("Ruinas del Eco", player);
+
+
+    Room room6("Fortaleza de la Agonía", player);
+
+
+    Room room7("Abismo Carmesí", player);
+
+
+    Room room8("Santuario Roto", player);
+
+
+    Room room9("Torre del Silencio", player);
+
+
+    Room room10("Nido de la Niebla", player);
 
     return dungeon;
 }
@@ -334,6 +412,8 @@ int main() {
                 sendMessage("Para seleccionar a un heroe, escribe su nombre");
 
                 enterToContinue();
+                state = "Inventory";
+                continue;
 
                 int option;
                 bool exit = false;
@@ -429,6 +509,10 @@ int main() {
             enterToContinue();
 
             startRoom(player, dungeon, currentDungeon);
+        } else if (state == "Inventory") {
+            if (displayInventory(player, itemRepository) == true) {
+                state = "Ready";
+            }
         }
     }
 

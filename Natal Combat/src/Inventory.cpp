@@ -13,3 +13,19 @@ void Inventory::addObject(Object element) {
 std::vector<Object> Inventory::getObjects() {
     return objects;
 }
+
+std::vector<Weapon>& Inventory::getWeapons() {
+    return weapons;
+}
+
+std::vector<Armor>& Inventory::getArmors() {
+    return armors;
+}
+
+std::vector<Potion>& Inventory::getPotions() {
+    return potions;
+}
+
+void Inventory::addWeapon(Weapon &weapon) {
+    weapons.push_back(weapon);
+}
