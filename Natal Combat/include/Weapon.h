@@ -12,12 +12,15 @@ private:
     int atk;
     int bleed;
     std::vector<Attack> attacks;
+    int value;
 
 public:
     Weapon() = default;
     Weapon(const std::string &name, int atk, int bleed);
     std::string getName() const;
     int getAtk() const;
+    int getValue();
+    void setValue(int value);
 };
 
 

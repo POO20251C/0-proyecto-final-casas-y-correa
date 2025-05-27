@@ -11,6 +11,15 @@
 Player::Player(const std::string &name){
     this->name = name;
     inventory = Inventory();
+    money = 100;
+}
+
+int Player::getMoney() {
+    return money;
+}
+
+void Player::setMoney(int money) {
+    this->money = money;
 }
 
 std::vector<Hero> Player::getHeroes()  {

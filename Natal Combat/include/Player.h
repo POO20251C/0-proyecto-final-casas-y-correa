@@ -16,6 +16,7 @@ private:
     std::vector<Hero> heroes;
     std::string name;
     Inventory inventory;
+    int money;
 
     void orderHeroes();
 public:
@@ -24,6 +25,9 @@ public:
 
     std::vector<Hero> getHeroes();
     bool removeHero(const std::string &name);
+
+    int getMoney();
+    void setMoney(int money);
 
     std::string getName() const;
     Hero& getHero(const std::string &name);

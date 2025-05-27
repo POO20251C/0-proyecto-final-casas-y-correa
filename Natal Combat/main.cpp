@@ -111,7 +111,7 @@ Dungeon loadDungeon(const Player &player, const ItemRepository &itemRepository) 
     Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), 1);
     enemy1.initEquipment();
 
-    cout << "Enemigoo " <<to_string(enemy1.getAttributes().getDef()) << "otro" << (enemy1.getArmor().getName()) << endl;
+    cout << "Enemigoo " <<to_string(enemy1.getAttributes().getDef()) << " otro " << (enemy1.getArmor().getName()) << endl;
     enemy1.addAttack(itemRepository.getAttackByName("Golpe fuerte"));
     room1.addEnemy(enemy1);
 

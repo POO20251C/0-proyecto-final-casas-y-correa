@@ -7,6 +7,7 @@
 Armor::Armor(const std::string &name, int def) {
     this->name = name;
     this->def = def;
+    this->value = 0;
 }
 
 std::string Armor::getName() const {
@@ -15,4 +16,12 @@ std::string Armor::getName() const {
 
 int Armor::getDef() const {
     return def;
+}
+
+int Armor::getValue() const {
+    return value;
+}
+
+void Armor::setValue(int value) {
+    this->value = value;
 }

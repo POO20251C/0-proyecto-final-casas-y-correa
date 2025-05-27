@@ -19,4 +19,8 @@ add_executable(untitled main.cpp
         src/Dungeon.cpp
         src/Room.cpp
         src/ItemRepository.cpp
+        src/Potion.cpp
+        include/Potion.h
+        src/Market.cpp
+        include/Market.h
 )

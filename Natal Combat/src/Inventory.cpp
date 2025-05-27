@@ -6,4 +6,6 @@
 
 Inventory::Inventory() = default;
 
-
+void Inventory::addObject(Object element) {
+    objects.push_back(element);
+}
