@@ -10,28 +10,22 @@
 #include <iostream>
 
 Player::Player(const std::string &name){
-
-    ItemRepository& itemRepository = ItemRepository::getInstance();
-
-
-    this->name = name;
-    //inventory = Inventory();
-    //money = 100;
-
-    Weapon wea = itemRepository.getWeaponByName("Espada de Hierro");
-    Weapon wea1 = itemRepository.getWeaponByName("Hacha de Mano");
-
-
-    this->getInventory().addWeapon(wea);
-    this->getInventory().addWeapon(wea1);
+    this -> name = name;
+    this -> currentRoom = 0;
+    // ItemRepository& itemRepository = ItemRepository::getInstance();
+    // //inventory = Inventory();
+    // //money = 100;
+    //
+    // Weapon wea = itemRepository.getWeaponByName("Espada de Hierro");
+    // Weapon wea1 = itemRepository.getWeaponByName("Hacha de Mano");
+    //
+    //
+    // this->getInventory().addWeapon(wea);
+    // this->getInventory().addWeapon(wea1);
 }
 
-int Player::getMoney() {
-    return money;
-}
-
-void Player::setMoney(int money) {
-    this->money = money;
+int Player::getCurrentRoom() {
+    return currentRoom;
 }
 
 std::vector<Hero>& Player::getHeroes()  {
@@ -40,6 +34,22 @@ std::vector<Hero>& Player::getHeroes()  {
 
 std::string Player::getName() const {
     return name;
+}
+
+Hero& Player::getHero(const std::string &name) {
+    for (auto &hero : heroes) {
+        if (hero.getName() == name) {
+            return hero;
+        }
+    }
+}
+
+Hero& Player::getHeroByIndex(int index) {
+    return heroes[index];
+}
+
+Inventory& Player::getInventory() {
+    return inventory;
 }
 
 bool Player::isHeroExists(const std::string &name) const {
@@ -59,23 +69,6 @@ std::string Player::addHero(const Hero &hero) {
 
     return hero.getName() + " ha sido agregado.";
 }
-
-Hero& Player::getHero(const std::string &name) {
-    for (auto &hero : heroes) {
-        if (hero.getName() == name) {
-            return hero;
-        }
-    }
-}
-
-Hero& Player::getHeroByIndex(int index) {
-    return heroes[index];
-}
-
-Inventory& Player::getInventory() {
-    return inventory;
-}
-
 
 bool Player::removeHero(const std::string& name) {
     for (auto it = heroes.begin(); it != heroes.end(); ++it) {

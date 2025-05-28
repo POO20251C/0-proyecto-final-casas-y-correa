@@ -18,7 +18,7 @@ private:
     std::vector<Hero> heroes;
     std::string name;
     Inventory inventory;
-    int money;
+    int currentRoom;
 
     void orderHeroes();
 public:
@@ -26,21 +26,16 @@ public:
     Player(const std::string &name);
 
     std::vector<Hero>& getHeroes();
-    bool removeHero(const std::string &name);
-
-    int getMoney();
     Inventory& getInventory();
-
-    void setMoney(int money);
-
     std::string getName() const;
     Hero& getHero(const std::string &name);
     Hero& getHeroByIndex(int index);
+    int getCurrentRoom();
 
+    bool removeHero(const std::string &name);
+    void setMoney(int money);
     bool isHeroExists(const std::string &name) const;
-
     std::string addHero(const Hero &hero);
-
     void usePotion(Hero& hero);
 };
 

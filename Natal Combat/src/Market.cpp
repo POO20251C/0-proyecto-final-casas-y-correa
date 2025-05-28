@@ -4,9 +4,6 @@
 
 #include "../include/Market.h"
 #include "../include/ItemRepository.h"
-
-#include <iostream>
-
 Market::Market(const std::string& name) {
     this -> name = name;
     this -> loadMarket();

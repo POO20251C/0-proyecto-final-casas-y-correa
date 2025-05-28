@@ -31,6 +31,9 @@ public:
 
     void addArmor(Armor& armor);
     void removeArmor(Armor& armor);
+
+    void addPotion(Potion& potion);
+    void removePotion(Potion& potion);
 };
 
 

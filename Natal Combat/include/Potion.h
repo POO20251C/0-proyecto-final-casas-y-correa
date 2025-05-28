@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "Hero.h"
+
 class Potion {
 private:
     std::string name;
@@ -13,7 +15,14 @@ public:
     Potion() = default;
     Potion(const std::string &name, const std::string &type, int amount);
 
-    std::string getName();
+    std::string usePotion(Hero& hero);
+
+    void increaseStack(int amount);
+
+    std::string getName() const;
+    int getStack();
+    std::string getType();
+    int getAmount();
 };
 
 

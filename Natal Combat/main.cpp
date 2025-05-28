@@ -3,7 +3,9 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
+#include "include/json.hpp"
 #include "include/Hero.h"
 #include "include/Player.h"
 #include "include/Room.h"
@@ -12,6 +14,7 @@
 #include "include/Market.h"
 
 using namespace std;
+using json = nlohmann::json;
 
 const int MAX_HEROES = 3;
 const int MIN_HEORES = 1;
@@ -119,7 +122,7 @@ void displayInventoryWeapons(Player &player) {
 
     int option = getOption();
 
-    if (option == static_cast<int>(weapons.size()) + 1) {
+    if (option == weapons.size() + 1) {
         return;
     }
 
@@ -172,11 +175,11 @@ void displayInventoryArmors(Player &player) {
 
     int option = getOption();
 
-    if (option == static_cast<int>(armors.size()) + 1) {
+    if (option == armors.size() + 1) {
         return;
     }
 
-    if (option > 0 && option <= static_cast<int>(armors.size())) {
+    if (option > 0 && option <= armors.size()) {
         Armor selectedArmor = armors[option - 1];
 
         sendMessage("Elige a quien equiparle la armadura:");
@@ -185,7 +188,7 @@ void displayInventoryArmors(Player &player) {
         }
 
         int heroOption = getOption();
-        if (heroOption > 0 && heroOption <= static_cast<int>(player.getHeroes().size())) {
+        if (heroOption > 0 && heroOption <= player.getHeroes().size()) {
             Hero& hero = player.getHeroes()[heroOption - 1];
 
             if (hero.getArmor().getName() != selectedArmor.getName()) {
@@ -210,9 +213,52 @@ void displayInventoryArmors(Player &player) {
     displayInventoryArmors(player);
 }
 
-void displayInventoryPotions(Player &player) {}
+void displayInventoryPotions(Player &player) {
+    vector<Potion>& potions = player.getInventory().getPotions();
 
-bool displayInventory(Player &player, ItemRepository &repo) {
+    if (potions.empty()) {
+        sendMessage("No tienes pociones en este momento.");
+        return;
+    }
+
+    for (size_t i = 0; i < potions.size(); ++i) {
+        cout << i + 1 << ". x" << potions[i].getStack() << " " << potions[i].getName() << endl;
+    }
+
+    cout << potions.size() + 1 << ". Salir" << endl;
+
+    int option = getOption();
+
+    if (option == potions.size() + 1) {
+        return;
+    }
+
+    if (option > 0 && option <= potions.size()) {
+        Potion selectedPotion = potions[option - 1];
+
+        sendMessage("Elige con quien usar la pocion: ");
+        for (size_t i = 0; i < player.getHeroes().size(); ++i) {
+            cout << i + 1 << ". " << player.getHeroes()[i].getName() << endl;
+        }
+
+        int heroOption = getOption();
+        if (heroOption > 0 && heroOption <= player.getHeroes().size()) {
+            Hero& hero = player.getHeroes()[heroOption - 1];
+
+            sendMessage(selectedPotion.usePotion(hero));
+            player.getInventory().removePotion(selectedPotion);
+        } else {
+            sendMessage("Opcion de heroe invalida.");
+        }
+
+    } else {
+        sendMessage("Opcion invalida.");
+    }
+
+    displayInventoryPotions(player);
+}
+
+bool displayInventory(Player &player) {
     bool exit = false;
 
     cout << "===== INVENTARIO =====" << endl;
@@ -232,8 +278,9 @@ bool displayInventory(Player &player, ItemRepository &repo) {
             displayInventoryArmors(player);
             break;
         case 3:
-            displayInventoryPotions(player);
             sendMessage("Mostrando Posciones...");
+            displayInventoryPotions(player);
+
             break;
         case 4:
             sendMessage("Saliendo del inventario...");
@@ -273,21 +320,20 @@ void displayMarketWeapons(Player &player, Market &market) {
             Hero &selectedHero = player.getHeroByIndex(heroOption - 1);
             sendMessage(market.buyWeapon(selectedHero, weapon_name));
         } else {
-            sendMessage("Opcinn de heroe invalida.");
-
-            return displayMarketWeapons(player, market);
+            sendMessage("Opcion de heroe invalida.");
         }
     } else if (option == weapons.size() + 1) {
         // Salir del menú
         return;
     } else {
         sendMessage("Opcinn invalida.");
-        return displayMarketWeapons(player, market);
     }
+
+    displayMarketWeapons(player, market);
 }
 
 void displayMarketArmors(Player &player, Market &market) {
-    std::vector<Armor> &armors = market.getArmors();
+    vector<Armor> &armors = market.getArmors();
 
     cout << "--- ARMADURAS DISPONIBLES ---" << endl;
     for (size_t i = 0; i < armors.size(); ++i) {
@@ -353,17 +399,15 @@ Dungeon loadDungeon(const Player &player, ItemRepository &itemRepository) {
 
 
     // Room 1
-
-    Room room1("Mazmorra de las Sombras", player);
+    Reward rewardRoom1("Cofre");
     Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), 1, 25);
 
+    Room room1("Mazmorra de las Sombras", player, rewardRoom1);
 
-    //cout << "Enemigoo " << to_string(enemy1.getAttributes().getDef()) << " otro " << (enemy1.getArmor().getName()) << endl;
     enemy1.addAttack(itemRepository.getAttackByName("Golpe fuerte"));
     room1.addEnemy(enemy1);
 
-
-    // Room 2
+    /*// Room 2
 
     Room room2("Caverna del Olvido", player);
 
@@ -402,7 +446,9 @@ Dungeon loadDungeon(const Player &player, ItemRepository &itemRepository) {
     dungeon.addRoom(room7);
     dungeon.addRoom(room8);
     dungeon.addRoom(room9);
-    dungeon.addRoom(room10);
+    dungeon.addRoom(room10);*/
+
+    dungeon.addRoom(room1);
 
     return dungeon;
 }
@@ -503,6 +549,43 @@ void execute_enemy_attack(Enemy &enemy, Hero &objetive) {
     }
 }
 
+void displayReward(Reward& reward) {
+    vector<Weapon> reward_weapons = reward.getWeapons();
+    vector<Armor> reward_armors = reward.getArmors();
+    vector<Potion> reward_potions = reward.getPotions();
+
+    cout << "===== RECOMPENSAS =====" << endl;
+    cout << "Armadursa: " << endl;
+    if (!reward_armors.empty()) {
+        for (const auto& armor : reward_armors) {
+            cout << "   - " << armor.getName() << endl;
+        }
+    } else {
+        cout << "   - No habia ninguna armadura.";
+    }
+
+    cout << "Armas: " << endl;
+    if (!reward_potions.empty()) {
+        for (const auto& weapon : reward_weapons) {
+            cout << "   - " << weapon.getName() << endl;
+        }
+    } else {
+        cout << "   - No habia ninguna arma." << endl;
+    }
+
+    cout << "Pociones: " << endl;
+    if (!reward_potions.empty()) {
+        for (const auto& potion : reward_potions) {
+            cout << "   - " << potion.getName() << endl;
+        }
+
+    } else {
+        cout << "   - No habia niguna pocion." << endl;
+    }
+
+
+
+}
 
 bool startRoom(Player &player, const Dungeon &dungeon, int currentDungeon) {
     srand(time(nullptr));
@@ -556,6 +639,15 @@ bool startRoom(Player &player, const Dungeon &dungeon, int currentDungeon) {
             room.removeEnemy(objetive);
             enterToContinue();
         }
+
+        if (result) {
+            // dar recompensa
+            //¡Enhorabuena, [nombre]! Has conseguido derrotar a todos los enemigos de la [zona]. Tu recompensa es un [recompensa].
+            sendMessage("Enhorabuena, " + player.getName() + "! Has conseguido derrotar a todos los enemigos de la " + room.getName() + ". Tu recompensa es un " + room.getRewardName() + ".");
+            displayReward(room.getReward());
+
+            sendMessage(room.giveReward());
+        }
     } catch (out_of_range &e) {
         sendMessage(e.what());
     }
@@ -608,9 +700,10 @@ int main() {
                 player = Player(playerName);
 
                 sendMessage("Hola, " + playerName + ". Preparate para el combate!");
+                enterToContinue();
                 sendMessage("Selecciona 3 heroes para la batalla");
+                enterToContinue();
                 sendMessage("Para seleccionar a un heroe, escribe su nombre");
-
                 enterToContinue();
 
                 int option;
@@ -681,8 +774,8 @@ int main() {
                         }
                         case 5: {
                             if (player.getHeroes().size() == MAX_HEROES) {
-                                state = "load_dungeons";
-                                //state = "Market";
+                                //state = "load_dungeons";
+                                state = "Market";
                                 exit = true;
                             } else {
                                 sendMessage("Aun no has seleccionado todos los heroes.");
@@ -698,14 +791,9 @@ int main() {
             }
         } else if (state == "load_dungeons") {
             dungeon = loadDungeon(player, itemRepository);
-            //state = "Ready";
-            state = "Inventory";
+            state = "Ready";
             sendMessage("Cargando dungeons...");
         } else if (state == "Ready") {
-            // Verificar los heroes
-            /*if (player.getHeroes().size() == MIN_HEORES) {
-                break;
-            }*/
             enterToContinue();
 
             if (startRoom(player, dungeon, currentDungeon)) {
@@ -716,7 +804,7 @@ int main() {
         } else if (state == "Market") {
             displayMarket(player, market);
         } else if (state == "Inventory") {
-            if (displayInventory(player, itemRepository) == true) {
+            if (displayInventory(player) == true) {
                 state = "Ready";
             }
         } else if (state == "end_game") {

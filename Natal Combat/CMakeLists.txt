@@ -12,7 +12,7 @@ add_executable(untitled main.cpp
         src/Hero.cpp
         src/Player.cpp
         src/SantoGrial.cpp
-        src/Chest.cpp
+        src/Reward.cpp
         src/Inventory.cpp
         src/Enemy.cpp
         src/Dungeon.cpp
