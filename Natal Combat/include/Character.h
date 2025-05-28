@@ -25,7 +25,7 @@ public:
 
     std::string getName() const;
     Attribute getAttributes() const;
-    Weapon getWeapon() const;
+    Weapon& getWeapon();
     Armor getArmor() const;
 
     std::vector<Attack> getAttacks() const;
@@ -37,10 +37,10 @@ public:
 
     void initEquipment();
 
-    void equipArmor(const Armor &armor);
+    std::string equipArmor(const Armor &armor);
     void unequipArmor();
 
-    void equipWeapon(const Weapon &weapon);
+    std::string equipWeapon(const Weapon &weapon);
     void unequipWeapon();
 
     void addAttack(const Attack &attack);

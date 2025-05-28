@@ -27,6 +27,10 @@ public:
     //metodos
 
     void addWeapon(Weapon& weapon);
+    void removeWeapon(Weapon& weapon);
+
+    void addArmor(Armor& armor);
+    void removeArmor(Armor& armor);
 };
 
 

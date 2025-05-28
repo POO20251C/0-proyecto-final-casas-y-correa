@@ -41,43 +41,50 @@ ItemRepository::ItemRepository() {
     weapons.emplace_back("Ballesta Liviana", 55, 10);
     weapons.emplace_back("Espada Bastarda", 75, 10);
 
+    // pociones
+    potions.emplace_back("Pocion Pequena de Salud", "Health", 10);
+    potions.emplace_back("Pocion Mediana de Salud", "Health", 25);
+    potions.emplace_back("Pocion Grande de Salud", "Health", 50);
+    potions.emplace_back("Elixir de Salud", "Health", 100);
+
+
     try {
         std::string name1 = "a";
         Attribute attribute1(100, 40, 50, 10, 20);
         Hero hero1(name1, attribute1);
-        hero1.equipArmor(this->getArmorByName("Armadura de Hierro"));
-        hero1.equipWeapon(this->getWeaponByName("Espada de Hierro"));
+        hero1.equipArmor(this->getArmorByName("Sin armadura"));
+        hero1.equipWeapon(this->getWeaponByName("Sin arma"));
         heroes.push_back(hero1);
 
         std::string name2 = "b";
         Attribute attribute2(80, 60, 70, 15, 25);
         Hero hero2(name2, attribute2);
-        hero2.equipArmor(this->getArmorByName("Armadura de Cuero Reforzado"));
-        hero2.equipWeapon(this->getWeaponByName("Daga Curva"));
+        hero2.equipArmor(this->getArmorByName("Sin armadura"));
+        hero2.equipWeapon(this->getWeaponByName("Sin arma"));
         heroes.push_back(hero2);
 
         std::string name3 = "c";
         Attribute attribute3(120, 30, 40, 20, 15);
         Hero hero3(name3, attribute3);
-        hero3.equipArmor(this->getArmorByName("Armadura de Acero"));
-        hero3.equipWeapon(this->getWeaponByName("Hacha de Mano"));
+        hero3.equipArmor(this->getArmorByName("Sin armadura"));
+        hero3.equipWeapon(this->getWeaponByName("Sin arma"));
         heroes.push_back(hero3);
 
         std::string name4 = "d";
         Attribute attribute4(90, 50, 60, 12, 22);
         Hero hero4(name4, attribute4);
-        hero4.equipArmor(this->getArmorByName("Armadura de Cadena"));
-        hero4.equipWeapon(this->getWeaponByName("Arco de Cazador"));
+        hero4.equipArmor(this->getArmorByName("Sin armadura"));
+        hero4.equipWeapon(this->getWeaponByName("Sin arma"));
         heroes.push_back(hero4);
 
         std::string name5 = "e";
         Attribute attribute5(110, 35, 45, 18, 17);
         Hero hero5(name5, attribute5);
-        hero5.equipArmor(this->getArmorByName("Armadura de Placas"));
-        hero5.equipWeapon(this->getWeaponByName("Martillo de Guerra"));
+        hero5.equipArmor(this->getArmorByName("Sin armadura"));
+        hero5.equipWeapon(this->getWeaponByName("Sin arma"));
         heroes.push_back(hero5);
 
-    } catch (std::runtime_error & e) {
+    } catch (std::runtime_error &e) {
         std::cout << e.what() << std::endl;
     }
 }
@@ -121,6 +128,17 @@ Attack ItemRepository::getAttackByName(const std::string &name) const {
 
     throw std::runtime_error("No se encontro el ataque " + name);
 }
+
+Potion ItemRepository::getPotionByName(const std::string &name) const {
+    for (auto potion : potions) {
+        if (potion.getName() == name) {
+            return potion;
+        }
+    }
+
+    throw std::runtime_error("No se encontro la pocion " + name);
+}
+
 
 ItemRepository &ItemRepository::getInstance() {
     static ItemRepository instance;

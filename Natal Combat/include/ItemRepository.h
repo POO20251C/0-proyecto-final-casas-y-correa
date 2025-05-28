@@ -11,6 +11,7 @@
 #include "Weapon.h"
 #include "Hero.h"
 #include "Attack.h"
+#include "Potion.h"
 
 class ItemRepository {
 private:
@@ -18,6 +19,7 @@ private:
     std::vector<Weapon> weapons;
     std::vector<Hero> heroes;
     std::vector<Attack> attacks;
+    std::vector<Potion> potions;
 
     ItemRepository();
 
@@ -29,6 +31,7 @@ public:
     Weapon getWeaponByName(const std::string &name) const;
     Hero getHeroByName(const std::string &name) const;
     Attack getAttackByName(const std::string &name) const;
+    Potion getPotionByName(const std::string &name) const;
 
     std::vector<Hero> getHeroes() const;
 };

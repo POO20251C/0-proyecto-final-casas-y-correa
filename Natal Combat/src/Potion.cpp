@@ -4,26 +4,12 @@
 
 #include "../include/Potion.h"
 
-Potion::Potion(std::string name, std::string category, int stack, int cure, int value) {
-    this->name = name;
-    this->category = category;
-    this->stack = stack;
-    this->cure = cure;
-    this->value = value;
+Potion::Potion(const std::string &name, const std::string &type, int stack) {
+    this -> name = name;
+    this -> type = type;
+    this -> stack = stack;
 }
 
 std::string Potion::getName() {
     return this->name;
-}
-std::string Potion::getCategory() {
-    return this->category;
-}
-int Potion::getStack() {
-    return this->stack;
-}
-int Potion::getCure() {
-    return this->cure;
-}
-int Potion::getValue() {
-    return this->value;
 }

@@ -1,7 +1,3 @@
-//
-// Created by caren on 26/05/2025.
-//
-
 #ifndef POTION_H
 #define POTION_H
 
@@ -10,19 +6,14 @@
 class Potion {
 private:
     std::string name;
-    std::string category;
+    std::string type;
     int stack;
-    int cure;
-    int value;
+    int amount;
 public:
     Potion() = default;
-    Potion(std::string name, std::string category, int stack, int cure, int value);
+    Potion(const std::string &name, const std::string &type, int amount);
 
     std::string getName();
-    std::string getCategory();
-    int getStack();
-    int getCure();
-    int getValue();
 };
 
 

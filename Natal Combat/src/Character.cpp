@@ -28,7 +28,7 @@ Armor Character::getArmor() const {
     return armor;
 }
 
-Weapon Character::getWeapon() const {
+Weapon& Character::getWeapon() {
     return weapon;
 }
 
@@ -41,26 +41,37 @@ Attack Character::getAttackByIndex(int index) const {
 }
 
 
-void Character::equipArmor(const Armor &_armor) {
-    if (armor.getName() != "Sin armadura" && armor.getName().size() > 3) {
+std::string Character::equipArmor(const Armor &_armor) {
+    if (armor.getName() == _armor.getName()) {
+        return "Ya tienes esa armadura equipada.";
+    }
+
+    if (armor.getName() != "Sin armadura" && !armor.getName().empty()) {
         this->unequipArmor();
     }
 
     this -> armor = _armor;
     attributes.increaseAttribute("def", armor.getDef());
+    return "La armadura fue equipada exitosamente.";
 }
 
 void Character::unequipArmor() {
     attributes.increaseAttribute("def", -armor.getDef());
 }
 
-void Character::equipWeapon(const Weapon &_weapon) {
-    if (weapon.getName() != "Sin arma" && weapon.getName().size() > 3) { // esto es muy art tatack de mi parte
+std::string Character::equipWeapon(const Weapon &_weapon) {
+    if (weapon.getName() == _weapon.getName()) {
+        return "Ya tienes esa arma equipada.";
+    }
+
+    if (weapon.getName() != "Sin arma" && !weapon.getName().empty()) {
         this->unequipWeapon();
     }
 
     this -> weapon = _weapon;
     attributes.increaseAttribute("atk", weapon.getAtk());
+
+    return "El arma fue equipada exitosamente.";
 }
 
 void Character::unequipWeapon() {

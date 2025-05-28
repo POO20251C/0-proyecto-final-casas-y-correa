@@ -25,7 +25,7 @@ public:
     Player() = default;
     Player(const std::string &name);
 
-    std::vector<Hero> getHeroes();
+    std::vector<Hero>& getHeroes();
     bool removeHero(const std::string &name);
 
     int getMoney();

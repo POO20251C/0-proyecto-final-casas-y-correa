@@ -34,7 +34,7 @@ void Player::setMoney(int money) {
     this->money = money;
 }
 
-std::vector<Hero> Player::getHeroes()  {
+std::vector<Hero>& Player::getHeroes()  {
     return heroes;
 }
 
@@ -97,7 +97,7 @@ void Player::orderHeroes() {
 void Player::usePotion(Hero& hero) {
     if (!inventory.getPotions().empty()) {
         if (hero.getAttributes().getHp() > 0) {
-            hero.cureHero(inventory.getPotions()[0].getCure());
+            //hero.cureHero(inventory.getPotions()[0].getCure());
         }
     }
 }
