@@ -9,9 +9,20 @@
 
 class Potion {
 private:
-
+    std::string name;
+    std::string category;
+    int stack;
+    int cure;
+    int value;
 public:
+    Potion() = default;
     Potion(std::string name, std::string category, int stack, int cure, int value);
+
+    std::string getName();
+    std::string getCategory();
+    int getStack();
+    int getCure();
+    int getValue();
 };
 
 
