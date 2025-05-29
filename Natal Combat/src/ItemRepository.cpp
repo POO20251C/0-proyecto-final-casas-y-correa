@@ -11,7 +11,7 @@
 
 ItemRepository::ItemRepository() {
     // Ataques
-    attacks.emplace_back("Golpe fuerte", "", 1.1, 45);
+    attacks.emplace_back("Golpe fuerte", "", 1.1, 70);
     attacks.emplace_back("hola", "", 5, 100);
 
     // Armaduras
@@ -50,10 +50,11 @@ ItemRepository::ItemRepository() {
 
     try {
         std::string name1 = "a";
-        Attribute attribute1(100, 40, 50, 10, 20);
+        Attribute attribute1(10000, 430, 50, 444, 100);
         Hero hero1(name1, attribute1);
         hero1.equipArmor(this->getArmorByName("Sin armadura"));
         hero1.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero1.addAttack(this->getAttackByName("Golpe fuerte"));
         heroes.push_back(hero1);
 
         std::string name2 = "b";
@@ -61,6 +62,7 @@ ItemRepository::ItemRepository() {
         Hero hero2(name2, attribute2);
         hero2.equipArmor(this->getArmorByName("Sin armadura"));
         hero2.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero2.addAttack(this->getAttackByName("Golpe fuerte"));
         heroes.push_back(hero2);
 
         std::string name3 = "c";
@@ -68,6 +70,7 @@ ItemRepository::ItemRepository() {
         Hero hero3(name3, attribute3);
         hero3.equipArmor(this->getArmorByName("Sin armadura"));
         hero3.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero3.addAttack(this->getAttackByName("Golpe fuerte"));
         heroes.push_back(hero3);
 
         std::string name4 = "d";

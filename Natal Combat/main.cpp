@@ -108,7 +108,7 @@ void displayHeroAttacks(const Hero &hero) {
 }
 
 void displayInventoryWeapons(Player &player) {
-    std::vector<Weapon>& weapons = player.getInventory().getWeapons();
+    vector<Weapon>& weapons = player.getInventory().getWeapons();
 
     if (weapons.empty()) {
         sendMessage("No tienes armas en este momento.");
@@ -161,7 +161,7 @@ void displayInventoryWeapons(Player &player) {
 }
 
 void displayInventoryArmors(Player &player) {
-    std::vector<Armor>& armors = player.getInventory().getArmors();
+    vector<Armor>& armors = player.getInventory().getArmors();
 
     if (armors.empty()) {
         sendMessage("No tienes armaduras en este momento.");
@@ -294,7 +294,7 @@ bool displayInventory(Player &player) {
 }
 
 void displayMarketWeapons(Player &player, Market &market) {
-    std::vector<Weapon> &weapons = market.getWeapons();
+    vector<Weapon> &weapons = market.getWeapons();
 
     cout << "--- ARMAS DISPONIBLES ---" << endl;
     for (size_t i = 0; i < weapons.size(); ++i) {
@@ -359,42 +359,51 @@ void displayMarketArmors(Player &player, Market &market) {
             sendMessage(market.buyArmor(selectedHero, armor_name));
         } else {
             sendMessage("Opcinn de heroe invalida.");
-            return displayMarketArmors(player, market);
         }
     } else if (option == armors.size() + 1) {
         return;
     } else {
         sendMessage("Opcinn invalida.");
-        return displayMarketArmors(player, market);
     }
+
+    displayMarketArmors(player, market);
 }
 
+
 void displayMarket(Player &player, Market &market) {
-    cout << "===== MERCADO =====";
+    cout << "===== MERCADO =====" << endl;
     cout << "1. Ver armas" << endl;
     cout << "2. Ver armaduras" << endl;
     cout << "3. Ver heroes" << endl;
     cout << "4. Salir" << endl;
 
     int option = getOption();
+
+
     switch (option) {
         case 1:
+            sendMessage("Mostrando Armas...");
             displayMarketWeapons(player, market);
             break;
         case 2:
+            sendMessage("Mostrando Armaduras...");
             displayMarketArmors(player, market);
             break;
         case 3:
+            sendMessage("Mostrando Heroes...");
             displayHeroes(player.getHeroes());
-            return displayMarket(player, market);
             break;
+        case 4:
+            sendMessage("Saliendo del Mercado...");
+            return;;
         default:
-            cout << "Opcion invalida" << endl;
-            break;
+            sendMessage("Opcion invalida.");
     }
+
+    displayMarket(player, market);
 }
 
-Dungeon loadDungeon(const Player &player, ItemRepository &itemRepository) {
+/*Dungeon loadDungeon(const Player &player, ItemRepository &itemRepository) {
     Dungeon dungeon(player);
 
 
@@ -407,7 +416,7 @@ Dungeon loadDungeon(const Player &player, ItemRepository &itemRepository) {
     enemy1.addAttack(itemRepository.getAttackByName("Golpe fuerte"));
     room1.addEnemy(enemy1);
 
-    /*// Room 2
+    /* Room 2
 
     Room room2("Caverna del Olvido", player);
 
@@ -446,15 +455,15 @@ Dungeon loadDungeon(const Player &player, ItemRepository &itemRepository) {
     dungeon.addRoom(room7);
     dungeon.addRoom(room8);
     dungeon.addRoom(room9);
-    dungeon.addRoom(room10);*/
+    dungeon.addRoom(room10);
 
     dungeon.addRoom(room1);
 
     return dungeon;
-}
+}*/
 
 bool checkAccuracy(int accuracy) {
-    if (accuracy < 0 || accuracy > 100) {
+    if (accuracy < 0) {
         return false;
     }
 
@@ -464,7 +473,7 @@ bool checkAccuracy(int accuracy) {
 }
 
 bool checkDodge(int lck) {
-    if (lck < 0 || lck > 50) {
+    if (lck < 0) {
         return false;
     }
 
@@ -587,14 +596,18 @@ void displayReward(Reward& reward) {
 
 }
 
-bool startRoom(Player &player, const Dungeon &dungeon, int currentDungeon) {
+bool startRoom(Player &player, Dungeon &dungeon) {
     srand(time(nullptr));
 
     int currentHeroTurn = 0;
 
     bool result = true;
+    cout << "holaaa" << endl;
+
     try {
-        Room room = dungeon.getRoom(currentDungeon);
+        cout << player.getCurrentRoom() << endl;
+        cout << dungeon.getRooms().size() << endl;
+        Room room = dungeon.getRoom(player.getCurrentRoom());
         sendMessage("Bienvenido a la " + room.getName());
         while (!room.getEnemies().empty() && result) {
             Enemy &objetive = room.getLowRankEnemy();
@@ -746,7 +759,7 @@ int main() {
                                 cout << "Escribe el nombre del heroe que deseas eliminar: ";
                                 getline(cin, heroName);
 
-                                bool removed = player.removeHero(heroName); // usa el metodo de la clase Player
+                                bool removed = player.removeHero(heroName);
 
                                 if (removed) {
                                     sendMessage("El heroe fue borrado correctamente.");
@@ -790,19 +803,23 @@ int main() {
                 }
             }
         } else if (state == "load_dungeons") {
-            dungeon = loadDungeon(player, itemRepository);
-            state = "Ready";
             sendMessage("Cargando dungeons...");
+            dungeon = Dungeon(player);
+            //dungeon = loadDungeon(player, itemRepository);
+            state = "Ready";
+
         } else if (state == "Ready") {
             enterToContinue();
 
-            if (startRoom(player, dungeon, currentDungeon)) {
+            if (startRoom(player, dungeon)) {
                 state = "Inventory";
             } else {
                 state = "end_game";
             }
         } else if (state == "Market") {
             displayMarket(player, market);
+
+            state = "load_dungeons";
         } else if (state == "Inventory") {
             if (displayInventory(player) == true) {
                 state = "Ready";

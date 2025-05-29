@@ -9,8 +9,8 @@ Attack::Attack(const std::string &name, const std::string &action, float power, 
     this->action = action;
     this->power = power;
 
-    if (accuracy > 50) {
-        accuracy = 50;
+    if (accuracy > 70) {
+        accuracy = 70;
     }
 
     this->accuracy = accuracy;

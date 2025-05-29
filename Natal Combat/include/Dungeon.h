@@ -15,11 +15,14 @@ class Dungeon {
 private:
     Player player;
     std::vector<Room> rooms;
+
+    void loadDungeon();
 public:
     Dungeon() = default;
     Dungeon(const Player &player);
 
     Room getRoom(int room) const;
+    std::vector<Room> getRooms();
 
     void addRoom(const Room &room);
 };

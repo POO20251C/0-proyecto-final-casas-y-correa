@@ -11,8 +11,8 @@ Attribute::Attribute(int max_hp, int atk, int def, int spd, int lck) {
     this -> def = def;
     this -> spd = spd;
 
-    if (lck > 50) {
-        lck = 50;
+    if (lck > 30) {
+        lck = 30;
     }
 
     this -> lck = lck;
@@ -66,6 +66,12 @@ void Attribute::increaseAttribute(const std::string &name, int amount) {
 
     } else if (name == "lck") {
         this -> lck += amount;
+
+        if (lck < 0) {
+            this -> lck = 0;
+        } else if (lck > 30) {
+            this -> lck = 30;
+        }
     }
 }
 

@@ -11,12 +11,11 @@
 class Enemy : public Character {
 public:
     Enemy() = default;
-    Enemy(const std::string &name, const Attribute &attributes, int rank, int drop);
+    Enemy(const std::string &name, const Attribute &attributes, int rank);
 
     int getRank() const;
 private:
     int rank;
-    int drop; // el dinero que sueltan los enemigos
 };
 
 #endif //ENEMY_H
