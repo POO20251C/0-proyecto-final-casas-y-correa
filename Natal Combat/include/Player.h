@@ -32,6 +32,8 @@ public:
     Hero& getHeroByIndex(int index);
     int getCurrentRoom();
 
+    int increaseCurrentRoom(int amoun);
+
     bool removeHero(const std::string &name);
     void setMoney(int money);
     bool isHeroExists(const std::string &name) const;

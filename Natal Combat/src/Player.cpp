@@ -44,6 +44,11 @@ Hero& Player::getHero(const std::string &name) {
     }
 }
 
+int Player::increaseCurrentRoom(int amount) {
+    currentRoom += amount;
+}
+
+
 Hero& Player::getHeroByIndex(int index) {
     return heroes[index];
 }

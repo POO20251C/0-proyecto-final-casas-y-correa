@@ -812,7 +812,14 @@ int main() {
             enterToContinue();
 
             if (startRoom(player, dungeon)) {
-                state = "Inventory";
+                player.increaseCurrentRoom(1);
+
+                if (player.getCurrentRoom() >= dungeon.getRooms().size()) {
+                    // Ya gano, esto falta acomodarlo ipipipipipipi
+                    enable = false;
+                } else {
+                    state = "Inventory";
+                }
             } else {
                 state = "end_game";
             }
