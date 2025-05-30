@@ -28,7 +28,7 @@ void Reward::addArmor(Armor& armor) {
     armors.push_back(armor);
 }
 
-void Reward::addPotion(Potion& potion) {
+void Reward::addPotion(Potion potion) {
     potions.push_back(potion);
 }
 

@@ -570,7 +570,7 @@ void displayReward(Reward& reward) {
             cout << "   - " << armor.getName() << endl;
         }
     } else {
-        cout << "   - No habia ninguna armadura.";
+        cout << "   - No habia ninguna armadura." << endl;
     }
 
     cout << "Armas: " << endl;
@@ -814,8 +814,11 @@ int main() {
             if (startRoom(player, dungeon)) {
                 player.increaseCurrentRoom(1);
 
+                cout << "hola" << endl;
+
                 if (player.getCurrentRoom() >= dungeon.getRooms().size()) {
                     // Ya gano, esto falta acomodarlo ipipipipipipi
+                    cout << "ya gano" << endl;
                     enable = false;
                 } else {
                     state = "Inventory";

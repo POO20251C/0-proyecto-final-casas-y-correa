@@ -32,7 +32,7 @@ public:
     Hero& getHeroByIndex(int index);
     int getCurrentRoom();
 
-    int increaseCurrentRoom(int amoun);
+    void increaseCurrentRoom(int amoun);
 
     bool removeHero(const std::string &name);
     void setMoney(int money);

@@ -44,7 +44,7 @@ Hero& Player::getHero(const std::string &name) {
     }
 }
 
-int Player::increaseCurrentRoom(int amount) {
+void Player::increaseCurrentRoom(int amount) {
     currentRoom += amount;
 }
 

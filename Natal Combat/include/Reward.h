@@ -32,7 +32,7 @@ public:
 
     void addArmor(Armor& armor);
     void addWeapon(Weapon& weapon);
-    void addPotion(Potion& potion);
+    void addPotion(Potion potion);
 };
 
 #endif //CHEST_H

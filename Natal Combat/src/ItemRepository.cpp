@@ -11,8 +11,10 @@
 
 ItemRepository::ItemRepository() {
     // Ataques
+    // Los ataques tienen un maximo de 70 de presicion
     attacks.emplace_back("Golpe fuerte", "", 1.1, 70);
     attacks.emplace_back("hola", "", 5, 100);
+    attacks.emplace_back("one_punch", "", 100, 70);
 
     // Armaduras
     armors.emplace_back("Sin armadura", 0);
@@ -49,8 +51,8 @@ ItemRepository::ItemRepository() {
 
 
     try {
-        std::string name1 = "a";
-        Attribute attribute1(10000, 430, 50, 444, 100);
+        std::string name1 = "Pollo";
+        Attribute attribute1(10000, 430, 50, 444, 500);
         Hero hero1(name1, attribute1);
         hero1.equipArmor(this->getArmorByName("Sin armadura"));
         hero1.equipWeapon(this->getWeaponByName("Sin arma"));
@@ -132,7 +134,7 @@ Attack ItemRepository::getAttackByName(const std::string &name) const {
     throw std::runtime_error("No se encontro el ataque " + name);
 }
 
-Potion ItemRepository::getPotionByName(const std::string &name) const {
+Potion ItemRepository::getPotionByName(const std::string &name) {
     for (auto potion : potions) {
         if (potion.getName() == name) {
             return potion;

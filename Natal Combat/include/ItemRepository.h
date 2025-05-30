@@ -31,7 +31,7 @@ public:
     Weapon getWeaponByName(const std::string &name) const;
     Hero getHeroByName(const std::string &name) const;
     Attack getAttackByName(const std::string &name) const;
-    Potion getPotionByName(const std::string &name) const;
+    Potion getPotionByName(const std::string &name);
 
     std::vector<Hero> getHeroes() const;
 };

@@ -23,27 +23,30 @@ void Dungeon::loadDungeon() {
 
     // Room 1
     Reward rewardRoom1("Cofre");
+    rewardRoom1.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
     // Enemigos
-    Enemy enemy1_room1("Soldado", Attribute(100, 20, 10, 10, 10), 1);
-    Enemy enemy2_room1("Soldado", Attribute(100, 20, 10, 10, 10), 1);
-    Enemy enemy3_room1("Soldado", Attribute(100, 20, 10, 10, 10), 1);
-    Enemy enemy4_room1("Soldado", Attribute(100, 23, 15, 10, 10), 2);
-    Enemy enemy5_room1("Soldado", Attribute(130, 25, 15, 10, 10), 2);
+    Enemy enemy1_room1("Soldado", Attribute(100, 20, 10, 10, 0), 1);
+    //Enemy enemy2_room1("Soldado", Attribute(100, 20, 10, 10, 0), 1);
+    //Enemy enemy3_room1("Soldado", Attribute(100, 20, 10, 10, 0), 1);
+    //Enemy enemy4_room1("Soldado", Attribute(100, 23, 15, 10, 0), 2);
+    //Enemy enemy5_room1("Soldado", Attribute(130, 25, 15, 10, 0), 2);
 
     // Ataques de enemigos
-    enemy1_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
-    enemy2_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
-    enemy3_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
-    enemy4_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
-    enemy5_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
+    enemy1_room1.addAttack(repo.getAttackByName("one_punch"));
+    //enemy2_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
+    //enemy3_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
+    //enemy4_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
+    //enemy5_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
 
     // instanciar todo
     Room room1("Mazmorra de las Sombras", player, rewardRoom1);
     room1.addEnemy(enemy1_room1);
-    room1.addEnemy(enemy2_room1);
-    room1.addEnemy(enemy3_room1);
-    room1.addEnemy(enemy4_room1);
-    room1.addEnemy(enemy5_room1);
+    //room1.addEnemy(enemy2_room1);
+    //room1.addEnemy(enemy3_room1);
+    //room1.addEnemy(enemy4_room1);
+    //room1.addEnemy(enemy5_room1);
+
+
 
     // Room 10
     Reward rewardRoom10("Cofre");
