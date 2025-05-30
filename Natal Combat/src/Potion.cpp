@@ -4,10 +4,11 @@
 
 #include "../include/Potion.h"
 
-Potion::Potion(const std::string &name, const std::string &type, int stack) {
+Potion::Potion(const std::string &name, const std::string &type, int amount) {
     this -> name = name;
     this -> type = type;
-    this -> stack = stack;
+    this -> amount = amount;
+    this -> stack = 1;
 }
 
 void Potion::increaseStack(int amount) {
@@ -31,7 +32,7 @@ int Potion::getAmount() {
 }
 
 
-std::string Potion::usePotion(Hero &hero) {
+bool Potion::usePotion(Hero &hero) {
     if (type == "Health") {
         int healAmount = amount;
         int currentHp = hero.getAttributes().getHp();
@@ -39,13 +40,13 @@ std::string Potion::usePotion(Hero &hero) {
 
         int currentHeal = std::min(healAmount, maxHp - currentHp);
         if (currentHeal <= 0) {
-            return "El heroe ya tiene la vida al maximo.";
+            return false;
         }
 
         hero.getAttributes().increaseAttribute("hp", currentHeal);
 
-        return "El heroe ha recuperado " + std::to_string(currentHeal) + " de vida.";
+        return true;
     }
 
-    return "Esta pocion no se puede usar.";
+    return false;
 }

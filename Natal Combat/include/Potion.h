@@ -15,7 +15,7 @@ public:
     Potion() = default;
     Potion(const std::string &name, const std::string &type, int amount);
 
-    std::string usePotion(Hero& hero);
+    bool usePotion(Hero& hero);
 
     void increaseStack(int amount);
 

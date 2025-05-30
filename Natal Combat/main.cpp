@@ -149,6 +149,8 @@ void displayInventoryWeapons(Player &player) {
                 sendMessage("El heroe seleccionado ya tiene esta arma.");
             }
 
+            return;
+
         } else {
             sendMessage("Opcion de heroe invalida.");
         }
@@ -202,6 +204,8 @@ void displayInventoryArmors(Player &player) {
                 sendMessage("El heroe seleccionado ya tiene esta armadura.");
             }
 
+            return;
+
         } else {
             sendMessage("Opcion de heroe invalida.");
         }
@@ -245,8 +249,15 @@ void displayInventoryPotions(Player &player) {
         if (heroOption > 0 && heroOption <= player.getHeroes().size()) {
             Hero& hero = player.getHeroes()[heroOption - 1];
 
-            sendMessage(selectedPotion.usePotion(hero));
-            player.getInventory().removePotion(selectedPotion);
+            if (selectedPotion.usePotion(hero)) {
+                sendMessage("La pocion fue usada exitosamente!");
+                player.getInventory().removePotion(selectedPotion);
+            } else {
+                sendMessage("No se pudo usar la pocion con " + hero.getName());
+            }
+
+            return;
+
         } else {
             sendMessage("Opcion de heroe invalida.");
         }
@@ -265,7 +276,8 @@ bool displayInventory(Player &player) {
     cout << "1. Armas" << endl;
     cout << "2. Armaduras" << endl;
     cout << "3. Posciones" << endl;
-    cout << "4. Salir" << endl;
+    cout << "4. Tus Heroes" << endl;
+    cout << "5. Salir" << endl;
     int option = getOption();
 
     switch (option) {
@@ -283,6 +295,11 @@ bool displayInventory(Player &player) {
 
             break;
         case 4:
+            sendMessage("Mostrando heroes...");
+            displayHeroes(player.getHeroes());
+            break;
+
+        case 5:
             sendMessage("Saliendo del inventario...");
             exit = true;
             break;
