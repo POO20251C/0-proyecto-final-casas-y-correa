@@ -24,7 +24,7 @@ std::vector<Weapon> Reward::getWeapons() {
     return weapons;
 }
 
-void Reward::addArmor(Armor& armor) {
+void Reward::addArmor(Armor armor) {
     armors.push_back(armor);
 }
 
@@ -32,6 +32,6 @@ void Reward::addPotion(Potion potion) {
     potions.push_back(potion);
 }
 
-void Reward::addWeapon(Weapon& weapon) {
+void Reward::addWeapon(Weapon weapon) {
     weapons.push_back(weapon);
 }

@@ -22,7 +22,6 @@ private:
 
     void orderHeroes();
 public:
-    Player() = default;
     Player(const std::string &name);
 
     std::vector<Hero>& getHeroes();

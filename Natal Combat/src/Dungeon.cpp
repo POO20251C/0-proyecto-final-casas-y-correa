@@ -8,14 +8,11 @@
 
 #include "../include/ItemRepository.h"
 
-Dungeon::Dungeon(const Player &player) {
-    this -> player = player;
+Dungeon::Dungeon(Player &player) : player(player) {
+    this->loadDungeon();
 
-    std::cout << "Empezando a cargar" << std::endl;
-
-    this -> loadDungeon();
-
-    std::cout << "Termino de cargar" << std::endl;
+    //std::cout << "Referencia del jugador dentro del dungeon: " << &player << std::endl;
+    //std::cout << "Referencia almacenada: " << &this->player << std::endl;
 }
 
 void Dungeon::loadDungeon() {
@@ -24,6 +21,7 @@ void Dungeon::loadDungeon() {
     // Room 1
     Reward rewardRoom1("Cofre");
     rewardRoom1.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
+    rewardRoom1.addArmor(repo.getArmorByName("Armadura de Hierro"));
     // Enemigos
     Enemy enemy1_room1("Soldado", Attribute(100, 20, 10, 10, 0), 1);
     //Enemy enemy2_room1("Soldado", Attribute(100, 20, 10, 10, 0), 1);
@@ -39,7 +37,7 @@ void Dungeon::loadDungeon() {
     //enemy5_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
 
     // instanciar todo
-    Room room1("Mazmorra de las Sombras", player, rewardRoom1);
+    Room room1("Mazmorra de las Sombras", this->player, rewardRoom1);
     room1.addEnemy(enemy1_room1);
     //room1.addEnemy(enemy2_room1);
     //room1.addEnemy(enemy3_room1);

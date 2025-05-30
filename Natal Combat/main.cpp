@@ -672,11 +672,11 @@ bool startRoom(Player &player, Dungeon &dungeon) {
 int main() {
     ItemRepository &itemRepository = ItemRepository::getInstance();
     Market market("Mercado");
-    Dungeon dungeon;
+    Dungeon* dungeon = nullptr;
 
     int currentDungeon = 0;
 
-    Player player;
+    Player* player = nullptr;
     string state = "Menu";
     string playerName = "None";
 
@@ -710,7 +710,7 @@ int main() {
                 cout << "Introduce tu nombre: ";
                 getline(cin, playerName);
 
-                player = Player(playerName);
+                player = new Player(playerName);
 
                 sendMessage("Hola, " + playerName + ". Preparate para el combate!");
                 enterToContinue();
@@ -732,15 +732,15 @@ int main() {
 
                     switch (option) {
                         case 1: {
-                            if (player.getHeroes().size() < MAX_HEROES) {
+                            if (player -> getHeroes().size() < MAX_HEROES) {
                                 string heroName;
                                 cout << "Para seleccionar a un heroe, escribe su nombre: ";
                                 getline(cin, heroName);
 
-                                if (!player.isHeroExists(heroName)) {
+                                if (!player -> isHeroExists(heroName)) {
                                     try {
                                         Hero hero = itemRepository.getHeroByName(heroName);
-                                        sendMessage(player.addHero(hero));
+                                        sendMessage(player -> addHero(hero));
                                     } catch (runtime_error &e) {
                                         //sendMessage("SYSTEM", "Error cargando heroe, " + to_string(e.what()) + endl);
                                         cout << "Error cargando heroe, " << e.what() << endl;
@@ -754,12 +754,12 @@ int main() {
                             break;
                         }
                         case 2: {
-                            if (!player.getHeroes().empty()) {
+                            if (!player -> getHeroes().empty()) {
                                 string heroName;
                                 cout << "Escribe el nombre del heroe que deseas eliminar: ";
                                 getline(cin, heroName);
 
-                                bool removed = player.removeHero(heroName);
+                                bool removed = player -> removeHero(heroName);
 
                                 if (removed) {
                                     sendMessage("El heroe fue borrado correctamente.");
@@ -773,8 +773,8 @@ int main() {
                             break;
                         }
                         case 3: {
-                            if (!player.getHeroes().empty()) {
-                                displayHeroes(player.getHeroes());
+                            if (!player -> getHeroes().empty()) {
+                                displayHeroes(player -> getHeroes());
                             } else {
                                 sendMessage("Aun no has seleccionado heroes.");
                             }
@@ -786,7 +786,7 @@ int main() {
                             break;
                         }
                         case 5: {
-                            if (player.getHeroes().size() == MAX_HEROES) {
+                            if (player -> getHeroes().size() == MAX_HEROES) {
                                 //state = "load_dungeons";
                                 state = "Market";
                                 exit = true;
@@ -804,19 +804,20 @@ int main() {
             }
         } else if (state == "load_dungeons") {
             sendMessage("Cargando dungeons...");
-            dungeon = Dungeon(player);
+            dungeon = new Dungeon(*player);
             //dungeon = loadDungeon(player, itemRepository);
             state = "Ready";
+            //cout << "Referencia del jugador: " << &(*player) << endl;
 
         } else if (state == "Ready") {
             enterToContinue();
 
-            if (startRoom(player, dungeon)) {
-                player.increaseCurrentRoom(1);
+            if (startRoom(*player, *dungeon)) {
+                player -> increaseCurrentRoom(1);
 
                 cout << "hola" << endl;
 
-                if (player.getCurrentRoom() >= dungeon.getRooms().size()) {
+                if (player -> getCurrentRoom() >= dungeon->getRooms().size()) {
                     // Ya gano, esto falta acomodarlo ipipipipipipi
                     cout << "ya gano" << endl;
                     enable = false;
@@ -827,17 +828,20 @@ int main() {
                 state = "end_game";
             }
         } else if (state == "Market") {
-            displayMarket(player, market);
+            displayMarket(*player, market);
 
             state = "load_dungeons";
         } else if (state == "Inventory") {
-            if (displayInventory(player) == true) {
+            if (displayInventory(*player) == true) {
                 state = "Ready";
             }
         } else if (state == "end_game") {
             cout << "Ya perdiste" << endl;
         }
     }
+
+    delete player;
+    delete dungeon;
 
     return 0;
 }

@@ -30,8 +30,8 @@ public:
     std::vector<Weapon> getWeapons();
     std::vector<Potion> getPotions();
 
-    void addArmor(Armor& armor);
-    void addWeapon(Weapon& weapon);
+    void addArmor(Armor armor);
+    void addWeapon(Weapon weapon);
     void addPotion(Potion potion);
 };
 

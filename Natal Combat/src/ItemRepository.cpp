@@ -94,7 +94,7 @@ ItemRepository::ItemRepository() {
     }
 }
 
-Armor ItemRepository::getArmorByName(const std::string &name) const {
+Armor ItemRepository::getArmorByName(const std::string &name) {
     for (const auto armor : armors) {
         if (armor.getName() == name) {
             return armor;
@@ -104,7 +104,7 @@ Armor ItemRepository::getArmorByName(const std::string &name) const {
     throw std::runtime_error("No se encontro la armadura " + name);
 }
 
-Weapon ItemRepository::getWeaponByName(const std::string &name) const {
+Weapon ItemRepository::getWeaponByName(const std::string &name) {
     for (const auto weapon : weapons) {
         if (weapon.getName() == name) {
             return weapon;
@@ -114,7 +114,7 @@ Weapon ItemRepository::getWeaponByName(const std::string &name) const {
     throw std::runtime_error("No se encontro el arma " + name);
 }
 
-Hero ItemRepository::getHeroByName(const std::string &name) const {
+Hero ItemRepository::getHeroByName(const std::string &name) {
     for (const auto hero : heroes) {
         if (hero.getName() == name) {
             return hero;
@@ -124,7 +124,7 @@ Hero ItemRepository::getHeroByName(const std::string &name) const {
     throw std::runtime_error("No se encontro el heroe " + name);
 }
 
-Attack ItemRepository::getAttackByName(const std::string &name) const {
+Attack ItemRepository::getAttackByName(const std::string &name) {
     for (const auto attack : attacks) {
         if (attack.getName() == name) {
             return attack;

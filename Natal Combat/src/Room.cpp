@@ -4,10 +4,11 @@
 
 #include "../include/Room.h"
 
-Room::Room(const std::string &name, const Player &player, Reward& reward) {
-    this -> name = name;
-    this -> player = player;
-    this -> reward = reward;
+#include <iostream>
+
+Room::Room(const std::string &name, Player &player, Reward& reward): player(&player) {
+    this->name = name;
+    this->reward = reward;
 }
 
 void Room::addEnemy(const Enemy &enemy) {
@@ -46,21 +47,24 @@ Reward& Room::getReward() {
 
 
 std::string Room::giveReward() {
+    std::cout << "Referencia del jugador: " << &player << std::endl;
     if (!reward.getWeapons().empty()) {
         for (auto& weapon : reward.getWeapons()) {
-            player.getInventory().addWeapon(weapon);
+            player -> getInventory().addWeapon(weapon);
         }
     }
 
     if (!reward.getArmors().empty()) {
         for (auto& armor : reward.getArmors()) {
-            player.getInventory().addArmor(armor);
+            player -> getInventory().addArmor(armor);
         }
     }
 
+    std::cout << reward.getPotions().size() << std::endl;
+
     if (!reward.getPotions().empty()) {
         for (auto& potion : reward.getPotions()) {
-            player.getInventory().addPotion(potion);
+            player -> getInventory().addPotion(potion);
         }
     }
 

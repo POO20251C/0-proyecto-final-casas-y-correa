@@ -27,10 +27,10 @@ private:
 public:
     static ItemRepository& getInstance();
 
-    Armor getArmorByName(const std::string &name) const;
-    Weapon getWeaponByName(const std::string &name) const;
-    Hero getHeroByName(const std::string &name) const;
-    Attack getAttackByName(const std::string &name) const;
+    Armor getArmorByName(const std::string &name);
+    Weapon getWeaponByName(const std::string &name);
+    Hero getHeroByName(const std::string &name);
+    Attack getAttackByName(const std::string &name);
     Potion getPotionByName(const std::string &name);
 
     std::vector<Hero> getHeroes() const;
