@@ -3,8 +3,6 @@
 
 #include <string>
 
-//#include "Enemy.h"
-
 class Attack {
 private:
     std::string name;
@@ -21,8 +19,6 @@ public:
 
     float getPower() const;
     int getAccuracy() const;
-
-    //std::string fire(const Enemy &enemy);
 };
 
 

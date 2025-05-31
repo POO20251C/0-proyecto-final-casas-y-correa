@@ -18,7 +18,6 @@ private:
 
     void loadDungeon();
 public:
-    //Dungeon() = default;
     Dungeon(Player &player);
 
     Room getRoom(int room) const;

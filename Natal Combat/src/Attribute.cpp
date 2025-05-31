@@ -1,7 +1,3 @@
-//
-// Created by alejandro10213 on 12/05/2025.
-//
-
 #include "../include/Attribute.h"
 
 Attribute::Attribute(int max_hp, int atk, int def, int spd, int lck) {

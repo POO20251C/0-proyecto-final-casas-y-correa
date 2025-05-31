@@ -83,19 +83,17 @@ void Character::addAttack(const Attack &attack) {
 }
 
 int Character::calcRealDamage(int damage, int k = 100) const {
-    double numerator = static_cast<double>(damage * k);
-    double denominator = static_cast<double>(k + getArmor().getDef());
+    double numerator = damage * k;
+    double denominator = k + getArmor().getDef();
 
     int result = static_cast<int>(std::ceil(numerator / denominator));
 
-    return result   ;
+    return result;
 }
 
 int Character::getAttackDamage(const Attack &attack) const {
     float powerAttack = attack.getPower();
     int baseAtk = attributes.getAtk();
-
-    int result = baseAtk * powerAttack;
 
     return baseAtk * powerAttack;
 }

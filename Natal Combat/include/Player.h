@@ -19,6 +19,8 @@ private:
     std::string name;
     Inventory inventory;
     int currentRoom;
+    int score;
+    int totalHealthLost;
 
     void orderHeroes();
 public:
@@ -32,6 +34,11 @@ public:
     int getCurrentRoom();
 
     void increaseCurrentRoom(int amoun);
+    void increaseScore(int amount);
+    int getScore() const;
+
+    void increaseHealthLost(int amount);
+    int getTotalHealthLost() const;
 
     bool removeHero(const std::string &name);
     void setMoney(int money);

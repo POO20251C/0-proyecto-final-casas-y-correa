@@ -1,7 +1,3 @@
-//
-// Created by caren on 21/05/2025.
-//
-
 #include "../include/Reward.h"
 
 Reward::Reward(const std::string& name) {

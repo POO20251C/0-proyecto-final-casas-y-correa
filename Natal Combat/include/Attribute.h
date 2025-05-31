@@ -3,8 +3,6 @@
 #ifndef ATTRIBUTE_H
 #define ATTRIBUTE_H
 
-
-
 class Attribute {
 private:
     int max_hp;

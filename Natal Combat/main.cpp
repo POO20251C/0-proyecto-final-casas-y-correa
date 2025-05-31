@@ -12,6 +12,7 @@
 #include "include/Dungeon.h"
 #include "include/ItemRepository.h"
 #include "include/Market.h"
+#include "include/Score.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -23,7 +24,7 @@ const string helperName = "Gonzo";
 
 // Funciones auxiliares
 void sendMessage(const string &message) {
-    cout << "Gonzo" << ": " << message << endl;
+    cout << helperName << ": " << message << endl;
 }
 
 void enterToContinue() {
@@ -108,7 +109,7 @@ void displayHeroAttacks(const Hero &hero) {
 }
 
 void displayInventoryWeapons(Player &player) {
-    vector<Weapon>& weapons = player.getInventory().getWeapons();
+    vector<Weapon> &weapons = player.getInventory().getWeapons();
 
     if (weapons.empty()) {
         sendMessage("No tienes armas en este momento.");
@@ -136,25 +137,22 @@ void displayInventoryWeapons(Player &player) {
 
         int heroOption = getOption();
         if (heroOption > 0 && heroOption <= (player.getHeroes().size())) {
-            Hero& hero = player.getHeroes()[heroOption - 1];
+            Hero &hero = player.getHeroes()[heroOption - 1];
 
             if (hero.getWeapon().getName() != selectedWeapon.getName()) {
                 Weapon oldWeapon = hero.getWeapon();
 
                 sendMessage(hero.equipWeapon(selectedWeapon)); // equipa
-                player.getInventory().addWeapon(oldWeapon);    // guarda arma anterior
+                player.getInventory().addWeapon(oldWeapon); // guarda arma anterior
                 player.getInventory().removeWeapon(selectedWeapon); // elimina arma equipada
-
             } else {
                 sendMessage("El heroe seleccionado ya tiene esta arma.");
             }
 
             return;
-
         } else {
             sendMessage("Opcion de heroe invalida.");
         }
-
     } else {
         sendMessage("Opcion invalida.");
     }
@@ -163,7 +161,7 @@ void displayInventoryWeapons(Player &player) {
 }
 
 void displayInventoryArmors(Player &player) {
-    vector<Armor>& armors = player.getInventory().getArmors();
+    vector<Armor> &armors = player.getInventory().getArmors();
 
     if (armors.empty()) {
         sendMessage("No tienes armaduras en este momento.");
@@ -191,25 +189,22 @@ void displayInventoryArmors(Player &player) {
 
         int heroOption = getOption();
         if (heroOption > 0 && heroOption <= player.getHeroes().size()) {
-            Hero& hero = player.getHeroes()[heroOption - 1];
+            Hero &hero = player.getHeroes()[heroOption - 1];
 
             if (hero.getArmor().getName() != selectedArmor.getName()) {
                 Armor oldArmor = hero.getArmor();
 
-                sendMessage(hero.equipArmor(selectedArmor));       // equipa
-                player.getInventory().addArmor(oldArmor);          // guarda armadura anterior
-                player.getInventory().removeArmor(selectedArmor);  // elimina armadura equipada
-
+                sendMessage(hero.equipArmor(selectedArmor)); // equipa
+                player.getInventory().addArmor(oldArmor); // guarda armadura anterior
+                player.getInventory().removeArmor(selectedArmor); // elimina armadura equipada
             } else {
                 sendMessage("El heroe seleccionado ya tiene esta armadura.");
             }
 
             return;
-
         } else {
             sendMessage("Opcion de heroe invalida.");
         }
-
     } else {
         sendMessage("Opcion invalida.");
     }
@@ -218,7 +213,7 @@ void displayInventoryArmors(Player &player) {
 }
 
 void displayInventoryPotions(Player &player) {
-    vector<Potion>& potions = player.getInventory().getPotions();
+    vector<Potion> &potions = player.getInventory().getPotions();
 
     if (potions.empty()) {
         sendMessage("No tienes pociones en este momento.");
@@ -247,7 +242,7 @@ void displayInventoryPotions(Player &player) {
 
         int heroOption = getOption();
         if (heroOption > 0 && heroOption <= player.getHeroes().size()) {
-            Hero& hero = player.getHeroes()[heroOption - 1];
+            Hero &hero = player.getHeroes()[heroOption - 1];
 
             if (selectedPotion.usePotion(hero)) {
                 sendMessage("La pocion fue usada exitosamente!");
@@ -257,11 +252,9 @@ void displayInventoryPotions(Player &player) {
             }
 
             return;
-
         } else {
             sendMessage("Opcion de heroe invalida.");
         }
-
     } else {
         sendMessage("Opcion invalida.");
     }
@@ -273,6 +266,7 @@ bool displayInventory(Player &player) {
     bool exit = false;
 
     cout << "===== INVENTARIO =====" << endl;
+    cout << "Score: " << to_string(player.getScore()) << endl;
     cout << "1. Armas" << endl;
     cout << "2. Armaduras" << endl;
     cout << "3. Posciones" << endl;
@@ -304,7 +298,7 @@ bool displayInventory(Player &player) {
             exit = true;
             break;
         default:
-            cout << "Opcinn no valida. Intenta de nuevo." << endl;
+            sendMessage("Opcion invalida.");
     }
 
     return exit;
@@ -343,7 +337,7 @@ void displayMarketWeapons(Player &player, Market &market) {
         // Salir del menú
         return;
     } else {
-        sendMessage("Opcinn invalida.");
+        sendMessage("Opcion invalida.");
     }
 
     displayMarketWeapons(player, market);
@@ -375,12 +369,12 @@ void displayMarketArmors(Player &player, Market &market) {
             Hero &selectedHero = player.getHeroByIndex(heroOption - 1);
             sendMessage(market.buyArmor(selectedHero, armor_name));
         } else {
-            sendMessage("Opcinn de heroe invalida.");
+            sendMessage("Opcion de heroe invalida.");
         }
     } else if (option == armors.size() + 1) {
         return;
     } else {
-        sendMessage("Opcinn invalida.");
+        sendMessage("Opcion invalida.");
     }
 
     displayMarketArmors(player, market);
@@ -420,65 +414,6 @@ void displayMarket(Player &player, Market &market) {
     displayMarket(player, market);
 }
 
-/*Dungeon loadDungeon(const Player &player, ItemRepository &itemRepository) {
-    Dungeon dungeon(player);
-
-
-    // Room 1
-    Reward rewardRoom1("Cofre");
-    Enemy enemy1("Soldado", Attribute(100, 103, 10, 10, 10), 1, 25);
-
-    Room room1("Mazmorra de las Sombras", player, rewardRoom1);
-
-    enemy1.addAttack(itemRepository.getAttackByName("Golpe fuerte"));
-    room1.addEnemy(enemy1);
-
-    /* Room 2
-
-    Room room2("Caverna del Olvido", player);
-
-
-    Room room3("Cripta del Destino", player);
-
-
-    Room room4("Templo de la Perdicinn", player);
-
-
-    Room room5("Ruinas del Eco", player);
-
-
-    Room room6("Fortaleza de la Agonía", player);
-
-
-    Room room7("Abismo Carmesí", player);
-
-
-    Room room8("Santuario Roto", player);
-
-
-    Room room9("Torre del Silencio", player);
-
-
-    Room room10("Nido de la Niebla", player);
-    Enemy boss("Tung Tung Tung Sahur", Attribute(999, 99, 99, 99, 99), 10, 0);
-    room10.addEnemy(boss);
-
-    dungeon.addRoom(room1);
-    dungeon.addRoom(room2);
-    dungeon.addRoom(room3);
-    dungeon.addRoom(room4);
-    dungeon.addRoom(room5);
-    dungeon.addRoom(room6);
-    dungeon.addRoom(room7);
-    dungeon.addRoom(room8);
-    dungeon.addRoom(room9);
-    dungeon.addRoom(room10);
-
-    dungeon.addRoom(room1);
-
-    return dungeon;
-}*/
-
 bool checkAccuracy(int accuracy) {
     if (accuracy < 0) {
         return false;
@@ -512,11 +447,11 @@ Attack getPlayerAttack(Hero &player_hero) {
 
         return player_hero.getAttackByIndex(option);
     }
-    cout << "Opcion invalida." << endl;
+    sendMessage("Opcion invalida.");
     return getPlayerAttack(player_hero);
 }
 
-void execute_player_attack(Hero &player_hero, Enemy &objetive) {
+void execute_player_attack(Player &player, Hero &player_hero, Enemy &objetive) {
     sendMessage("Turno de " + player_hero.getName() + "(Salud: " + to_string(player_hero.getAttributes().getHp()) +
                 "/" + to_string(player_hero.getAttributes().getMax_hp()) + ")");
 
@@ -525,28 +460,36 @@ void execute_player_attack(Hero &player_hero, Enemy &objetive) {
     // Probabilidad de que el ataque acierte + la suerete base del jugador
     if (checkAccuracy(hero_attack.getAccuracy() + player_hero.getAttributes().getLck())) {
         // Acerto
+        int dmg = objetive.receiveDamage(player_hero.getAttackDamage(hero_attack));
+        int score = 10;
+        // + 10 por acertar el ataque
+        // + dmg
+        // + dmg / 2
+
 
         // Probabilidad de que el enemigo lo esquive
         if (checkDodge(objetive.getAttributes().getLck())) {
             // El enemigo lo esquivo
+            score += dmg / 2;
 
             sendMessage(objetive.getName() + " esquivo el ataque de " + player_hero.getName());
         } else {
             // El enemigo no lo esquiva (recibe daño)
-
-            int dmg = objetive.receiveDamage(player_hero.getAttackDamage(hero_attack));
+            score += dmg;
             sendMessage(
                 "Golpe acertado " + objetive.getName() + " pierde " + to_string(dmg) + " de salud. " +
                 "(Salud: " + to_string(objetive.getAttributes().getHp()) + "/" + to_string(
                     objetive.getAttributes().getMax_hp()) + ")");
         }
+
+        player.increaseScore(score);
     } else {
         // No acerto
         sendMessage(player_hero.getName() + " ha fallado su ataque.");
     }
 }
 
-void execute_enemy_attack(Enemy &enemy, Hero &objetive) {
+void execute_enemy_attack(Player &player, Enemy &enemy, Hero &objetive) {
     sendMessage("Turno de " + enemy.getName() + "(Salud: " + to_string(enemy.getAttributes().getHp()) +
                 "/" + to_string(enemy.getAttributes().getMax_hp()) + ")");
 
@@ -564,6 +507,7 @@ void execute_enemy_attack(Enemy &enemy, Hero &objetive) {
             // El heroe no lo esquiva (recibe daño)
 
             int dmg = objetive.receiveDamage(enemy.getAttackDamage(enemy_attack));
+            player.increaseHealthLost(dmg);
             sendMessage(
                 "Golpe acertado " + objetive.getName() + " pierde " + to_string(dmg) + " de salud. " +
                 "(Salud: " + to_string(objetive.getAttributes().getHp()) + "/" + to_string(
@@ -575,7 +519,7 @@ void execute_enemy_attack(Enemy &enemy, Hero &objetive) {
     }
 }
 
-void displayReward(Reward& reward) {
+void displayReward(Reward &reward) {
     vector<Weapon> reward_weapons = reward.getWeapons();
     vector<Armor> reward_armors = reward.getArmors();
     vector<Potion> reward_potions = reward.getPotions();
@@ -583,7 +527,7 @@ void displayReward(Reward& reward) {
     cout << "===== RECOMPENSAS =====" << endl;
     cout << "Armadursa: " << endl;
     if (!reward_armors.empty()) {
-        for (const auto& armor : reward_armors) {
+        for (const auto &armor: reward_armors) {
             cout << "   - " << armor.getName() << endl;
         }
     } else {
@@ -592,7 +536,7 @@ void displayReward(Reward& reward) {
 
     cout << "Armas: " << endl;
     if (!reward_potions.empty()) {
-        for (const auto& weapon : reward_weapons) {
+        for (const auto &weapon: reward_weapons) {
             cout << "   - " << weapon.getName() << endl;
         }
     } else {
@@ -601,16 +545,12 @@ void displayReward(Reward& reward) {
 
     cout << "Pociones: " << endl;
     if (!reward_potions.empty()) {
-        for (const auto& potion : reward_potions) {
+        for (const auto &potion: reward_potions) {
             cout << "   - " << potion.getName() << endl;
         }
-
     } else {
         cout << "   - No habia niguna pocion." << endl;
     }
-
-
-
 }
 
 bool startRoom(Player &player, Dungeon &dungeon) {
@@ -635,13 +575,13 @@ bool startRoom(Player &player, Dungeon &dungeon) {
             while (objetive.getAttributes().getHp() > 0) {
                 Hero &player_hero = player.getHeroByIndex(currentHeroTurn++);
 
-                execute_player_attack(player_hero, objetive);
+                execute_player_attack(player, player_hero, objetive);
                 if (objetive.getAttributes().getHp() == 0) {
                     break;
                 }
 
                 enterToContinue();
-                execute_enemy_attack(objetive, player_hero);
+                execute_enemy_attack(player, objetive, player_hero);
                 enterToContinue();
 
                 if (player_hero.getAttributes().getHp() == 0) {
@@ -673,7 +613,9 @@ bool startRoom(Player &player, Dungeon &dungeon) {
         if (result) {
             // dar recompensa
             //¡Enhorabuena, [nombre]! Has conseguido derrotar a todos los enemigos de la [zona]. Tu recompensa es un [recompensa].
-            sendMessage("Enhorabuena, " + player.getName() + "! Has conseguido derrotar a todos los enemigos de la " + room.getName() + ". Tu recompensa es un " + room.getRewardName() + ".");
+            sendMessage(
+                "Enhorabuena, " + player.getName() + "! Has conseguido derrotar a todos los enemigos de la " + room.
+                getName() + ". Tu recompensa es un " + room.getRewardName() + ".");
             displayReward(room.getReward());
 
             sendMessage(room.giveReward());
@@ -686,14 +628,59 @@ bool startRoom(Player &player, Dungeon &dungeon) {
     return result;
 }
 
+string formatCurrentTime() {
+    auto now = chrono::system_clock::now();
+    time_t now_c = chrono::system_clock::to_time_t(now);
+
+    tm localTime = *localtime(&now_c);
+
+    ostringstream oss;
+    oss << put_time(&localTime, "%Y-%m-%d %H:%M:%S");
+    return oss.str();
+}
+
+void displayGameRecord(Score &top, Player &player) {
+    string name = player.getName();
+    string date = formatCurrentTime();
+    int room = player.getCurrentRoom();
+    int health = player.getTotalHealthLost();
+    int score = player.getScore();
+
+    top.addScore(name, date, room, health, score);
+
+
+    cout << "--- Registro de Partida ---" << endl;
+    cout << "Nombre: " << name << endl;
+    cout << "Fecha: " << date << endl;
+    cout << "Maxima sala superada: " << room << endl;
+    cout << "Salud perdida: " << health << endl;
+    cout << "----------------------------------" << endl;
+    cout << "Puntuacion final: " << score << endl;
+}
+
+void displayTop5(Score &score) {
+    auto top5 = score.getTop(5);
+
+    if (top5.empty()) {
+        cout << "No hay nadie pepe" << endl;
+    } else {
+        cout << "--- Top 5 Jugadores ---" << endl;
+        for (size_t i = 0; i < top5.size(); ++i) {
+            const auto &r = top5[i];
+            cout << i + 1 << ". " << r.name << " | Score: " << r.score
+                    << " | Fecha: " << r.date << " | Salud perdida: " << r.health
+                    << " | Maxima sala: " << r.rooms << endl;
+        }
+    }
+}
+
 int main() {
     ItemRepository &itemRepository = ItemRepository::getInstance();
     Market market("Mercado");
-    Dungeon* dungeon = nullptr;
+    Dungeon *dungeon = nullptr;
+    Player *player = nullptr;
+    Score score;
 
-    int currentDungeon = 0;
-
-    Player* player = nullptr;
     string state = "Menu";
     string playerName = "None";
 
@@ -712,12 +699,13 @@ int main() {
                     state = "Init";
                     break;
                 case 2:
+                    displayTop5(score);
                     break;
                 case 3:
                     enable = false;
                     break;
                 default:
-                    cout << "Opcion invalida." << endl;
+                    sendMessage("Opcion invalida.");
             }
 
 
@@ -749,15 +737,15 @@ int main() {
 
                     switch (option) {
                         case 1: {
-                            if (player -> getHeroes().size() < MAX_HEROES) {
+                            if (player->getHeroes().size() < MAX_HEROES) {
                                 string heroName;
                                 cout << "Para seleccionar a un heroe, escribe su nombre: ";
                                 getline(cin, heroName);
 
-                                if (!player -> isHeroExists(heroName)) {
+                                if (!player->isHeroExists(heroName)) {
                                     try {
                                         Hero hero = itemRepository.getHeroByName(heroName);
-                                        sendMessage(player -> addHero(hero));
+                                        sendMessage(player->addHero(hero));
                                     } catch (runtime_error &e) {
                                         //sendMessage("SYSTEM", "Error cargando heroe, " + to_string(e.what()) + endl);
                                         cout << "Error cargando heroe, " << e.what() << endl;
@@ -771,12 +759,12 @@ int main() {
                             break;
                         }
                         case 2: {
-                            if (!player -> getHeroes().empty()) {
+                            if (!player->getHeroes().empty()) {
                                 string heroName;
                                 cout << "Escribe el nombre del heroe que deseas eliminar: ";
                                 getline(cin, heroName);
 
-                                bool removed = player -> removeHero(heroName);
+                                bool removed = player->removeHero(heroName);
 
                                 if (removed) {
                                     sendMessage("El heroe fue borrado correctamente.");
@@ -790,8 +778,8 @@ int main() {
                             break;
                         }
                         case 3: {
-                            if (!player -> getHeroes().empty()) {
-                                displayHeroes(player -> getHeroes());
+                            if (!player->getHeroes().empty()) {
+                                displayHeroes(player->getHeroes());
                             } else {
                                 sendMessage("Aun no has seleccionado heroes.");
                             }
@@ -803,7 +791,7 @@ int main() {
                             break;
                         }
                         case 5: {
-                            if (player -> getHeroes().size() == MAX_HEROES) {
+                            if (player->getHeroes().size() == MAX_HEROES) {
                                 //state = "load_dungeons";
                                 state = "Market";
                                 exit = true;
@@ -814,7 +802,7 @@ int main() {
                         }
 
                         default:
-                            cout << "Opcion invalida." << endl;
+                            sendMessage("Opcion invalida.");
                             break;
                     }
                 }
@@ -822,23 +810,18 @@ int main() {
         } else if (state == "load_dungeons") {
             sendMessage("Cargando dungeons...");
             dungeon = new Dungeon(*player);
-            //dungeon = loadDungeon(player, itemRepository);
             state = "Ready";
-            //cout << "Referencia del jugador: " << &(*player) << endl;
-
         } else if (state == "Ready") {
             enterToContinue();
 
             if (startRoom(*player, *dungeon)) {
-                player -> increaseCurrentRoom(1);
+                player->increaseCurrentRoom(1);
 
-                cout << "hola" << endl;
-
-                if (player -> getCurrentRoom() >= dungeon->getRooms().size()) {
-                    // Ya gano, esto falta acomodarlo ipipipipipipi
-                    cout << "ya gano" << endl;
+                if (player->getCurrentRoom() >= dungeon->getRooms().size()) {
+                    sendMessage("Felicidades, has superado todas las dungeons!");
                     enable = false;
                 } else {
+                    player->increaseScore(100); // + 100 por cada mazmorra
                     state = "Inventory";
                 }
             } else {
@@ -853,9 +836,19 @@ int main() {
                 state = "Ready";
             }
         } else if (state == "end_game") {
-            cout << "Ya perdiste" << endl;
+            sendMessage("Has sido derrotado. No lograste completar todas las dungeons :(.");
         }
     }
+
+    if (player != nullptr) {
+        sendMessage("Tu puntuacion se mostrara a continuacion...");
+        enterToContinue();
+
+
+        displayGameRecord(score, *player);
+    }
+
+    displayTop5(score);
 
     delete player;
     delete dungeon;

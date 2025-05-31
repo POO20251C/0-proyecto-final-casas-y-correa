@@ -1,8 +1,3 @@
-//
-// Created by alejandro10213 on 14/05/2025.
-//
-
-
 #include "../include/Player.h"
 
 #include <algorithm>
@@ -12,6 +7,8 @@
 Player::Player(const std::string &name){
     this -> name = name;
     this -> currentRoom = 0;
+    this -> score = 0;
+    this -> totalHealthLost = 0;
     // ItemRepository& itemRepository = ItemRepository::getInstance();
     // //inventory = Inventory();
     // //money = 100;
@@ -47,6 +44,23 @@ Hero& Player::getHero(const std::string &name) {
 void Player::increaseCurrentRoom(int amount) {
     currentRoom += amount;
 }
+
+void Player::increaseScore(int amount) {
+    score += amount;
+}
+
+int Player::getScore() const {
+    return score;
+}
+
+void Player::increaseHealthLost(int amount) {
+    totalHealthLost += amount;
+}
+
+int Player::getTotalHealthLost() const {
+    return totalHealthLost;
+}
+
 
 
 Hero& Player::getHeroByIndex(int index) {

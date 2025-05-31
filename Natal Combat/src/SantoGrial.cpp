@@ -1,7 +1,3 @@
-//
-// Created by caren on 21/05/2025.
-//
-
 #include "../include/SantoGrial.h"
 
 SantoGrial::SantoGrial(std::vector<Hero*> heroes){

@@ -1,7 +1,3 @@
-//
-// Created by alejandro10213 on 22/05/2025.
-//
-
 #include "../include/Room.h"
 
 #include <iostream>
@@ -47,7 +43,6 @@ Reward& Room::getReward() {
 
 
 std::string Room::giveReward() {
-    std::cout << "Referencia del jugador: " << &player << std::endl;
     if (!reward.getWeapons().empty()) {
         for (auto& weapon : reward.getWeapons()) {
             player -> getInventory().addWeapon(weapon);
@@ -59,8 +54,6 @@ std::string Room::giveReward() {
             player -> getInventory().addArmor(armor);
         }
     }
-
-    std::cout << reward.getPotions().size() << std::endl;
 
     if (!reward.getPotions().empty()) {
         for (auto& potion : reward.getPotions()) {

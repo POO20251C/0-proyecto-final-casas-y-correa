@@ -7,13 +7,11 @@ class Armor {
 private:
     std::string name;
     int def;
-    int value;
 public:
     Armor() = default;
     Armor(const std::string &name, int def);
     std::string getName() const;
     int getDef() const;
-    int getValue() const;
     void setValue(int value);
 };
 

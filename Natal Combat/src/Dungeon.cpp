@@ -1,18 +1,8 @@
-//
-// Created by alejandro10213 on 22/05/2025.
-//
-
 #include "../include/Dungeon.h"
-
-#include <iostream>
-
 #include "../include/ItemRepository.h"
 
 Dungeon::Dungeon(Player &player) : player(player) {
     this->loadDungeon();
-
-    //std::cout << "Referencia del jugador dentro del dungeon: " << &player << std::endl;
-    //std::cout << "Referencia almacenada: " << &this->player << std::endl;
 }
 
 void Dungeon::loadDungeon() {

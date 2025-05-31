@@ -1,7 +1,3 @@
-//
-// Created by Juan on 24/05/2025.
-//
-
 #include "../include/ItemRepository.h"
 
 #include <iostream>

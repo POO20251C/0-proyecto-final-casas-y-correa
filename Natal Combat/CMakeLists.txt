@@ -19,7 +19,6 @@ add_executable(untitled main.cpp
         src/Room.cpp
         src/ItemRepository.cpp
         src/Potion.cpp
-        include/Potion.h
         src/Market.cpp
-        include/Market.h
+        src/Score.cpp
 )
