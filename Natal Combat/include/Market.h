@@ -31,6 +31,7 @@ private:
     void removePotion(Potion& potion);
 
     Weapon& getWeaponByName(const std::string& name);
+    Armor& getArmorByName(const std::string& name);
 public:
     Market(const std::string& name);
     std::vector<Potion> getPotions();
