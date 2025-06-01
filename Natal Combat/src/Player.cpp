@@ -9,16 +9,6 @@ Player::Player(const std::string &name){
     this -> currentRoom = 0;
     this -> score = 0;
     this -> totalHealthLost = 0;
-    // ItemRepository& itemRepository = ItemRepository::getInstance();
-    // //inventory = Inventory();
-    // //money = 100;
-    //
-    // Weapon wea = itemRepository.getWeaponByName("Espada de Hierro");
-    // Weapon wea1 = itemRepository.getWeaponByName("Hacha de Mano");
-    //
-    //
-    // this->getInventory().addWeapon(wea);
-    // this->getInventory().addWeapon(wea1);
 }
 
 int Player::getCurrentRoom() {
@@ -100,7 +90,7 @@ bool Player::removeHero(const std::string& name) {
 }
 
 void Player::orderHeroes() {
-    std::sort(heroes.begin(), heroes.end(), [](const Hero& a, const Hero& b) {
+    std::sort(heroes.begin(), heroes.end(), [](Hero& a, Hero& b) {
         return a.getAttributes().getSpd() > b.getAttributes().getSpd();
     });
 }
@@ -111,5 +101,24 @@ void Player::usePotion(Hero& hero) {
         if (hero.getAttributes().getHp() > 0) {
             //hero.cureHero(inventory.getPotions()[0].getCure());
         }
+    }
+}
+
+void Player::boostAllStatsByPercentage(int amount) {
+    double factor = amount / 100.0;
+
+    for (auto& hero : heroes) {
+        hero.getAttributes().increaseAttribute("max_hp", static_cast<int>(hero.getAttributes().getMax_hp() * factor));
+        hero.getAttributes().increaseAttribute("atk", static_cast<int>(hero.getAttributes().getAtk() * factor));
+        hero.getAttributes().increaseAttribute("def", static_cast<int>(hero.getAttributes().getDef() * factor));
+        hero.getAttributes().increaseAttribute("spd", static_cast<int>(hero.getAttributes().getSpd() * factor));
+        hero.getAttributes().increaseAttribute("lck", static_cast<int>(hero.getAttributes().getLck() * factor));
+    }
+}
+
+
+void Player::restoreFullHealth() {
+    for (auto& hero : heroes) {
+        hero.getAttributes().increaseAttribute("hp", hero.getAttributes().getMax_hp());
     }
 }

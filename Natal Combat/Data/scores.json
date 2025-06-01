@@ -5,5 +5,19 @@
         "Name": "Test",
         "Rooms": 2,
         "Score": 1066
+    },
+    {
+        "Date": "2025-06-01 00:02:08",
+        "Health": 0,
+        "Name": "Alejandro",
+        "Rooms": 2,
+        "Score": 829
+    },
+    {
+        "Date": "2025-06-01 00:21:36",
+        "Health": 0,
+        "Name": "Alejo",
+        "Rooms": 1,
+        "Score": 583
     }
 ]

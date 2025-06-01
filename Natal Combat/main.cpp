@@ -52,6 +52,7 @@ int getOption() {
     return 0;
 }
 
+
 void displayHero(Hero &hero) {
     const Attribute attributes = hero.getAttributes();
     Weapon weapon = hero.getWeapon();
@@ -271,7 +272,8 @@ bool displayInventory(Player &player) {
     cout << "2. Armaduras" << endl;
     cout << "3. Posciones" << endl;
     cout << "4. Tus Heroes" << endl;
-    cout << "5. Salir" << endl;
+    cout << "5. Abandonar partida" << endl;
+    cout << "6. Salir" << endl;
     int option = getOption();
 
     switch (option) {
@@ -292,8 +294,11 @@ bool displayInventory(Player &player) {
             sendMessage("Mostrando heroes...");
             displayHeroes(player.getHeroes());
             break;
-
         case 5:
+            sendMessage("Partida terminada. Esperamos verte pronto de nuevo...");
+            exit = false;
+            break;
+        case 6:
             sendMessage("Saliendo del inventario...");
             exit = true;
             break;
@@ -559,11 +564,8 @@ bool startRoom(Player &player, Dungeon &dungeon) {
     int currentHeroTurn = 0;
 
     bool result = true;
-    cout << "holaaa" << endl;
 
     try {
-        cout << player.getCurrentRoom() << endl;
-        cout << dungeon.getRooms().size() << endl;
         Room room = dungeon.getRoom(player.getCurrentRoom());
         sendMessage("Bienvenido a la " + room.getName());
         while (!room.getEnemies().empty() && result) {
@@ -662,7 +664,7 @@ void displayTop5(Score &score) {
     auto top5 = score.getTop(5);
 
     if (top5.empty()) {
-        cout << "No hay nadie pepe" << endl;
+        cout << "No hay personas en el Top aun. Conviertete en el primero!" << endl;
     } else {
         cout << "--- Top 5 Jugadores ---" << endl;
         for (size_t i = 0; i < top5.size(); ++i) {
@@ -822,6 +824,20 @@ int main() {
                     enable = false;
                 } else {
                     player->increaseScore(100); // + 100 por cada mazmorra
+
+                    if (player -> getCurrentRoom() >= floor(dungeon -> getRooms().size() * 0.8)) {
+                        // Si supero el 80% del juego entonces evento santo grial
+                        // vida y 10% mas de stats
+
+                        player -> restoreFullHealth();
+                        player -> boostAllStatsByPercentage(10);
+
+                        sendMessage("Has encontrado el Santo Grial.");
+                        enterToContinue();
+                        sendMessage("Salud restaurada y +10% en todas las estadísticas.");
+                        enterToContinue();
+                    }
+
                     state = "Inventory";
                 }
             } else {
@@ -834,6 +850,8 @@ int main() {
         } else if (state == "Inventory") {
             if (displayInventory(*player) == true) {
                 state = "Ready";
+            } else {
+                enable = false;
             }
         } else if (state == "end_game") {
             sendMessage("Has sido derrotado. No lograste completar todas las dungeons :(.");

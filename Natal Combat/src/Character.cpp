@@ -20,7 +20,7 @@ std::string Character::getName() const {
     return name;
 }
 
-Attribute Character::getAttributes() const {
+Attribute& Character::getAttributes() {
     return attributes;
 }
 

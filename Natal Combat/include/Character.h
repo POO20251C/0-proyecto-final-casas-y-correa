@@ -24,7 +24,8 @@ public:
     Character(const std::string &name, const Attribute &attributes);
 
     std::string getName() const;
-    Attribute getAttributes() const;
+
+    Attribute& getAttributes();
     Weapon& getWeapon();
     Armor getArmor() const;
 

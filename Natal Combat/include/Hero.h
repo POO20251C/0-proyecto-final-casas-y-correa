@@ -11,8 +11,6 @@ class Hero : public Character {
 public:
     Hero() = default;
     Hero(const std::string &name, const Attribute &attributes);
-
-    void cureHero(int cure);
 };
 
 
