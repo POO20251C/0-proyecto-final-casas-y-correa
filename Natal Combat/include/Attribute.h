@@ -1,7 +1,7 @@
-#include <string>
-
 #ifndef ATTRIBUTE_H
 #define ATTRIBUTE_H
+
+#include <string>
 
 class Attribute {
 private:

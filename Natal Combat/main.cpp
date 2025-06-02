@@ -263,8 +263,8 @@ void displayInventoryPotions(Player &player) {
     displayInventoryPotions(player);
 }
 
-bool displayInventory(Player &player) {
-    bool exit = false;
+string displayInventory(Player &player) {
+    string result = "continue";
 
     cout << "===== INVENTARIO =====" << endl;
     cout << "Score: " << to_string(player.getScore()) << endl;
@@ -296,17 +296,17 @@ bool displayInventory(Player &player) {
             break;
         case 5:
             sendMessage("Partida terminada. Esperamos verte pronto de nuevo...");
-            exit = false;
+            result = "quit";
             break;
         case 6:
             sendMessage("Saliendo del inventario...");
-            exit = true;
+            result = "exit";
             break;
         default:
             sendMessage("Opcion invalida.");
     }
 
-    return exit;
+    return result;
 }
 
 void displayMarketWeapons(Player &player, Market &market) {
@@ -327,19 +327,19 @@ void displayMarketWeapons(Player &player, Market &market) {
 
         sendMessage("Selecciona un heroe para equipar el arma:");
         for (size_t i = 0; i < player.getHeroes().size(); ++i) {
-            Hero &hero = player.getHeroByIndex(i);
+            Hero &hero = player.getHeroes()[i];
             cout << i + 1 << ". " << hero.getName() << endl;
         }
 
         int heroOption = getOption();
         if (heroOption > 0 && heroOption <= player.getHeroes().size()) {
-            Hero &selectedHero = player.getHeroByIndex(heroOption - 1);
+            Hero &selectedHero = player.getHeroes()[heroOption - 1];
             sendMessage(market.buyWeapon(selectedHero, weapon_name));
         } else {
             sendMessage("Opcion de heroe invalida.");
         }
     } else if (option == weapons.size() + 1) {
-        // Salir del menú
+        // Salir del menu
         return;
     } else {
         sendMessage("Opcion invalida.");
@@ -365,13 +365,13 @@ void displayMarketArmors(Player &player, Market &market) {
 
         sendMessage("Selecciona un heroe para equipar la armadura:");
         for (size_t i = 0; i < player.getHeroes().size(); ++i) {
-            Hero &hero = player.getHeroByIndex(i);
+            Hero &hero = player.getHeroes()[i];
             cout << i + 1 << ". " << hero.getName() << endl;
         }
 
         int heroOption = getOption();
         if (heroOption > 0 && heroOption <= player.getHeroes().size()) {
-            Hero &selectedHero = player.getHeroByIndex(heroOption - 1);
+            Hero &selectedHero = player.getHeroes()[heroOption - 1];
             sendMessage(market.buyArmor(selectedHero, armor_name));
         } else {
             sendMessage("Opcion de heroe invalida.");
@@ -575,7 +575,7 @@ bool startRoom(Player &player, Dungeon &dungeon) {
                 "Un enemigo de rango " + to_string(objetive.getRank()) + " ha aparecido! Preparate para derrotarlo!");
 
             while (objetive.getAttributes().getHp() > 0) {
-                Hero &player_hero = player.getHeroByIndex(currentHeroTurn++);
+                Hero &player_hero = player.getHeroes()[currentHeroTurn++];
 
                 execute_player_attack(player, player_hero, objetive);
                 if (objetive.getAttributes().getHp() == 0) {
@@ -588,7 +588,7 @@ bool startRoom(Player &player, Dungeon &dungeon) {
 
                 if (player_hero.getAttributes().getHp() == 0) {
                     sendMessage(
-                        player_hero.getName() + " ha caído en batalla a manos de " + objetive.getName() + "...");
+                        player_hero.getName() + " ha caido en batalla a manos de " + objetive.getName() + "...");
                     player.removeHero(player_hero.getName());
                     sendMessage(
                         "Te quedan " + to_string(player.getHeroes().size()) + " de " + to_string(MIN_HEORES) +
@@ -834,7 +834,7 @@ int main() {
 
                         sendMessage("Has encontrado el Santo Grial.");
                         enterToContinue();
-                        sendMessage("Salud restaurada y +10% en todas las estadísticas.");
+                        sendMessage("Salud restaurada y +10% en todas las estadisticas.");
                         enterToContinue();
                     }
 
@@ -848,9 +848,10 @@ int main() {
 
             state = "load_dungeons";
         } else if (state == "Inventory") {
-            if (displayInventory(*player) == true) {
+            string result = displayInventory(*player);
+            if (result == "exit") {
                 state = "Ready";
-            } else {
+            } else if (result == "quit") {
                 enable = false;
             }
         } else if (state == "end_game") {

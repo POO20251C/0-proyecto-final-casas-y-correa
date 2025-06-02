@@ -1,7 +1,3 @@
-//
-// Created by caren on 26/05/2025.
-//
-
 #include "../include/Market.h"
 #include "../include/ItemRepository.h"
 Market::Market(const std::string& name) {

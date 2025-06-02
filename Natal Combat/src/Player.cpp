@@ -23,14 +23,6 @@ std::string Player::getName() const {
     return name;
 }
 
-Hero& Player::getHero(const std::string &name) {
-    for (auto &hero : heroes) {
-        if (hero.getName() == name) {
-            return hero;
-        }
-    }
-}
-
 void Player::increaseCurrentRoom(int amount) {
     currentRoom += amount;
 }
@@ -51,11 +43,6 @@ int Player::getTotalHealthLost() const {
     return totalHealthLost;
 }
 
-
-
-Hero& Player::getHeroByIndex(int index) {
-    return heroes[index];
-}
 
 Inventory& Player::getInventory() {
     return inventory;
@@ -93,15 +80,6 @@ void Player::orderHeroes() {
     std::sort(heroes.begin(), heroes.end(), [](Hero& a, Hero& b) {
         return a.getAttributes().getSpd() > b.getAttributes().getSpd();
     });
-}
-
-// Falta manejar las excepciones para usePotion :(
-void Player::usePotion(Hero& hero) {
-    if (!inventory.getPotions().empty()) {
-        if (hero.getAttributes().getHp() > 0) {
-            //hero.cureHero(inventory.getPotions()[0].getCure());
-        }
-    }
 }
 
 void Player::boostAllStatsByPercentage(int amount) {

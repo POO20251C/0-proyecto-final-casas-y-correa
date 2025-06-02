@@ -8,9 +8,9 @@
 ItemRepository::ItemRepository() {
     // Ataques
     // Los ataques tienen un maximo de 70 de presicion
-    attacks.emplace_back("Golpe fuerte", "", 1.1, 70);
-    attacks.emplace_back("hola", "", 5, 100);
-    attacks.emplace_back("one_punch", "", 100, 70);
+    attacks.emplace_back("Golpe fuerte", 1.1, 70);
+    attacks.emplace_back("hola", 5, 100);
+    attacks.emplace_back("one_punch", 100, 70);
 
     // Armaduras
     armors.emplace_back("Sin armadura", 0);
@@ -27,17 +27,17 @@ ItemRepository::ItemRepository() {
 
 
     // Armas
-    weapons.emplace_back("Sin arma", 0, 0);
-    weapons.emplace_back("Espada de Hierro", 10, 10);
-    weapons.emplace_back("Espada Larga de Acero", 65, 10);
-    weapons.emplace_back("Hacha de Mano", 55, 10);
-    weapons.emplace_back("Lanza de Madera Reforzada", 40, 10);
-    weapons.emplace_back("Maza de Bronce", 60, 10);
-    weapons.emplace_back("Daga Curva", 45, 10);
-    weapons.emplace_back("Martillo de Guerra", 70, 10);
-    weapons.emplace_back("Arco de Cazador", 50, 10);
-    weapons.emplace_back("Ballesta Liviana", 55, 10);
-    weapons.emplace_back("Espada Bastarda", 75, 10);
+    weapons.emplace_back("Sin arma", 0);
+    weapons.emplace_back("Espada de Hierro", 10);
+    weapons.emplace_back("Espada Larga de Acero", 65);
+    weapons.emplace_back("Hacha de Mano", 55);
+    weapons.emplace_back("Lanza de Madera Reforzada", 40);
+    weapons.emplace_back("Maza de Bronce", 60);
+    weapons.emplace_back("Daga Curva", 45);
+    weapons.emplace_back("Martillo de Guerra", 70);
+    weapons.emplace_back("Arco de Cazador", 50);
+    weapons.emplace_back("Ballesta Liviana", 55);
+    weapons.emplace_back("Espada Bastarda", 75);
 
     // pociones
     potions.emplace_back("Pocion Pequena de Salud", "Health", 10);

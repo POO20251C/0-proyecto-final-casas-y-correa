@@ -1,7 +1,3 @@
-//
-// Created by caren on 26/05/2025.
-//
-
 #ifndef MARKET_H
 #define MARKET_H
 

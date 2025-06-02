@@ -1,7 +1,3 @@
-//
-// Created by Juan on 24/05/2025.
-//
-
 #ifndef ITEMREPOSITORY_H
 #define ITEMREPOSITORY_H
 

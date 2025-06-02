@@ -1,6 +1,3 @@
-//
-// Created by alejandro10213 on 22/05/2025.
-//
 #ifndef ROOM_H
 #define ROOM_H
 
@@ -29,8 +26,6 @@ public:
 
     std::string giveReward();
     std::string getRewardName();
-
-
 };
 
 

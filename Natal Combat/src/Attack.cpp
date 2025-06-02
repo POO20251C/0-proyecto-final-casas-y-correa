@@ -1,8 +1,7 @@
 #include "../include/Attack.h"
 
-Attack::Attack(const std::string &name, const std::string &action, float power, int accuracy) {
+Attack::Attack(const std::string &name, float power, int accuracy) {
     this->name = name;
-    this->action = action;
     this->power = power;
 
     if (accuracy > 70) {

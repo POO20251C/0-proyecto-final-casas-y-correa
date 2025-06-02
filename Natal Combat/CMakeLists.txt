@@ -11,7 +11,6 @@ add_executable(untitled main.cpp
         src/Weapon.cpp
         src/Hero.cpp
         src/Player.cpp
-        src/SantoGrial.cpp
         src/Reward.cpp
         src/Inventory.cpp
         src/Enemy.cpp

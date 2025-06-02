@@ -1,7 +1,3 @@
-//
-// Created by caren on 21/05/2025.
-//
-
 #ifndef INVENTORY_H
 #define INVENTORY_H
 

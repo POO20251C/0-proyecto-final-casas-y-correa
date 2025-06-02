@@ -12,7 +12,6 @@ public:
     Armor(const std::string &name, int def);
     std::string getName() const;
     int getDef() const;
-    void setValue(int value);
 };
 
 

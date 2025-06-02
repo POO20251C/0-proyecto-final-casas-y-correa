@@ -1,7 +1,3 @@
-//
-// Created by alejandro10213 on 22/05/2025.
-//
-
 #ifndef ENEMY_H
 #define ENEMY_H
 

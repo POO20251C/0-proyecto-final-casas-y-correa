@@ -1,7 +1,3 @@
-//
-// Created by Juan on 31/05/2025.
-//
-
 #ifndef SCORE_H
 #define SCORE_H
 

@@ -1,7 +1,3 @@
-//
-// Created by caren on 21/05/2025.
-//
-
 #ifndef CHEST_H
 #define CHEST_H
 
