@@ -530,7 +530,7 @@ void displayReward(Reward &reward) {
     vector<Potion> reward_potions = reward.getPotions();
 
     cout << "===== RECOMPENSAS =====" << endl;
-    cout << "Armadursa: " << endl;
+    cout << "Armadura: " << endl;
     if (!reward_armors.empty()) {
         for (const auto &armor: reward_armors) {
             cout << "   - " << armor.getName() << endl;

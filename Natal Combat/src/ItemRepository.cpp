@@ -6,27 +6,41 @@
 
 
 ItemRepository::ItemRepository() {
-    // Ataques
+
+    // Ataques:
     // Los ataques tienen un maximo de 70 de presicion
     attacks.emplace_back("Golpe fuerte", 1.1, 70);
     attacks.emplace_back("hola", 5, 100);
     attacks.emplace_back("one_punch", 100, 70);
+    //Ataques de los enemigo
+    attacks.emplace_back("Drago_Aliento", 120, 52);
+    attacks.emplace_back("Estocada_Oscura", 100, 65);
+    attacks.emplace_back("Golpe_Oseo", 20, 70);
+    attacks.emplace_back("Abracadabra", 60, 70);
+    attacks.emplace_back("Bofetada", 30, 70);
+    attacks.emplace_back("Picadura_poderoza", 50, 70);
+    attacks.emplace_back("Impacto_rocoso", 70, 50);
+    attacks.emplace_back("Ice_age", 108, 70);
+    attacks.emplace_back("Golpe_de_Gracia", 130, 70);
 
     // Armaduras
     armors.emplace_back("Sin armadura", 0);
+    armors.emplace_back("Ropaje", 10);
+    armors.emplace_back("Armadura de huesos", 20);
     armors.emplace_back("Armadura de Hierro", 60);
     armors.emplace_back("Armadura de Acero", 70);
     armors.emplace_back("Armadura de Cuero Reforzado", 45);
-    armors.emplace_back("Armadura de Cadena", 55);
     armors.emplace_back("Armadura de Plata", 65);
     armors.emplace_back("Armadura de Bronce", 50);
     armors.emplace_back("Armadura de Titanio", 80);
     armors.emplace_back("Armadura de Escamas", 40);
     armors.emplace_back("Armadura de Laton", 48);
-    armors.emplace_back("Armadura de Placas", 75);
+    armors.emplace_back("Tunica magica", 45);
+    armors.emplace_back("Cota de malla", 32);
+    armors.emplace_back("Armadura Berserker", 90);
+    armors.emplace_back("Armadura de escamas de dragon", 80);
 
-
-    // Armas
+    // Armas:
     weapons.emplace_back("Sin arma", 0);
     weapons.emplace_back("Espada de Hierro", 10);
     weapons.emplace_back("Espada Larga de Acero", 65);
@@ -38,6 +52,10 @@ ItemRepository::ItemRepository() {
     weapons.emplace_back("Arco de Cazador", 50);
     weapons.emplace_back("Ballesta Liviana", 55);
     weapons.emplace_back("Espada Bastarda", 75);
+    weapons.emplace_back("Dragon slayer", 100);
+    weapons.emplace_back("Colmillo de sabueso", 80);
+    weapons.emplace_back("Katana", 75);
+    weapons.emplace_back("Chainsaw", 70);
 
     // pociones
     potions.emplace_back("Pocion Pequena de Salud", "Health", 10);
@@ -47,7 +65,7 @@ ItemRepository::ItemRepository() {
 
 
     try {
-        std::string name1 = "Pollo";
+        std::string name1 = "a";
         Attribute attribute1(10000, 430, 50, 444, 500);
         Hero hero1(name1, attribute1);
         hero1.equipArmor(this->getArmorByName("Sin armadura"));
@@ -76,6 +94,7 @@ ItemRepository::ItemRepository() {
         Hero hero4(name4, attribute4);
         hero4.equipArmor(this->getArmorByName("Sin armadura"));
         hero4.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero4.addAttack(this->getAttackByName("Golpe fuerte"));
         heroes.push_back(hero4);
 
         std::string name5 = "e";
@@ -83,6 +102,7 @@ ItemRepository::ItemRepository() {
         Hero hero5(name5, attribute5);
         hero5.equipArmor(this->getArmorByName("Sin armadura"));
         hero5.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero5.addAttack(this->getAttackByName("Golpe fuerte"));
         heroes.push_back(hero5);
 
     } catch (std::runtime_error &e) {
