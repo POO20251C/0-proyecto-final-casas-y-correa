@@ -222,7 +222,7 @@ void displayInventoryPotions(Player &player) {
     }
 
     for (size_t i = 0; i < potions.size(); ++i) {
-        cout << i + 1 << ". x" << potions[i].getStack() << " " << potions[i].getName() << endl;
+        cout << i + 1 << ". x" << potions[i].getStack() << " " << potions[i].getName() << " (+" << potions[i].getAmount() << "%" << endl;
     }
 
     cout << potions.size() + 1 << ". Salir" << endl;
@@ -464,32 +464,23 @@ void execute_player_attack(Player &player, Hero &player_hero, Enemy &objetive) {
 
     // Probabilidad de que el ataque acierte + la suerete base del jugador
     if (checkAccuracy(hero_attack.getAccuracy() + player_hero.getAttributes().getLck())) {
-        // Acerto
-        int dmg = objetive.receiveDamage(player_hero.getAttackDamage(hero_attack));
         int score = 10;
-        // + 10 por acertar el ataque
-        // + dmg
-        // + dmg / 2
 
-
-        // Probabilidad de que el enemigo lo esquive
         if (checkDodge(objetive.getAttributes().getLck())) {
-            // El enemigo lo esquivo
-            score += dmg / 2;
-
+            // Esquiva, no recibe daño
+            //score += 0;
             sendMessage(objetive.getName() + " esquivo el ataque de " + player_hero.getName());
         } else {
-            // El enemigo no lo esquiva (recibe daño)
+            // No esquiva, sí recibe daño
+            int dmg = objetive.receiveDamage(player_hero.getAttackDamage(hero_attack));
             score += dmg;
-            sendMessage(
-                "Golpe acertado " + objetive.getName() + " pierde " + to_string(dmg) + " de salud. " +
-                "(Salud: " + to_string(objetive.getAttributes().getHp()) + "/" + to_string(
-                    objetive.getAttributes().getMax_hp()) + ")");
+            sendMessage("Golpe acertado " + objetive.getName() + " pierde " + to_string(dmg) + " de salud. " +
+                        "(Salud: " + to_string(objetive.getAttributes().getHp()) + "/" +
+                        to_string(objetive.getAttributes().getMax_hp()) + ")");
         }
 
         player.increaseScore(score);
     } else {
-        // No acerto
         sendMessage(player_hero.getName() + " ha fallado su ataque.");
     }
 }
@@ -570,12 +561,19 @@ bool startRoom(Player &player, Dungeon &dungeon) {
         sendMessage("Bienvenido a la " + room.getName());
         while (!room.getEnemies().empty() && result) {
             Enemy &objetive = room.getLowRankEnemy();
+            cout << player.getHeroes().size() << endl;
 
             sendMessage(
                 "Un enemigo de rango " + to_string(objetive.getRank()) + " ha aparecido! Preparate para derrotarlo!");
 
             while (objetive.getAttributes().getHp() > 0) {
-                Hero &player_hero = player.getHeroes()[currentHeroTurn++];
+                currentHeroTurn++;
+
+                if (currentHeroTurn >= player.getHeroes().size()) {
+                    currentHeroTurn = 0;
+                }
+
+                Hero &player_hero = player.getHeroes()[currentHeroTurn];
 
                 execute_player_attack(player, player_hero, objetive);
                 if (objetive.getAttributes().getHp() == 0) {
@@ -589,7 +587,11 @@ bool startRoom(Player &player, Dungeon &dungeon) {
                 if (player_hero.getAttributes().getHp() == 0) {
                     sendMessage(
                         player_hero.getName() + " ha caido en batalla a manos de " + objetive.getName() + "...");
-                    player.removeHero(player_hero.getName());
+                    if (player.removeHero(player_hero.getName())) {
+                        cout << "si " << endl;
+                    } else {
+                        cout << "No " << endl;
+                    }
                     sendMessage(
                         "Te quedan " + to_string(player.getHeroes().size()) + " de " + to_string(MIN_HEORES) +
                         " heroes.");
@@ -600,10 +602,6 @@ bool startRoom(Player &player, Dungeon &dungeon) {
                     } else {
                         sendMessage("Aun puedes continuar la batalla.");
                     }
-                }
-
-                if (currentHeroTurn >= player.getHeroes().size()) {
-                    currentHeroTurn = 0;
                 }
             }
 
@@ -856,6 +854,7 @@ int main() {
             }
         } else if (state == "end_game") {
             sendMessage("Has sido derrotado. No lograste completar todas las dungeons :(.");
+            enable = false;
         }
     }
 

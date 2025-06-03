@@ -6,22 +6,18 @@
 
 
 ItemRepository::ItemRepository() {
-
     // Ataques:
     // Los ataques tienen un maximo de 70 de presicion
     attacks.emplace_back("Golpe fuerte", 1.1, 70);
-    attacks.emplace_back("hola", 5, 100);
-    attacks.emplace_back("one_punch", 100, 70);
-    //Ataques de los enemigo
-    attacks.emplace_back("Drago_Aliento", 120, 52);
-    attacks.emplace_back("Estocada_Oscura", 100, 65);
-    attacks.emplace_back("Golpe_Oseo", 20, 70);
-    attacks.emplace_back("Abracadabra", 60, 70);
-    attacks.emplace_back("Bofetada", 30, 70);
-    attacks.emplace_back("Picadura_poderoza", 50, 70);
-    attacks.emplace_back("Impacto_rocoso", 70, 50);
-    attacks.emplace_back("Ice_age", 108, 70);
-    attacks.emplace_back("Golpe_de_Gracia", 130, 70);
+    attacks.emplace_back("Drago_Aliento", 2.5, 40);
+    attacks.emplace_back("Estocada_Oscura", 2.0, 50);
+    attacks.emplace_back("Golpe_Oseo", 1.0, 68);
+    attacks.emplace_back("Abracadabra", 1.5, 60);
+    attacks.emplace_back("Bofetada", 0.8, 70);
+    attacks.emplace_back("Picadura_poderoza", 1.4, 65);
+    attacks.emplace_back("Impacto_rocoso", 2.2, 45);
+    attacks.emplace_back("Ice_age", 2.0, 50);
+    attacks.emplace_back("Golpe_de_Gracia", 3.0, 35);
 
     // Armaduras
     armors.emplace_back("Sin armadura", 0);
@@ -65,44 +61,58 @@ ItemRepository::ItemRepository() {
 
 
     try {
-        std::string name1 = "a";
-        Attribute attribute1(10000, 430, 50, 444, 500);
+        std::string name1 = "Kratos";
+        Attribute attribute1(80, 90, 25, 30, 40);
         Hero hero1(name1, attribute1);
-        hero1.equipArmor(this->getArmorByName("Sin armadura"));
-        hero1.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero1.equipArmor(this->getArmorByName("Armadura de Cuero Reforzado"));
+        hero1.equipWeapon(this->getWeaponByName("Espada Bastarda"));
+        hero1.addAttack(this->getAttackByName("Golpe_de_Gracia"));
+        hero1.addAttack(this->getAttackByName("Estocada_Oscura"));
         hero1.addAttack(this->getAttackByName("Golpe fuerte"));
         heroes.push_back(hero1);
 
-        std::string name2 = "b";
-        Attribute attribute2(80, 60, 70, 15, 25);
+
+        std::string name2 = "Atreus";
+        Attribute attribute2(140, 40, 80, 20, 45);
         Hero hero2(name2, attribute2);
-        hero2.equipArmor(this->getArmorByName("Sin armadura"));
-        hero2.equipWeapon(this->getWeaponByName("Sin arma"));
-        hero2.addAttack(this->getAttackByName("Golpe fuerte"));
+        hero2.equipArmor(this->getArmorByName("Armadura de Titanio"));
+        hero2.equipWeapon(this->getWeaponByName("Lanza de Madera Reforzada"));
+        hero2.addAttack(this->getAttackByName("Golpe_Oseo"));
+        hero2.addAttack(this->getAttackByName("Bofetada"));
+        hero2.addAttack(this->getAttackByName("Picadura_poderoza"));
         heroes.push_back(hero2);
 
-        std::string name3 = "c";
-        Attribute attribute3(120, 30, 40, 20, 15);
+
+        std::string name3 = "Ragnar";
+        Attribute attribute3(120, 85, 55, 25, 10);
         Hero hero3(name3, attribute3);
-        hero3.equipArmor(this->getArmorByName("Sin armadura"));
-        hero3.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero3.equipArmor(this->getArmorByName("Armadura Berserker"));
+        hero3.equipWeapon(this->getWeaponByName("Martillo de Guerra"));
+        hero3.addAttack(this->getAttackByName("Impacto_rocoso"));
+        hero3.addAttack(this->getAttackByName("Drago_Aliento"));
         hero3.addAttack(this->getAttackByName("Golpe fuerte"));
         heroes.push_back(hero3);
 
-        std::string name4 = "d";
-        Attribute attribute4(90, 50, 60, 12, 22);
+
+        std::string name4 = "Selene";
+        Attribute attribute4(100, 75, 40, 35, 12);
         Hero hero4(name4, attribute4);
-        hero4.equipArmor(this->getArmorByName("Sin armadura"));
-        hero4.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero4.equipArmor(this->getArmorByName("Tunica magica"));
+        hero4.equipWeapon(this->getWeaponByName("Katana"));
+        hero4.addAttack(this->getAttackByName("Ice_age"));
+        hero4.addAttack(this->getAttackByName("Abracadabra"));
         hero4.addAttack(this->getAttackByName("Golpe fuerte"));
         heroes.push_back(hero4);
 
-        std::string name5 = "e";
-        Attribute attribute5(110, 35, 45, 18, 17);
+
+        std::string name5 = "Lior";
+        Attribute attribute5(110, 65, 60, 30, 35);
         Hero hero5(name5, attribute5);
-        hero5.equipArmor(this->getArmorByName("Sin armadura"));
-        hero5.equipWeapon(this->getWeaponByName("Sin arma"));
+        hero5.equipArmor(this->getArmorByName("Armadura de Plata"));
+        hero5.equipWeapon(this->getWeaponByName("Espada de Hierro"));
         hero5.addAttack(this->getAttackByName("Golpe fuerte"));
+        hero5.addAttack(this->getAttackByName("Abracadabra"));
+        hero5.addAttack(this->getAttackByName("Estocada_Oscura"));
         heroes.push_back(hero5);
 
     } catch (std::runtime_error &e) {
@@ -111,7 +121,7 @@ ItemRepository::ItemRepository() {
 }
 
 Armor ItemRepository::getArmorByName(const std::string &name) {
-    for (const auto armor : armors) {
+    for (const auto armor: armors) {
         if (armor.getName() == name) {
             return armor;
         }
@@ -121,7 +131,7 @@ Armor ItemRepository::getArmorByName(const std::string &name) {
 }
 
 Weapon ItemRepository::getWeaponByName(const std::string &name) {
-    for (const auto weapon : weapons) {
+    for (const auto weapon: weapons) {
         if (weapon.getName() == name) {
             return weapon;
         }
@@ -131,7 +141,7 @@ Weapon ItemRepository::getWeaponByName(const std::string &name) {
 }
 
 Hero ItemRepository::getHeroByName(const std::string &name) {
-    for (const auto hero : heroes) {
+    for (const auto hero: heroes) {
         if (hero.getName() == name) {
             return hero;
         }
@@ -141,7 +151,7 @@ Hero ItemRepository::getHeroByName(const std::string &name) {
 }
 
 Attack ItemRepository::getAttackByName(const std::string &name) {
-    for (const auto attack : attacks) {
+    for (const auto attack: attacks) {
         if (attack.getName() == name) {
             return attack;
         }
@@ -151,7 +161,7 @@ Attack ItemRepository::getAttackByName(const std::string &name) {
 }
 
 Potion ItemRepository::getPotionByName(const std::string &name) {
-    for (auto potion : potions) {
+    for (auto potion: potions) {
         if (potion.getName() == name) {
             return potion;
         }

@@ -30,9 +30,10 @@ int Potion::getAmount() {
 
 bool Potion::usePotion(Hero &hero) {
     if (type == "Health") {
-        int healAmount = amount;
-        int currentHp = hero.getAttributes().getHp();
         int maxHp = hero.getAttributes().getMax_hp();
+        int currentHp = hero.getAttributes().getHp();
+
+        int healAmount = (maxHp * amount) / 100;
 
         int currentHeal = std::min(healAmount, maxHp - currentHp);
         if (currentHeal <= 0) {
@@ -40,9 +41,9 @@ bool Potion::usePotion(Hero &hero) {
         }
 
         hero.getAttributes().increaseAttribute("hp", currentHeal);
-
         return true;
     }
 
     return false;
 }
+

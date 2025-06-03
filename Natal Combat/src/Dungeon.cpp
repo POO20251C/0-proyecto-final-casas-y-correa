@@ -6,69 +6,60 @@ Dungeon::Dungeon(Player &player) : player(player) {
 }
 
 void Dungeon::loadDungeon() {
-    ItemRepository& repo = ItemRepository::getInstance();
+    ItemRepository &repo = ItemRepository::getInstance();
 
     // Room 1
-    // en este cuarto se pelea contra un soldado
     Reward rewardRoom1("Cofre");
     rewardRoom1.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
-    rewardRoom1.addArmor(repo.getArmorByName("Armadura de Cuero Reforzado"));
-    // Enemigos
-    Enemy enemy1_room1("Soldadito de plomo", Attribute(100, 20, 10, 10, 0), 1);
-    //Enemy enemy2_room1("Soldado", Attribute(100, 20, 10, 10, 0), 1);
-    //Enemy enemy3_room1("Soldado", Attribute(100, 20, 10, 10, 0), 1);
-    //Enemy enemy4_room1("Soldado", Attribute(100, 23, 15, 10, 0), 2);
-    //Enemy enemy5_room1("Soldado", Attribute(130, 25, 15, 10, 0), 2);
+    rewardRoom1.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
+    rewardRoom1.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
 
-    // Ataques de enemigos
-    enemy1_room1.addAttack(repo.getAttackByName("one_punch"));
-    //enemy2_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
-    //enemy3_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
-    //enemy4_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
-    //enemy5_room1.addAttack(repo.getAttackByName("Golpe fuerte"));
+    Enemy enemy1_room1("Esbirro débil", Attribute(45, 10, 5, 10, 0), 1);
+    enemy1_room1.addAttack(repo.getAttackByName("Bofetada"));
+    Enemy enemy2_room1("Esbirro débil", Attribute(45, 10, 5, 10, 0), 1);
+    enemy2_room1.addAttack(repo.getAttackByName("Bofetada"));
+    Enemy enemy3_room1("Esbirro débil", Attribute(45, 10, 5, 10, 0), 1);
+    enemy3_room1.addAttack(repo.getAttackByName("Bofetada"));
 
-    // instanciar todo
-    Room room1("Mazmorra de las Sombras", this->player, rewardRoom1);
+    Room room1("Entrada del Susurro", this->player, rewardRoom1);
     room1.addEnemy(enemy1_room1);
-    //room1.addEnemy(enemy2_room1);
-    //room1.addEnemy(enemy3_room1);
-    //room1.addEnemy(enemy4_room1);
-    //room1.addEnemy(enemy5_room1);
+    room1.addEnemy(enemy2_room1);
+    room1.addEnemy(enemy3_room1);
 
     // Room 2
-    // en este cuarto se pelea contra 2 esqueletos
     Reward rewardRoom2("Cofre");
     rewardRoom2.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
     rewardRoom2.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
-    rewardRoom2.addWeapon(repo.getWeaponByName("Lanza de Madera Reforzada"));
 
-    Enemy enemy1_room2("Randy el esqueleto", Attribute(100, 30, 20, 40, 15), 2);
-    enemy1_room2.addAttack(repo.getAttackByName("Golpe_Oseo"));
-    Enemy enemy2_room2("Sans el esqueleto", Attribute(100, 30, 20, 40, 15), 2);
-    enemy2_room2.addAttack(repo.getAttackByName("Golpe_Oseo"));
+    Enemy enemy1_room2("Goblin enclenque", Attribute(55, 12, 6, 18, 3), 1);
+    enemy1_room2.addAttack(repo.getAttackByName("Bofetada"));
+    Enemy enemy2_room2("Goblin enclenque", Attribute(55, 12, 6, 18, 3), 1);
+    enemy2_room2.addAttack(repo.getAttackByName("Bofetada"));
+    Enemy enemy3_room2("Goblin enclenque", Attribute(55, 12, 6, 18, 3), 1);
+    enemy3_room2.addAttack(repo.getAttackByName("Bofetada"));
 
-    Room room2("Burdel de los no muertos", this->player, rewardRoom2);
+    Room room2("Callejón de los Perdidos", this->player, rewardRoom2);
     room2.addEnemy(enemy1_room2);
     room2.addEnemy(enemy2_room2);
+    room2.addEnemy(enemy3_room2);
 
     // Room 3
-    // en esta dungeon se pelea contra 5 gnomos
     Reward rewardRoom3("Cofre");
-    rewardRoom3.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
-    rewardRoom3.addArmor(repo.getArmorByName("Armadura de Hierro"));
+    rewardRoom3.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
+    rewardRoom3.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
 
-    Enemy enemy1_room3("Gnomo", Attribute(60, 9, 15, 25, 60), 3);
+    Enemy enemy1_room3("Murciélago hambriento", Attribute(60, 13, 7, 22, 4), 1);
     enemy1_room3.addAttack(repo.getAttackByName("Bofetada"));
-    Enemy enemy2_room3("Gnomo", Attribute(60, 9, 15, 25, 60), 3);
+    Enemy enemy2_room3("Murciélago hambriento", Attribute(60, 13, 7, 22, 4), 1);
     enemy2_room3.addAttack(repo.getAttackByName("Bofetada"));
-    Enemy enemy3_room3("Gnomo", Attribute(60, 9, 15, 25, 60), 3);
+    Enemy enemy3_room3("Murciélago hambriento", Attribute(60, 13, 7, 22, 4), 1);
     enemy3_room3.addAttack(repo.getAttackByName("Bofetada"));
-    Enemy enemy4_room3("Gnomo", Attribute(60, 9, 15, 25, 60), 3);
+    Enemy enemy4_room3("Murciélago hambriento", Attribute(60, 13, 7, 22, 4), 1);
     enemy4_room3.addAttack(repo.getAttackByName("Bofetada"));
-    Enemy enemy5_room3("Gnomo", Attribute(60, 9, 15, 25, 60), 3);
+    Enemy enemy5_room3("Murciélago hambriento", Attribute(60, 13, 7, 22, 4), 1);
     enemy5_room3.addAttack(repo.getAttackByName("Bofetada"));
 
-    Room room3("Patio del nomo", this->player, rewardRoom3);
+    Room room3("Caverna zumbante", this->player, rewardRoom3);
     room3.addEnemy(enemy1_room3);
     room3.addEnemy(enemy2_room3);
     room3.addEnemy(enemy3_room3);
@@ -76,91 +67,113 @@ void Dungeon::loadDungeon() {
     room3.addEnemy(enemy5_room3);
 
     // Room 4
-    // En este cuarto se pelea contra una araña
     Reward rewardRoom4("Cofre");
-    rewardRoom4.addWeapon(repo.getWeaponByName("Arco de Cazador"));
-    rewardRoom4.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom4.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
     rewardRoom4.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
 
-    Enemy enemy_room4("Araña gigante de las catatumbas", Attribute(120, 60, 40, 50, 40), 4);
-    enemy_room4.addAttack(repo.getAttackByName("Picadura_poderoza"));
+    Enemy enemy1_room4("Esqueleto reanimado", Attribute(70, 14, 9, 15, 2), 1);
+    enemy1_room4.addAttack(repo.getAttackByName("Golpe_Oseo"));
+    Enemy enemy2_room4("Esqueleto reanimado", Attribute(70, 14, 9, 15, 2), 1);
+    enemy2_room4.addAttack(repo.getAttackByName("Golpe_Oseo"));
+    Enemy enemy3_room4("Esqueleto reanimado", Attribute(70, 14, 9, 15, 2), 1);
+    enemy3_room4.addAttack(repo.getAttackByName("Golpe_Oseo"));
+    Enemy enemy4_room4("Esqueleto reanimado", Attribute(70, 14, 9, 15, 2), 1);
+    enemy4_room4.addAttack(repo.getAttackByName("Golpe_Oseo"));
 
-    Room room4("Las Catatumbas", this->player, rewardRoom4);
-    room4.addEnemy(enemy_room4);
+    Room room4("Sala de huesos", this->player, rewardRoom4);
+    room4.addEnemy(enemy1_room4);
+    room4.addEnemy(enemy2_room4);
+    room4.addEnemy(enemy3_room4);
+    room4.addEnemy(enemy4_room4);
 
-    // Room 5
-    // En esta cuarto nos enfrentamos a un golem
     Reward rewardRoom5("Cofre");
-    rewardRoom5.addWeapon(repo.getWeaponByName("Chainsaw"));
-    rewardRoom5.addPotion(repo.getPotionByName("Pocion Grande de Salud"));
-    rewardRoom5.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom5.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
+    rewardRoom5.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
+    rewardRoom5.addArmor(repo.getArmorByName("Armadura de Cuero Reforzado"));
+    rewardRoom5.addWeapon(repo.getWeaponByName("Espada de Novato"));
 
-    Enemy enemy_room5("Fyodor el Golem", Attribute(160, 40, 90, 15, 10), 5);
-    enemy_room5.addAttack(repo.getAttackByName("Impacto_rocoso"));
+    Enemy enemy1_room5("Jefe Orcucho", Attribute(90, 25, 15, 20, 5), 1);
+    enemy1_room5.addAttack(repo.getAttackByName("Golpe fuerte"));
 
-    Room room5("Pradera rocosa", this->player, rewardRoom5);
-    room5.addEnemy(enemy_room5);
+    Room room5("Antro del Jefe", this->player, rewardRoom5);
+    room5.addEnemy(enemy1_room5);
 
     // Room 6
-    // En esta cuarto nos enfrentamos a un hechizero
     Reward rewardRoom6("Cofre");
-    rewardRoom6.addWeapon(repo.getWeaponByName("Katana"));
-    rewardRoom6.addPotion(repo.getPotionByName("Pocion Grande de Salud"));
     rewardRoom6.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom6.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom6.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom6.addArmor(repo.getArmorByName("Armadura de Titanio"));
+    rewardRoom6.addWeapon(repo.getWeaponByName("Espada Larga de Acero"));
 
-    Enemy enemy_room6("Hechizero Merlin", Attribute(110, 75, 70, 60, 99), 6);
-    enemy_room6.addAttack(repo.getAttackByName("Abracadabra"));
+    Enemy enemy1_room6("Espadachin oscuro", Attribute(120, 55, 40, 45, 20), 2);
+    enemy1_room6.addAttack(repo.getAttackByName("Golpe fuerte"));
+    Enemy enemy2_room6("Bandido nocturno", Attribute(105, 50, 35, 55, 25), 2);
+    enemy2_room6.addAttack(repo.getAttackByName("Bofetada"));
 
-    Room room6("Biblioteca del palacio de Noctalia", this->player, rewardRoom6);
-    room6.addEnemy(enemy_room6);
+    Room room6("Pasaje olvidado", this->player, rewardRoom6);
+    room6.addEnemy(enemy1_room6);
+    room6.addEnemy(enemy2_room6);
 
     // Room 7
-    // En este cuarto nos efentramos a un caballero sin cabeza
     Reward rewardRoom7("Cofre");
-    rewardRoom7.addPotion(repo.getPotionByName("Elixir de Salud"));
-    rewardRoom7.addWeapon(repo.getWeaponByName("Colmillo de sabueso"));
-    rewardRoom7.addArmor(repo.getArmorByName("Armadura de Acero"));
+    rewardRoom7.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom7.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom7.addArmor(repo.getArmorByName("Armadura de Plata"));
+    rewardRoom7.addWeapon(repo.getWeaponByName("Espada Bastarda"));
 
-    Enemy enemy_room7("Caballero sin cabeza", Attribute(130, 85, 80, 75, 20), 7);
-    enemy_room7.addAttack(repo.getAttackByName("Estocada_Oscura"));
+    Enemy enemy1_room7("Nigromante errante", Attribute(115, 60, 30, 35, 40), 2);
+    enemy1_room7.addAttack(repo.getAttackByName("Abracadabra"));
+    Enemy enemy2_room7("Asesino sombrío", Attribute(110, 65, 38, 50, 35), 2);
+    enemy2_room7.addAttack(repo.getAttackByName("Estocada_Oscura"));
 
-    Room room7("Amplio pasillo del palacio de Noctalia", this->player, rewardRoom7);
-    room7.addEnemy(enemy_room7);
+    Room room7("Cámara de los ecos", this->player, rewardRoom7);
+    room7.addEnemy(enemy1_room7);
+    room7.addEnemy(enemy2_room7);
 
     // Room 8
-    // En este cuarto nos enfrentaremos a un gigante de hielo
     Reward rewardRoom8("Cofre");
     rewardRoom8.addPotion(repo.getPotionByName("Pocion Grande de Salud"));
     rewardRoom8.addPotion(repo.getPotionByName("Pocion Grande de Salud"));
-    rewardRoom8.addWeapon(repo.getWeaponByName("Dragon slayer"));
+    rewardRoom8.addPotion(repo.getPotionByName("Elixir de Salud"));
+    rewardRoom8.addArmor(repo.getArmorByName("Armadura de escamas de dragon"));
     rewardRoom8.addArmor(repo.getArmorByName("Armadura Berserker"));
+    rewardRoom8.addWeapon(repo.getWeaponByName("Dragon slayer"));
+    rewardRoom8.addWeapon(repo.getWeaponByName("Espada Bastarda"));
 
-    Enemy enemy_room8("Gigante de hielo", Attribute(165, 94, 84, 60, 22), 8);
-    enemy_room8.addAttack(repo.getAttackByName("Ice_age"));
+    Enemy enemy1_room8("Guardian de hielo", Attribute(180, 85, 110, 30, 20), 4);
+    enemy1_room8.addAttack(repo.getAttackByName("Ice_age"));
+    Enemy enemy2_room8("Titán escarchado", Attribute(170, 80, 95, 28, 15), 4);
+    enemy2_room8.addAttack(repo.getAttackByName("Impacto_rocoso"));
 
-    Room room8("Jaula gigante", this->player, rewardRoom8);
-    room8.addEnemy(enemy_room8);
+    Room room8("Pico glacial", this->player, rewardRoom8);
+    room8.addEnemy(enemy1_room8);
+    room8.addEnemy(enemy2_room8);
 
     // Room 9
-    // En este cuarto no enfrentamos contra un dragon
     Reward rewardRoom9("Cofre");
-    rewardRoom9.addPotion(repo.getPotionByName("Elixir de Salud"));
+    rewardRoom9.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom9.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom9.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom9.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
+    rewardRoom9.addPotion(repo.getPotionByName("Pocion Mediana de Salud"));
 
-    Enemy enemy_room9("Draco el Dragon escamado", Attribute(190, 100, 100, 90, 50), 9);
-    enemy_room9.addAttack(repo.getAttackByName("Drago_Aliento"));
+    Enemy enemy1_room9("Terror alado", Attribute(130, 100, 60, 65, 25), 3);
+    enemy1_room9.addAttack(repo.getAttackByName("Drago_Aliento"));
+    Enemy enemy2_room9("Heraldo infernal", Attribute(140, 95, 55, 70, 30), 3);
+    enemy2_room9.addAttack(repo.getAttackByName("Golpe fuerte"));
 
-    Room room9("Cuenca de los tezoros", this->player, rewardRoom9);
-    room9.addEnemy(enemy_room9);
+    Room room9("Volcán prohibido", this->player, rewardRoom9);
+    room9.addEnemy(enemy1_room9);
+    room9.addEnemy(enemy2_room9);
 
     // Room 10
-    // En este cuarto nos enfrentamos al rey
     Reward rewardRoom10("Cofre");
-    rewardRoom10.addPotion(repo.getPotionByName("Elixir de Salud"));
 
-    Enemy enemy_room10("Figaram the fallen king ", Attribute(200, 110, 120, 65, 60), 10);
+    Enemy enemy_room10("Figaram the fallen king", Attribute(250, 90, 150, 40, 40), 5);
     enemy_room10.addAttack(repo.getAttackByName("Golpe_de_Gracia"));
 
-    Room room10("Ruinas del palacio de Noctalia", this->player, rewardRoom10);
+    Room room10("Trono del olvido", this->player, rewardRoom10);
     room10.addEnemy(enemy_room10);
 
 

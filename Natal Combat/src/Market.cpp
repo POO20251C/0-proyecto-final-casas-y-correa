@@ -10,9 +10,15 @@ void Market::loadMarket() {
 
     // Armors
     armors.push_back(repo.getArmorByName("Armadura de Hierro"));
+    armors.push_back(repo.getArmorByName("Cota de malla"));
+    armors.push_back(repo.getArmorByName("Armadura de Cuero Reforzado"));
+    armors.push_back(repo.getArmorByName("Armadura de Plata"));
 
     // Weapons
     weapons.push_back(repo.getWeaponByName("Espada de Hierro"));
+    weapons.push_back(repo.getWeaponByName("Daga Curva"));
+    weapons.push_back(repo.getWeaponByName("Arco de Cazador"));
+    weapons.push_back(repo.getWeaponByName("Katana"));
 }
 
 void Market::removeWeapon(const Weapon &weapon) {
