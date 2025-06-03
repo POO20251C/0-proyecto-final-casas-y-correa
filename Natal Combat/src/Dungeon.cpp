@@ -90,7 +90,7 @@ void Dungeon::loadDungeon() {
     rewardRoom5.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
     rewardRoom5.addPotion(repo.getPotionByName("Pocion Pequena de Salud"));
     rewardRoom5.addArmor(repo.getArmorByName("Armadura de Cuero Reforzado"));
-    rewardRoom5.addWeapon(repo.getWeaponByName("Espada de Novato"));
+    rewardRoom5.addWeapon(repo.getWeaponByName("Espada Bastarda"));
 
     Enemy enemy1_room5("Jefe Orcucho", Attribute(90, 25, 15, 20, 5), 1);
     enemy1_room5.addAttack(repo.getAttackByName("Golpe fuerte"));
